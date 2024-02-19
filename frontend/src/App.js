@@ -17,7 +17,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/notifications" element={<Notifications />} />
-          <Route path="/calender" element={<Calender />} />
+          <Route path="/calendar" element={<Calender />} />
           <Route path="/todolist" element={<Todolist />} />
         </Routes>
       </BrowserRouter>

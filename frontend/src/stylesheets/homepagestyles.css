@@ -13,50 +13,6 @@
     padding-top: 30px;
 }
 
-/*----------Header Section---------*/
-.flexbox-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.left-side {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-left: 13px;
-}
-
-.right-side {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding-right: 25px;
-}
-
-.Sidebar-Image {
-    width: 20px;
-    height: 10px;
-    text-align: center;
-}
-
-.Header-Text {
-    color: white;
-    margin: 0;
-    margin-left: 10px;
-    font-size: 23px;
-}
-
-.notification-icon {
-    width: 33px;
-    padding-right: 10px;
-}
-
-.profile-picture {
-    width: 33px;
-}
-/*---------------------------------*/
-
 
 /*----------Main Body Section---------*/
 .main-body-grid {
@@ -84,11 +40,11 @@
     font-size: 30px;
 }
 
-.Calander-ButtonImageActual {
+.Calendar-ButtonImageActual {
     width: 40px;
 }
 
-.Calander-Integration {
+.Calendar-Integration {
     background-color: rgba(209, 56, 56, 0.8);
     padding-top: 20px;
     padding-bottom: 20px;
@@ -98,13 +54,16 @@
     border-radius: 45px;
     color: white;
     font-size: 30px;
+    text-decoration: none;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
 
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px
+    gap: 15px;
+
 }
+
 
 .ToDoList-Integration {
     background-color: rgba(68, 236, 236, 0.8);
@@ -117,11 +76,13 @@
     color: white;
     font-size: 30px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
 
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 5px
+
 }
 
 .ToDoList-ButtonImageActual{
@@ -139,6 +100,7 @@
     color: white;
     font-size: 30px;
     box-shadow: 4px 4px 10px rgba(38, 38, 38, 0.5);
+    text-decoration: none;
 
     display: flex;
     justify-content: center;
@@ -152,60 +114,3 @@
 /*------------------------------------*/
 
 
-/*----------Footer--------------------*/
-.footer-section {
-    background-color: rgba(44, 42, 42, 0.5);
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 50px;
-    border-top-width: 1px;
-    border-left-width: 0px;
-    border-bottom-width: 0px;
-    border-style: solid;
-    border-color: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.First-Section, .Second-Section, .Third-Section, .Fourth-Section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-}
-
-.First-Section{
-    margin-left: 5px;
-}
-
-.Fourth-Section{
-    margin-right: 5px;
-}
-
-.Home-Image{
-    width: 40px;
-}
-
-.Calander-Image {
-    width: 30px;
-}
-
-.ToDoList-Image {
-    width: 24px;
-}
-
-.Settings-Image {
-    width: 25px;
-    margin-top: 3px;
-    margin-bottom: 2px;
-}
-
-.Footer-Text {
-    margin: 0;
-    color: white;
-    font-size: 12px;
-}
-
-/*------------------------------------*/

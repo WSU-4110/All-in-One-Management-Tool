@@ -1,0 +1,43 @@
+/*----------Header Section---------*/
+.flexbox-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.left-side {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 13px;
+}
+
+.right-side {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-right: 25px;
+}
+
+.Sidebar-Image {
+    width: 20px;
+    height: 10px;
+    text-align: center;
+}
+
+.Header-Text {
+    color: white;
+    margin: 0;
+    margin-left: 10px;
+    font-size: 23px;
+}
+
+.notification-icon {
+    width: 33px;
+    padding-right: 10px;
+}
+
+.profile-picture {
+    width: 33px;
+}
+/*---------------------------------*/

@@ -1,0 +1,63 @@
+/*----------Footer--------------------*/
+.footer-section {
+    background-color: rgba(44, 42, 42, 0.5);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    border-top-width: 1px;
+    border-left-width: 0px;
+    border-bottom-width: 0px;
+    border-style: solid;
+    border-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.First-Section, .Second-Section, .Third-Section, .Fourth-Section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.First-Section{
+    margin-left: 5px;
+}
+
+.Fourth-Section{
+    margin-right: 5px;
+}
+
+.Home-Image{
+    width: 40px;
+}
+
+.Calander-Image {
+    width: 30px;
+}
+
+.ToDoList-Image {
+    width: 24px;
+}
+
+.Settings-Image {
+    width: 25px;
+    margin-top: 3px;
+    margin-bottom: 2px;
+}
+
+.Footer-Text {
+    margin: 0;
+    color: white;
+    font-size: 12px;
+}
+
+.footer-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*------------------------------------*/

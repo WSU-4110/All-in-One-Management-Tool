@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 import '../stylesheets/footerstyles.css'
-import CalenderLogo from '../images/CalanderButtonLogo.png';
+import CalenderLogo from '../images/CalenderLogo.png';
 import HomeLogo from '../images/HomeLogo.png';
 import SettingsLogo from '../images/SettingsLogo.png';
 import ToDoListLogo from '../images/ToDoListLogo.png';

@@ -2,15 +2,12 @@ import '../stylesheets/homepagestyles.css';
 import CalenderButtonLogo from '../images/CalanderButtonLogo.png';
 import SettingsButtonLogo from '../images/SettingsButtonLogo.png';
 import ToDoListButtonLogo from '../images/ToDoListButtonLogo.png';
-import Footer from '../components/Footer';
-import Header from '../components/header';
+
 import {Link} from 'react-router-dom'
 
 export default function Home() {
     return (
-        <div className='home-background'>
-            <Header />
-
+        <div className=''>
             <main>
                 <div className="main-body-grid">
                     <div className="Home-div">
@@ -53,9 +50,6 @@ export default function Home() {
 
 
             </main>
-
-        <Footer />
-
     </div>
     )
 }

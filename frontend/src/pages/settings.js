@@ -6,9 +6,6 @@ import Header from '../components/header';
 export default function Settings() {
     return (
         <div className='home-background'>
-        <Header />
-
-        <Footer />
     </div>
     )
 }

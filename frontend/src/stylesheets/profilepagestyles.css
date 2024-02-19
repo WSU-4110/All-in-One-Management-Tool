@@ -2,15 +2,3 @@
     font-family: Roboto;
 }
 
-.home-background {
-    background-image: url(../images/BackgroundImage.png);
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    min-height: 100vh;
-    margin: 0;
-    padding-top: 30px;
-}
-
-

@@ -6,9 +6,7 @@ import Header from '../components/header';
 export default function Profile() {
     return (
         <div className='home-background'>
-            <Header />
-
-            <Footer />
+            
         </div>
     )
 }

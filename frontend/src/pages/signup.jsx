@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Navbar from "./components/Navbar";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
+import Navbar from "../components/Navbar";
 
 export const SignUp = (props) => {
     const [username, setUsername] = useState('');

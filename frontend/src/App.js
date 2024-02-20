@@ -1,4 +1,8 @@
+import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Init from "./pages/init";
+import Login from "./pages/login";
+import Signup from "./pages/signup";
 import Home from "./pages/home";
 import Settings from "./pages/settings";
 import Profile from "./pages/profile";
@@ -16,6 +20,9 @@ function App() {
         <Header />
         <Routes>
           <Route index element = {<Home />} />
+          <Route path="/init" element={<Init />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Home />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/profile" element={<Profile />} />

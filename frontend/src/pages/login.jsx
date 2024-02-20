@@ -3,6 +3,9 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import '../stylesheets/backgroundstyles.css';
 
 async function setSessionVariables(username, password){
     sessionStorage['Username'] = username;
@@ -16,6 +19,7 @@ const Login = (props) => {
     const [usernameError, setUsernameError] = useState('');
     const [verifiedPassword, setVerifiedPassword] = useState(false);
     const [passwordError, setPasswordError] = useState('');
+    const navigate = useNavigate();
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -40,7 +44,7 @@ const Login = (props) => {
             setSessionVariables(username, password);
             console.log('Username:', username)
             console.log('password:', password)
-            props.history.push('/home');
+            navigate('/home');
             return;
         }
     }
@@ -50,14 +54,19 @@ const Login = (props) => {
         <Navbar text="All-In-One Managment Tool"/>
             <div
             style={{
-                width: '30%',
-                margin: 'auto',
-            }} className='center-hor-ver'>
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+            className=''>
                 <Form noValidate>
                     <h1>Login</h1>
                     <br></br>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Username</Form.Label>
+                        <Form.Label 
+                        style={{
+                            color: "white",
+                        }}>Username: </Form.Label>
                         <Form.Control
                         type="username"
                         placeholder="Username"
@@ -70,7 +79,10 @@ const Login = (props) => {
                     </Form.Group>
                     <br></br>
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label 
+                        style={{
+                            color: "white",
+                        }}>Password: </Form.Label>
                         <Form.Control
                         type="password"
                         placeholder="Password"
@@ -83,9 +95,9 @@ const Login = (props) => {
                     </Form.Group>
                     <br></br>
                     <Col>
-                        <Button variant="primary" href="/init">
-                            Back
-                        </Button>
+                        <Link to="/signup" className="NavButtons">
+                            <Button variant="primary">Sign Up</Button>
+                        </Link>
                         <Button variant="primary" type="submit" onClick={handleSubmit}>
                             Login
                         </Button>

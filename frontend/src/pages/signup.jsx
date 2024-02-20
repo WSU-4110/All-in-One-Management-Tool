@@ -3,6 +3,9 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import '../stylesheets/backgroundstyles.css';
 
 export const SignUp = (props) => {
     const [username, setUsername] = useState('');
@@ -14,6 +17,7 @@ export const SignUp = (props) => {
     const [verifiedUsername, setVerifiedUsername] = useState(false);
     const [verifiedPassword, setVerifiedPassword] = useState(false);
     const [verifiedTerms, setVerifiedTerms] = useState(false);
+    const navigate = useNavigate();
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -28,7 +32,7 @@ export const SignUp = (props) => {
         if (checkPassword()){
             console.log(data)
             if (data['AccountCreate'] == "True"){
-                props.history.push('/login');
+                navigate('/login');
             }
             else {
                 setUsernameError('Username already in use. Select new username.');
@@ -72,17 +76,27 @@ export const SignUp = (props) => {
     
     return(
         <div>
-            <Navbar text="All-In-One Managment Tool"/>
+            <Navbar text="All-In-One Managment Tool"
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}/>
             <div
             style={{
-                width: '30%',
-                margin: 'auto',
-            }} className='center-hor-ver'>
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+            className=''>
                 <Form noValidate>
                     <h1>Sign Up</h1>
                     <br></br>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Username</Form.Label>
+                        <Form.Label 
+                        style={{
+                            color: "white",
+                        }}>Username: </Form.Label>
                         <Form.Control
                             isInvalid={verifiedUsername}
                             type="username"
@@ -95,7 +109,10 @@ export const SignUp = (props) => {
                     </Form.Group>
                     <br></br>
                     <Form.Group controlId="formBasicPassword1">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label 
+                        style={{
+                            color: "white",
+                        }}>Password: </Form.Label>
                         <Form.Control
                             isInvalid={verifiedPassword}
                             type="password"
@@ -108,7 +125,10 @@ export const SignUp = (props) => {
                     </Form.Group>
                     <br></br>
                     <Form.Group controlId="formBasicPassword2">
-                        <Form.Label>Confirm Password</Form.Label>
+                        <Form.Label 
+                        style={{
+                            color: "white",
+                        }}>Confirm Password: </Form.Label>
                         <Form.Control
                             isInvalid={verifiedPassword}
                             type="password"
@@ -118,18 +138,11 @@ export const SignUp = (props) => {
                         <Form.Control.Feedback type="invalid">
                             {passwordError}
                         </Form.Control.Feedback>
-                    </Form.Group>
-                    <br></br>
-                    <Form.Group controlId="formPasswordRequirements">
-                        <Form.Control
-                            as='textarea'
-                            rows={2}
-                            size="sm"
-                            defaultValue="Password must be at least
+                        <h4 style={{
+                            width: '300px',
+                        }}>Password must be at least
                              8 characters long, contain a capital letter,
-                              a number, and have no spaces."
-                            readOnly
-                        />
+                              a number, and have no spaces.</h4>
                     </Form.Group>
                     <br></br>
                     <Form.Group controlId="formBasicCheckbox">
@@ -139,17 +152,20 @@ export const SignUp = (props) => {
                         label="I agree to the terms and conditions"
                         value={terms}
                         onChange={() => setTerms(!terms)}
-                        style={{width: '280px'}}
+                        style={{width: '280px', color: 'white'}}
                         />
-                        <Form.Control.Feedback type="invalid">
+                        <Form.Control.Feedback type="invalid"  
+                        style={{
+                            color: "white",
+                        }}>
                             You must agree to the terms and conditions
                         </Form.Control.Feedback>
                     </Form.Group>
                     <br></br>
                     <Col>
-                        <Button variant="primary" type="submit" onClick={() => props.history.push('/login')}>
-                            Back
-                        </Button>
+                        <Link to="/" className="NavButtons">
+                            <Button variant="primary">Back</Button>
+                        </Link>
                         <Button variant="primary" type="submit" onClick={handleSubmit}>
                             Sign Up
                         </Button>

@@ -159,3 +159,5 @@ export const SignUp = (props) => {
         </div>
     )
 }
+
+export default SignUp;

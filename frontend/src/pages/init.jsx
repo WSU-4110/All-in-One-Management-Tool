@@ -6,7 +6,7 @@ const Init = (props) => {
 
     return (
         <>
-        <div>
+        <div className='init-background'>
             <div
             style={{
                 display: 'flex',

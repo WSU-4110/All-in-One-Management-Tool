@@ -1,5 +1,5 @@
 .home-background {
-    background-image: url(../images/BackgroundImage.png);
+    background-color: #635db8;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -14,16 +14,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%)
-}
-
-.App-header {
-min-height: 100vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-font-size: calc(10px + 2vmin);
-color: white;
 }
 
 .App {
@@ -62,9 +52,4 @@ h4 {
 p {
     color: white;
     text-shadow: 2px 2px 4px #000000;
-}
-
-.Navbar {
-    align-items: center;
-    color: white;
 }

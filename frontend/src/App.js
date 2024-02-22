@@ -14,7 +14,7 @@ import './stylesheets/backgroundstyles.css'
 
 function App() {
   return (
-    <div class ="home-background">
+    <div class="home-background">
       <BrowserRouter>
         <Header />
         <Routes>

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
-import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import '../stylesheets/backgroundstyles.css';
@@ -76,12 +75,6 @@ export const SignUp = (props) => {
     
     return(
         <div>
-            <Navbar text="All-In-One Managment Tool"
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}/>
             <div
             style={{
                 display: 'flex',
@@ -90,7 +83,12 @@ export const SignUp = (props) => {
             }}
             className=''>
                 <Form noValidate>
-                    <h1>Sign Up</h1>
+                    <h1
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>Sign Up</h1>
                     <br></br>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label 
@@ -162,7 +160,12 @@ export const SignUp = (props) => {
                         </Form.Control.Feedback>
                     </Form.Group>
                     <br></br>
-                    <Col>
+                    <Col
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
                         <Link to="/" className="NavButtons">
                             <Button variant="primary">Back</Button>
                         </Link>

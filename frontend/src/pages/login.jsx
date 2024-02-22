@@ -49,14 +49,13 @@ const Login = (props) => {
     }
     
     return(
-    <>
+    <div className='init-background'>
         <div
         style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-        }}
-        className=''>
+        }}>
             <Form noValidate>
                 <h1
                 style={{
@@ -76,7 +75,10 @@ const Login = (props) => {
                     value={username}
                     isInvalid={verifiedUsername}
                     onChange={(u) => setUsername(u.target.value)}/>
-                    <Form.Control.Feedback type="invalid">
+                    <Form.Control.Feedback type="invalid"
+                        style={{
+                            color: "white",
+                        }}>
                         {usernameError}
                     </Form.Control.Feedback>
                 </Form.Group>
@@ -92,7 +94,10 @@ const Login = (props) => {
                     value={password}
                     isInvalid={verifiedPassword}
                     onChange={(p) => setPassword(p.target.value)}/>
-                    <Form.Control.Feedback type="invalid">
+                    <Form.Control.Feedback type="invalid"
+                        style={{
+                            color: "white",
+                        }}>
                         {passwordError}
                     </Form.Control.Feedback>
                 </Form.Group>
@@ -113,7 +118,7 @@ const Login = (props) => {
 
             </Form>
         </div>
-        </>
+    </div>
     )
 }
 

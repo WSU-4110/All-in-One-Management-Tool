@@ -9,6 +9,17 @@
     padding-top: 30px;
 }
 
+.init-background {
+    background-color: #635db8;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 30px;
+}
+
 .center-hor-ver {
     position: absolute; 
     top: 50%;

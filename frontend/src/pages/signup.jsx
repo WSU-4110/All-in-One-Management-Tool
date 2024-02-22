@@ -74,7 +74,7 @@ export const SignUp = (props) => {
     }
     
     return(
-        <div>
+        <div className="init-background">
             <div
             style={{
                 display: 'flex',
@@ -101,7 +101,10 @@ export const SignUp = (props) => {
                             placeholder="Username"
                             value={username}
                             onChange={(u) => setUsername(u.target.value)}/>
-                        <Form.Control.Feedback type="invalid">
+                        <Form.Control.Feedback type="invalid"
+                        style={{
+                            color: "white",
+                        }}>
                             {usernameError}
                         </Form.Control.Feedback>
                     </Form.Group>
@@ -117,7 +120,10 @@ export const SignUp = (props) => {
                             placeholder="Password"
                             value={password1}
                             onChange={(p) => setPassword1(p.target.value)}/>
-                        <Form.Control.Feedback type="invalid">
+                        <Form.Control.Feedback type="invalid"
+                        style={{
+                            color: "white",
+                        }}>
                             {passwordError}
                         </Form.Control.Feedback>
                     </Form.Group>
@@ -133,7 +139,10 @@ export const SignUp = (props) => {
                             placeholder="Password"
                             value={password2}
                             onChange={(p) => setPassword2(p.target.value)}/>
-                        <Form.Control.Feedback type="invalid">
+                        <Form.Control.Feedback type="invalid"
+                        style={{
+                            color: "white",
+                        }}>
                             {passwordError}
                         </Form.Control.Feedback>
                         <h4 style={{

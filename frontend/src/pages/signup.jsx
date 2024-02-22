@@ -157,7 +157,6 @@ export const SignUp = (props) => {
                              8 characters long, contain a capital letter,
                               a number, and have no spaces.</h4>
                     </Form.Group>
-                    <br></br>
                     <Form.Group controlId="formBasicCheckbox">
                         <Form.Check
                         type="checkbox"
@@ -165,12 +164,13 @@ export const SignUp = (props) => {
                         label="I agree to the terms and conditions"
                         value={terms}
                         onChange={() => setTerms(!terms)}
-                        style={{width: '280px', color: 'white'}}
+                        style={{width: '280px', color: 'white', textShadow: '2px 2px 4px #000000'}}
                         />
+                        <br></br>
                         <Form.Control.Feedback type="invalid"  
                         style={{
                             color: "white",
-                            textShadow: "2px 2px 4px #000000",
+                            textShadow: "2px 2px 4px #FF0000",
                         }}>
                             You must agree to the terms and conditions
                         </Form.Control.Feedback>

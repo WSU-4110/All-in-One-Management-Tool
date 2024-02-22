@@ -1,5 +1,5 @@
 
-export default function Profile() {
+export default function Addevent() {
     return (
         <div className='home-background'>
             

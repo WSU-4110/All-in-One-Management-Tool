@@ -11,7 +11,7 @@
 }
 
 .nav-buttons {
-    margin-top: 60px;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,6 +28,31 @@
     color: white;
     font-size: 30px;
 }
+
+.Createevent-Integration {
+    background-color: rgba(63, 221, 84, 0.8);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 55px;
+    padding-right: 55px;
+    border: none;
+    border-radius: 45px;
+    color: white;
+    font-size: 30px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+}
+
+.CreateEvent-ButtonImageActual {
+    width: 40px;
+}
+
 
 .Calendar-ButtonImageActual {
     width: 40px;

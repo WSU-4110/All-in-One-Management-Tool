@@ -1,4 +1,5 @@
 import '../stylesheets/homepagestyles.css';
+import CreateEventLogo from '../images/CreateEventLogo.png';
 import CalenderButtonLogo from '../images/CalanderButtonLogo.png';
 import SettingsButtonLogo from '../images/SettingsButtonLogo.png';
 import ToDoListButtonLogo from '../images/ToDoListButtonLogo.png';
@@ -13,7 +14,19 @@ export default function Home() {
                     <div className="Home-div">
                         <p className="Home-divtext">HOME</p>
                     </div>
+
                     <div className="nav-buttons">
+                     <div className="Button-4Attributes">
+                            <Link to="/addevent" className="Createevent-Integration">
+                               <span className="CreateEvent-ButtonImage">
+                                    <img className ="CreateEvent-ButtonImageActual"
+                                    src={CreateEventLogo} alt="Logo"/>
+                                </span> 
+                                    ADD EVENT
+                                    
+                            </Link>
+                        </div>
+
                         <div className="Button-1Attributes">
                             <Link to="/calendar" className="Calendar-Integration">
                                 <span className="Calendar-ButtonImage">

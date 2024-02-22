@@ -8,6 +8,7 @@ import Profile from "./pages/profile";
 import Notifications from "./pages/notifications";
 import Calender from "./pages/calender";
 import Todolist from "./pages/todolist";
+import Addevent from "./pages/Addevent";
 import Header from './components/header';
 import Footer from './components/Footer';
 import './stylesheets/backgroundstyles.css'
@@ -23,6 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/addevent" element={<Addevent />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/notifications" element={<Notifications />} />

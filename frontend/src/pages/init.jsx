@@ -31,10 +31,11 @@ const Init = (props) => {
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}>
-                        <Link to="/login">
+                        <br></br>
+                        <Link to="/login" className='ml-3'>
                             <Button variant="primary">Log In</Button>
                         </Link>
-                        <Link to="/signup">
+                        <Link to="/signup" className='ml-3'>
                             <Button variant="primary">Sign Up</Button>
                         </Link>
                     </div>

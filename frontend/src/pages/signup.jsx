@@ -72,6 +72,11 @@ export const SignUp = (props) => {
         setPassordError('Password too short');
         return false;
     }
+
+    function setCheckedTerms() {
+        setTerms(!terms);
+        setVerifiedTerms(false);
+    }
     
     return(
         <div className="init-background">
@@ -105,7 +110,7 @@ export const SignUp = (props) => {
                         <Form.Control.Feedback type="invalid"
                         style={{
                             color: "white",
-                            textShadow: "2px 2px 4px #000000",
+                            textShadow: "2px 2px 4px #FF0000",
                         }}>
                             {usernameError}
                         </Form.Control.Feedback>
@@ -126,7 +131,7 @@ export const SignUp = (props) => {
                         <Form.Control.Feedback type="invalid"
                         style={{
                             color: "white",
-                            textShadow: "2px 2px 4px #000000",
+                            textShadow: "2px 2px 4px #FF0000",
                         }}>
                             {passwordError}
                         </Form.Control.Feedback>
@@ -147,7 +152,7 @@ export const SignUp = (props) => {
                         <Form.Control.Feedback type="invalid"
                         style={{
                             color: "white",
-                            textShadow: "2px 2px 4px #000000",
+                            textShadow: "2px 2px 4px #FF0000",
                         }}>
                             {passwordError}
                         </Form.Control.Feedback>
@@ -163,7 +168,7 @@ export const SignUp = (props) => {
                         isInvalid={verifiedTerms}
                         label="I agree to the terms and conditions"
                         value={terms}
-                        onChange={() => setTerms(!terms)}
+                        onChange={() => setCheckedTerms()}
                         style={{width: '280px', color: 'white', textShadow: '2px 2px 4px #000000'}}
                         />
                         <br></br>

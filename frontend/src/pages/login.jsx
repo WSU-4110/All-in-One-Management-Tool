@@ -79,7 +79,7 @@ const Login = (props) => {
                     <Form.Control.Feedback type="invalid"
                         style={{
                             color: "white",
-                            textShadow: "2px 2px 4px #000000",
+                            textShadow: "2px 2px 4px #FF0000",
                         }}>
                         {usernameError}
                     </Form.Control.Feedback>
@@ -100,7 +100,7 @@ const Login = (props) => {
                     <Form.Control.Feedback type="invalid"
                         style={{
                             color: "white",
-                            textShadow: "2px 2px 4px #000000",
+                            textShadow: "2px 2px 4px #FF0000",
                         }}>
                         {passwordError}
                     </Form.Control.Feedback>

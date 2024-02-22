@@ -8,7 +8,7 @@ import Profile from "./pages/profile";
 import Notifications from "./pages/notifications";
 import Calender from "./pages/calender";
 import Todolist from "./pages/todolist";
-import Header from './components/header';
+import Header from './components/Header';
 import Footer from './components/Footer';
 import './stylesheets/backgroundstyles.css'
 

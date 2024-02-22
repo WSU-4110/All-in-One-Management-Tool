@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
-import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import '../stylesheets/backgroundstyles.css';
@@ -75,13 +74,7 @@ export const SignUp = (props) => {
     }
     
     return(
-        <div>
-            <Navbar text="All-In-One Managment Tool"
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}/>
+        <div className="init-background">
             <div
             style={{
                 display: 'flex',
@@ -90,12 +83,18 @@ export const SignUp = (props) => {
             }}
             className=''>
                 <Form noValidate>
-                    <h1>Sign Up</h1>
+                    <h1
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>Sign Up</h1>
                     <br></br>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label 
                         style={{
                             color: "white",
+                            textShadow: "2px 2px 4px #000000",
                         }}>Username: </Form.Label>
                         <Form.Control
                             isInvalid={verifiedUsername}
@@ -103,7 +102,11 @@ export const SignUp = (props) => {
                             placeholder="Username"
                             value={username}
                             onChange={(u) => setUsername(u.target.value)}/>
-                        <Form.Control.Feedback type="invalid">
+                        <Form.Control.Feedback type="invalid"
+                        style={{
+                            color: "white",
+                            textShadow: "2px 2px 4px #000000",
+                        }}>
                             {usernameError}
                         </Form.Control.Feedback>
                     </Form.Group>
@@ -112,6 +115,7 @@ export const SignUp = (props) => {
                         <Form.Label 
                         style={{
                             color: "white",
+                            textShadow: "2px 2px 4px #000000",
                         }}>Password: </Form.Label>
                         <Form.Control
                             isInvalid={verifiedPassword}
@@ -119,7 +123,11 @@ export const SignUp = (props) => {
                             placeholder="Password"
                             value={password1}
                             onChange={(p) => setPassword1(p.target.value)}/>
-                        <Form.Control.Feedback type="invalid">
+                        <Form.Control.Feedback type="invalid"
+                        style={{
+                            color: "white",
+                            textShadow: "2px 2px 4px #000000",
+                        }}>
                             {passwordError}
                         </Form.Control.Feedback>
                     </Form.Group>
@@ -128,6 +136,7 @@ export const SignUp = (props) => {
                         <Form.Label 
                         style={{
                             color: "white",
+                            textShadow: "2px 2px 4px #000000",
                         }}>Confirm Password: </Form.Label>
                         <Form.Control
                             isInvalid={verifiedPassword}
@@ -135,7 +144,11 @@ export const SignUp = (props) => {
                             placeholder="Password"
                             value={password2}
                             onChange={(p) => setPassword2(p.target.value)}/>
-                        <Form.Control.Feedback type="invalid">
+                        <Form.Control.Feedback type="invalid"
+                        style={{
+                            color: "white",
+                            textShadow: "2px 2px 4px #000000",
+                        }}>
                             {passwordError}
                         </Form.Control.Feedback>
                         <h4 style={{
@@ -157,12 +170,18 @@ export const SignUp = (props) => {
                         <Form.Control.Feedback type="invalid"  
                         style={{
                             color: "white",
+                            textShadow: "2px 2px 4px #000000",
                         }}>
                             You must agree to the terms and conditions
                         </Form.Control.Feedback>
                     </Form.Group>
                     <br></br>
-                    <Col>
+                    <Col
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
                         <Link to="/" className="NavButtons">
                             <Button variant="primary">Back</Button>
                         </Link>

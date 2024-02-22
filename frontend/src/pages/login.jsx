@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
-import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import '../stylesheets/backgroundstyles.css';
@@ -50,62 +49,80 @@ const Login = (props) => {
     }
     
     return(
-        <>
-        <Navbar text="All-In-One Managment Tool"/>
-            <div
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
-            className=''>
-                <Form noValidate>
-                    <h1>Login</h1>
-                    <br></br>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label 
+    <div className='init-background'>
+        <div
+        style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        }}>
+            <Form noValidate>
+                <h1
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>Login</h1>
+                <br></br>
+                <Form.Group controlId="formBasicEmail">
+                    <Form.Label 
+                    style={{
+                        color: "white",
+                        textShadow: "2px 2px 4px #000000",
+                    }}>Username: </Form.Label>
+                    <Form.Control
+                    type="username"
+                    placeholder="Username"
+                    value={username}
+                    isInvalid={verifiedUsername}
+                    onChange={(u) => setUsername(u.target.value)}/>
+                    <Form.Control.Feedback type="invalid"
                         style={{
                             color: "white",
-                        }}>Username: </Form.Label>
-                        <Form.Control
-                        type="username"
-                        placeholder="Username"
-                        value={username}
-                        isInvalid={verifiedUsername}
-                        onChange={(u) => setUsername(u.target.value)}/>
-                        <Form.Control.Feedback type="invalid">
-                            {usernameError}
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                    <br></br>
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label 
+                            textShadow: "2px 2px 4px #000000",
+                        }}>
+                        {usernameError}
+                    </Form.Control.Feedback>
+                </Form.Group>
+                <br></br>
+                <Form.Group controlId="formBasicPassword">
+                    <Form.Label 
+                    style={{
+                        color: "white",
+                        textShadow: "2px 2px 4px #000000",
+                    }}>Password: </Form.Label>
+                    <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    isInvalid={verifiedPassword}
+                    onChange={(p) => setPassword(p.target.value)}/>
+                    <Form.Control.Feedback type="invalid"
                         style={{
                             color: "white",
-                        }}>Password: </Form.Label>
-                        <Form.Control
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        isInvalid={verifiedPassword}
-                        onChange={(p) => setPassword(p.target.value)}/>
-                        <Form.Control.Feedback type="invalid">
-                            {passwordError}
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                    <br></br>
-                    <Col>
-                        <Link to="/signup" className="NavButtons">
-                            <Button variant="primary">Sign Up</Button>
-                        </Link>
-                        <Button variant="primary" type="submit" onClick={handleSubmit}>
-                            Login
-                        </Button>
-                    </Col>
+                            textShadow: "2px 2px 4px #000000",
+                        }}>
+                        {passwordError}
+                    </Form.Control.Feedback>
+                </Form.Group>
+                <br></br>
+                <Col
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
+                    <Link to="/signup" className="NavButtons">
+                        <Button variant="primary">Sign Up</Button>
+                    </Link>
+                    <Button variant="primary" type="submit" onClick={handleSubmit}>
+                        Login
+                    </Button>
+                </Col>
 
-                </Form>
-            </div>
-        </>
+            </Form>
+        </div>
+    </div>
     )
 }
 

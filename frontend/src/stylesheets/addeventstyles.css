@@ -1,0 +1,74 @@
+
+.Addevent-mainbody{
+    margin-top: 50px;
+    display: grid;
+    grid-template-rows: 100px 300px;
+}
+
+.Addevent-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 40px;
+}
+
+.Addevent-text {
+    margin-top: 0px;
+    
+}
+
+.Input-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.form-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-inputbackground {
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 280px;
+    height: 350px;
+    border-radius: 25px;
+    box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.3);
+}
+
+.event-details-grid {
+    margin-left: 10px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.actual-box {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid #000000; 
+
+    
+}
+
+.footer-Button {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit-button {
+    border: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(74, 202, 74, 0.8);
+    font-size: 20px;
+    color: white;
+    border-radius: 45px;
+}

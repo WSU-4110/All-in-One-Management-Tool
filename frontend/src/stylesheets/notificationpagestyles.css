@@ -2,6 +2,45 @@
     font-family: Roboto;
 }
 
+.notifications-body {
+    padding: 20px;
+    font-family: Roboto;
+}
 
+.notifications-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.notifications-title {
+    color: white;
+    font-size: 30px;
+}
+
+.notifications-list {
+    margin-top: 10px;
+}
+
+.notification-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notification-text {
+    font-size: 20px;
+}
+
+.notification-date {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+}
 
 

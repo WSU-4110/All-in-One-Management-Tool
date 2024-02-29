@@ -75,7 +75,7 @@ export const SignUp = (props) => {
 
     function setCheckedTerms() {
         setTerms(!terms);
-        setVerifiedTerms(false);
+        setVerifiedTerms(!verifiedTerms);
     }
     
     return(

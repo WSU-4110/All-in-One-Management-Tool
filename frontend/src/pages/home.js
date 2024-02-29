@@ -1,14 +1,18 @@
 import '../stylesheets/homepagestyles.css';
 import CreateEventLogo from '../images/CreateEventLogo.png';
+import '../stylesheets/backgroundstyles.css';
 import CalenderButtonLogo from '../images/CalanderButtonLogo.png';
 import SettingsButtonLogo from '../images/SettingsButtonLogo.png';
 import ToDoListButtonLogo from '../images/ToDoListButtonLogo.png';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 import {Link} from 'react-router-dom'
 
 export default function Home() {
     return (
-        <div className=''>
+        <div className='home-background'>
+            <Header />
             <main>
                 <div className="main-body-grid">
                     <div className="Home-div">
@@ -60,9 +64,8 @@ export default function Home() {
 
                     </div>
                 </div>
-
-
             </main>
+            <Footer />
     </div>
     )
 }

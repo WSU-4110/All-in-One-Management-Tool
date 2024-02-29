@@ -9,6 +9,17 @@
     padding-top: 30px;
 }
 
+.init-background {
+    background-color: #635db8;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 30px;
+}
+
 .center-hor-ver {
     position: absolute; 
     top: 50%;
@@ -35,16 +46,33 @@ h1 {
     width: 100%;
     display: inline-block;
     color: white;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+h2 {
+    width: 100%;
+    display: inline-block;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+h3 {
+    width: 100%;
+    display: inline-block;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
 }
 
 h4 {
     width: 20%;
     display: inline-block;
     color: white;
+    text-shadow: 2px 2px 4px #000000;
 }
 
 p {
     color: white;
+    text-shadow: 2px 2px 4px #000000;
 }
 
 .Navbar {

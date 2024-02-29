@@ -9,15 +9,11 @@ import Notifications from "./pages/notifications";
 import Calender from "./pages/calender";
 import Todolist from "./pages/todolist";
 import Addevent from "./pages/Addevent";
-import Header from './components/header';
-import Footer from './components/Footer';
-import './stylesheets/backgroundstyles.css'
 
 function App() {
   return (
-    <div class ="home-background">
+    <div>
       <BrowserRouter>
-        <Header />
         <Routes>
           <Route index element = {<Init />} />
           <Route path="/home" element={<Home />} />
@@ -31,9 +27,7 @@ function App() {
           <Route path="/calendar" element={<Calender />} />
           <Route path="/todolist" element={<Todolist />} />
         </Routes>
-        <Footer />
       </BrowserRouter>
-
     </div>
   )
 }

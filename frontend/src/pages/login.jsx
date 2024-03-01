@@ -112,12 +112,13 @@ const Login = (props) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}>
-                    <Link to="/signup" className="NavButtons">
-                        <Button variant="primary">Sign Up</Button>
-                    </Link>
-                    <Button variant="primary" type="submit" onClick={handleSubmit}>
+                    <Button variant="primary" type="submit"
+                    className="mx-1" onClick={handleSubmit}>
                         Login
                     </Button>
+                    <Link to="/signup" className="mx-1">
+                        <Button variant="primary">Sign Up</Button>
+                    </Link>
                 </Col>
 
             </Form>

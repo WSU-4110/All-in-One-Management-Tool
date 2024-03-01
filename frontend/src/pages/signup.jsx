@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
+import Alert from "react-bootstrap/Alert";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import '../stylesheets/backgroundstyles.css';
@@ -12,10 +13,12 @@ export const SignUp = (props) => {
     const [password2, setPassword2] = useState('');
     const [terms, setTerms] = useState(false);
     const [usernameError, setUsernameError] = useState('');
-    const [passwordError, setPassordError] = useState('');
-    const [verifiedUsername, setVerifiedUsername] = useState(false);
-    const [verifiedPassword, setVerifiedPassword] = useState(false);
+    const [password1Error, setPassword1Error] = useState('');
+    const [password2Error, setPassword2Error] = useState('');
+    const [verifiedUsername, setVerifiedUsername] = useState(true);
+    const [verifiedPassword, setVerifiedPassword] = useState(true);
     const [verifiedTerms, setVerifiedTerms] = useState(false);
+    const [alert, setAlert] = useState(false);
     const navigate = useNavigate();
 
     async function handleSubmit(e) {
@@ -29,49 +32,133 @@ export const SignUp = (props) => {
         }
         var data = {};
         if (checkPassword()){
-            console.log(data)
-            if (data['AccountCreate'] == "True"){
+            if (terms) {
+                console.log(data)
                 navigate('/login');
-            }
-            else {
-                setUsernameError('Username already in use. Select new username.');
-                setVerifiedUsername(true);
+                // if (data['AccountCreate'] == "True"){
+                //     navigate('/login');
+                // }
+                // else {
+                //     setVerifiedUsername(false);
+                //     setUsernameError('Username already in use. Select new username.');
+                // }
+            } else {
+                setVerifiedTerms(false);
+                setAlert(true);
             }
         }
         else {
-            setPassordError('Invalid Password. Please enter a new password.');
-            setVerifiedPassword(true);
+            setVerifiedPassword(false);
         }
     }
 
     function checkPassword() {
-        if ((checkPasswordsMatch())
-            && (checkPasswordLength())
-            && (terms))
-            {
-            console.log(username);
-            console.log(password1);
-            return true
+        var fail = false;
+        if (!checkFieldsNotEmpty()) {
+            fail = true;
         }
-        return false
+        if (verifiedPassword && checkPasswordsMatch()) {
+            if (checkPasswordComplexity()) {
+                if (!fail) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    function checkFieldsNotEmpty() {
+
+        function checkUsernameNotEmpty() {
+            if (username === '') {
+                setVerifiedUsername(false);
+                setUsernameError('Please enter a username');
+                return false;
+            }
+            setVerifiedUsername(true);
+            return true;
+        }
+
+        function checkPassword1NotEmpty() {
+            if (password1 === '') {
+                setVerifiedPassword(false);
+                setPassword1Error('Please enter a password');
+                return false;
+            }
+            setVerifiedPassword(true);
+            return true;
+        }
+
+        function checkPassword2NotEmpty() {
+            if (password2 === '' && password1 === '') {
+                setVerifiedPassword(false);
+                setPassword2Error('Please enter a password');
+                return false;
+            } else if (password2 === '') {
+                setVerifiedPassword(false);
+                setPassword2Error('Please confirm your password');
+                return false;
+            }
+            setVerifiedPassword(true);
+            return true;
+        }
+
+        var usernameValid = checkUsernameNotEmpty();
+        var password1Valid = checkPassword1NotEmpty();
+        var password2Valid = checkPassword2NotEmpty();
+
+        if (usernameValid && password1Valid && password2Valid) {
+            return true;
+        }
+        return false;
     }
 
     function checkPasswordsMatch() {
         if (password1 !== password2) {
-            setVerifiedPassword(true);
+            setVerifiedPassword(false);
+            setPassword1Error('Passwords do not match');
+            setPassword2Error('Passwords do not match');
             return false;
         }
+        setVerifiedPassword(true);
         return true;
     }
 
-    function checkPasswordLength() {
-        if (password1.length > 7) {
+    function checkPasswordComplexity() {
+        var hasNumber = /\d/;
+        var hasUpper = /[A-Z]/;
+        var fail = false;
+        if (!hasNumber.test(password1)) {
+            fail = true;
+            setVerifiedPassword(false);
+            setPassword1Error('Password must contain a number');
+            setPassword2Error('Password must contain a number');
+        }
+        if (!hasUpper.test(password1)) {
+            fail = true;
+            setVerifiedPassword(false);
+            setPassword1Error('Password must contain an uppercase letter');
+            setPassword2Error('Password must contain an uppercase letter');
+        }
+        if (password1.includes(' ')) {
+            fail = true;
+            setVerifiedPassword(false);
+            setPassword1Error('Password must not contain spaces');
+            setPassword2Error('Password must not contain spaces');
+        }
+        if (password1.length < 8) {
+            fail = true;
+            setVerifiedPassword(false);
+            setPassword1Error('Password must be at least 8 characters long');
+            setPassword2Error('Password must be at least 8 characters long');
+        }
+        if (!fail) {
+            setVerifiedPassword(true);
             return true;
         }
-        setVerifiedPassword(true);
-        setPassordError('Password too short');
         return false;
     }
+
 
     function setCheckedTerms() {
         setTerms(!terms);
@@ -102,7 +189,7 @@ export const SignUp = (props) => {
                             textShadow: "2px 2px 4px #000000",
                         }}>Username: </Form.Label>
                         <Form.Control
-                            isInvalid={verifiedUsername}
+                            isInvalid={!verifiedUsername}
                             type="username"
                             placeholder="Username"
                             value={username}
@@ -123,7 +210,7 @@ export const SignUp = (props) => {
                             textShadow: "2px 2px 4px #000000",
                         }}>Password: </Form.Label>
                         <Form.Control
-                            isInvalid={verifiedPassword}
+                            isInvalid={!verifiedPassword}
                             type="password"
                             placeholder="Password"
                             value={password1}
@@ -133,7 +220,7 @@ export const SignUp = (props) => {
                             color: "white",
                             textShadow: "2px 2px 4px #FF0000",
                         }}>
-                            {passwordError}
+                            {password1Error}
                         </Form.Control.Feedback>
                     </Form.Group>
                     <br></br>
@@ -144,7 +231,7 @@ export const SignUp = (props) => {
                             textShadow: "2px 2px 4px #000000",
                         }}>Confirm Password: </Form.Label>
                         <Form.Control
-                            isInvalid={verifiedPassword}
+                            isInvalid={!verifiedPassword}
                             type="password"
                             placeholder="Password"
                             value={password2}
@@ -154,43 +241,43 @@ export const SignUp = (props) => {
                             color: "white",
                             textShadow: "2px 2px 4px #FF0000",
                         }}>
-                            {passwordError}
+                            {password2Error}
                         </Form.Control.Feedback>
-                        <h4 style={{
+                        <p style={{
                             width: '300px',
                         }}>Password must be at least
                              8 characters long, contain a capital letter,
-                              a number, and have no spaces.</h4>
+                              a number, and have no spaces.</p>
                     </Form.Group>
                     <Form.Group controlId="formBasicCheckbox">
                         <Form.Check
                         type="checkbox"
-                        isInvalid={verifiedTerms}
+                        isInvalid={!verifiedTerms}
                         label="I agree to the terms and conditions"
                         value={terms}
                         onChange={() => setCheckedTerms()}
-                        style={{width: '280px', color: 'white', textShadow: '2px 2px 4px #000000'}}
+                        style={{width: '280px', color: 'white',
+                        textShadow: '2px 2px 4px #000000'}}
                         />
                         <br></br>
-                        <Form.Control.Feedback type="invalid"  
+                        <Alert show={alert} variant="danger"
                         style={{
-                            color: "white",
                             textShadow: "2px 2px 4px #FF0000",
                         }}>
                             You must agree to the terms and conditions
-                        </Form.Control.Feedback>
+                        </Alert>
                     </Form.Group>
-                    <br></br>
                     <Col
                     style={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}>
-                        <Link to="/" className="NavButtons">
+                        <Link to="/" className='mx-1'>
                             <Button variant="primary">Back</Button>
                         </Link>
-                        <Button variant="primary" type="submit" onClick={handleSubmit}>
+                        <Button variant="primary" type="submit"
+                        onClick={handleSubmit} className="mx-1">
                             Sign Up
                         </Button>
                     </Col>

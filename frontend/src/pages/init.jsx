@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import '../stylesheets/backgroundstyles.css';
 
 const Init = (props) => {
-
     return (
         <div className='init-background'>
             <div
@@ -32,10 +31,10 @@ const Init = (props) => {
                         justifyContent: 'center',
                     }}>
                         <br></br>
-                        <Link to="/login" className='ml-3'>
+                        <Link to="/login" className='mx-1'>
                             <Button variant="primary">Log In</Button>
                         </Link>
-                        <Link to="/signup" className='ml-3'>
+                        <Link to="/signup" className='mx-1'>
                             <Button variant="primary">Sign Up</Button>
                         </Link>
                     </div>

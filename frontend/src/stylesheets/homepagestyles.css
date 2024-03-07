@@ -141,10 +141,6 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
-.contact-button:hover {
-    background-color: #FF8C66;
-}
 /*------------------------------------*/
 
 

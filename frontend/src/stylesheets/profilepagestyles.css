@@ -50,10 +50,6 @@ button {
     box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.3);
 }
 
-button:hover {
-    background-color: rgba(63, 221, 84);
-}
-
 
 @media (max-width: 768px) {
     .profile-container {

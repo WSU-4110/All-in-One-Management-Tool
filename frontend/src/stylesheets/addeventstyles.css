@@ -56,6 +56,16 @@
     
 }
 
+.actual-box-date {
+    border-radius: 45px;
+    border: 1.5px solid rgb(179, 179, 179);
+    color: grey;
+    width: 245px;
+    padding-left: 10px;
+    padding-right: 5px;
+    
+}
+
 .footer-Button {
     display: flex;
     justify-content: center;

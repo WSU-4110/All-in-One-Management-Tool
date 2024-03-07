@@ -31,7 +31,7 @@ export default function Addevent() {
                             <div className = "titleabove-input">
                                 Due date
                                 <form>
-                                <input type="text" className="actual-box" placeholder="Whens your assignment due?" />
+                                <input type="date" className="actual-box-date" placeholder="Whens your assignment due?" />
                                 </form>
                             </div>
                             <div className = "titleabove-input">

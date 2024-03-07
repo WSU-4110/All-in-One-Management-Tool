@@ -1,4 +1,66 @@
-*{
-    font-family: Roboto;
+
+/* Profile Title Style */
+.profile-title {
+    font-family: 'Roboto';
+    color: white; 
+    text-align: center;
+    font-size: 30px;
+    margin: 20px 0; 
 }
 
+
+
+.profile-container {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: lightgreen;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    margin: 0 auto 50px auto;
+    width: 50%; 
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+input[type="text"], input[type="email"], input[type="number"] {
+    width: 70%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 20px;
+    border: 2px solid #ccc;
+}
+
+button {
+    cursor: pointer;
+    padding: 10px 20px;
+    margin-top: 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: rgba(63, 221, 84, 0.8); /* Example color */
+    color: white;
+    font-size: 20px;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+    background-color: rgba(63, 221, 84);
+}
+
+
+@media (max-width: 768px) {
+    .profile-container {
+        width: 90%; 
+    }
+    input[type="text"], input[type="email"], input[type="number"] {
+        width: 90%; 
+    }
+}

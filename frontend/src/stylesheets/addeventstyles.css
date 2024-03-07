@@ -33,9 +33,10 @@
 }
 
 .form-inputbackground {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgb(240, 240, 240);
     width: 280px;
-    height: 350px;
+    margin-top: 15px;
+    height: 400px;
     border-radius: 25px;
     box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.3);
 }
@@ -43,32 +44,38 @@
 .event-details-grid {
     margin-left: 10px;
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    gap: 10px;
+    grid-template-rows: 1fr 1fr 1fr 50px;
+    gap: 0px;
 }
 
 .actual-box {
     background-color: rgba(255, 255, 255, 0.7);
     border: 1px solid #000000; 
-
+    font-size: 12px;
+    height: 30px;
     
 }
 
 .footer-Button {
-    margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .submit-button {
+    margin-top: 23px;
     border: 0px;
     padding-left: 20px;
     padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 1px;
+    padding-bottom: 1px;
     background-color: rgba(74, 202, 74, 0.8);
     font-size: 20px;
     color: white;
     border-radius: 45px;
+}
+
+.titleabove-input {
+    width: 270px;
+    height: 73px;
 }

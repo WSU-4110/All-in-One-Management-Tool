@@ -15,6 +15,7 @@
     border: none;
     font-size: 40px;
     margin-left: 8px;
+    box-shadow: none;
 }
 
 .Arrow-Right {
@@ -23,6 +24,7 @@
     border: none;
     font-size: 40px;
     margin-right: 8px;
+    box-shadow: none;
 }
 
 
@@ -32,9 +34,10 @@
 
 .mainbody-grid {
     display: grid;
-    grid-template-rows: 1fr 80px 300px; 
-    margin-left: 35px;
-    margin-right: 35px;
+    grid-template-rows: 1fr 80px 390px; 
+    margin-left: 20px;
+    margin-right: 20px;
+   
    
 }
 
@@ -50,13 +53,15 @@
 
 .Month-Text {
     font-size: 30px;
+    margin-bottom: 0px;
+    margin-top: 9px;
 }
 
 .Calendar-main-body {
     background-color: rgba(255, 255, 255, 0.8);
     border-bottom-left-radius: 45px;
     border-bottom-right-radius: 45px;
-    height: 310px;
+    height: 360px;
     box-shadow: 10px 13px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -76,7 +81,7 @@
     margin-right: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 19px;
+    gap: 10px;
 
 }
 

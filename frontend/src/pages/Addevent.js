@@ -18,32 +18,24 @@ export default function Addevent() {
                         <div className = "event-details-grid">
                             <div className = "titleabove-input">
                                 Class
-                            </div>
-                            <div className = "input-box">
                                 <form>
                                 <input type="text" className="actual-box" placeholder="Add your class here" />
                                 </form>
                             </div>
                             <div className = "titleabove-input">
                                 Assignment type
-                            </div>
-                            <div className = "input-box">
                                 <form>
                                 <input type="text" className="actual-box" placeholder="Whats your assignment?" />
                                 </form>
                             </div>
                             <div className = "titleabove-input">
                                 Due date
-                            </div>
-                            <div className = "input-box">
                                 <form>
                                 <input type="text" className="actual-box" placeholder="Whens your assignment due?" />
                                 </form>
                             </div>
                             <div className = "titleabove-input">
                                 Description
-                            </div>
-                            <div className = "input-box">
                                 <form>
                                 <input type="text" className="actual-box" placeholder="Add a description" />
                                 </form>

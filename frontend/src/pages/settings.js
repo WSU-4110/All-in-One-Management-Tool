@@ -4,7 +4,6 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function Settings() {
-    // Sample settings options
     const settingsOptions = [
         { id: 1, title: "Change Password" },
         { id: 2, title: "Notification Preferences" },
@@ -15,13 +14,13 @@ export default function Settings() {
     return (
         <div className='home-background'>
             <Header />
+            <h1 className="settings-title">Settings</h1> {}
             <div className='settings-container'>
-                <h1>Settings</h1>
-                <ul>
+                <div className="settings-options">
                     {settingsOptions.map(option => (
-                        <li key={option.id}>{option.title}</li>
+                        <button key={option.id} className="settings-button">{option.title}</button>
                     ))}
-                </ul>
+                </div>
             </div>
             <Footer />
         </div>

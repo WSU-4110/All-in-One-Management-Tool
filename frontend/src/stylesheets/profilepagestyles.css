@@ -1,5 +1,4 @@
 
-/* Profile Title Style */
 .profile-title {
     font-family: 'Roboto';
     color: white; 
@@ -16,7 +15,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: lightgreen;
+    background-color: green;
     border-radius: 10px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
     padding: 20px;
@@ -45,7 +44,7 @@ button {
     margin-top: 15px;
     border-radius: 20px;
     border: none;
-    background-color: rgba(63, 221, 84, 0.8); /* Example color */
+    background-color: rgba(63, 221, 84, 0.8);
     color: white;
     font-size: 20px;
     box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.3);

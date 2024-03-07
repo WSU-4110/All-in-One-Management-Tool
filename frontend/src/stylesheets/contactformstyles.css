@@ -42,3 +42,17 @@
 .button-container button:hover {
     background-color: #0056b3;
 }
+
+.contactUs-image {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.contact-button {
+    padding: 10px 10px;
+    height: 70px;
+    width: 300px;
+    border-radius: 45px;
+    font-size: 35px;
+    margin-top: 0px;
+}

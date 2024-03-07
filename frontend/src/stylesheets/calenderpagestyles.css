@@ -14,7 +14,7 @@
     color: white;
     border: none;
     font-size: 40px;
-    margin-left: 8px;
+   
     box-shadow: none;
 }
 
@@ -34,6 +34,7 @@
 
 .mainbody-grid {
     display: grid;
+    justify-content: center;
     grid-template-rows: 1fr 80px 390px; 
     margin-left: 20px;
     margin-right: 20px;
@@ -45,6 +46,7 @@
     background-color: rgba(244, 53, 53, 0.8);
     display: flex;
     align-items: center;
+    width: 310px;
     justify-content: space-between;
     border-top-left-radius: 45px;
     border-top-right-radius: 45px;
@@ -52,7 +54,7 @@
 }
 
 .Month-Text {
-    font-size: 30px;
+    font-size: 35px;
     margin-bottom: 0px;
     margin-top: 9px;
 }
@@ -61,7 +63,8 @@
     background-color: rgba(255, 255, 255, 0.8);
     border-bottom-left-radius: 45px;
     border-bottom-right-radius: 45px;
-    height: 360px;
+    height: 335px;
+    width: 310px;
     box-shadow: 10px 13px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -69,11 +72,16 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     place-items: center;
+    height: 35px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .M-SText{
     margin-top: 8px;
     color: black;
+    text-shadow: none;
+    font-weight: bold;
 }
 
 .Dates-grid {

@@ -5,6 +5,7 @@ import '../stylesheets/backgroundstyles.css';
 import CalenderButtonLogo from '../images/CalanderButtonLogo.png';
 import SettingsButtonLogo from '../images/SettingsButtonLogo.png';
 import ToDoListButtonLogo from '../images/ToDoListButtonLogo.png';
+import contactUsLogo from '../images/ContactUsLogo.png';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -72,7 +73,7 @@ export default function Home() {
                     </div>
                     <div className='contact-us-section'>
                         <button className="contact-button" onClick={handleContactButtonClick}>
-                            Contact Us
+                            <img className = "contactUs-image" src={contactUsLogo} /> Contact Us
                         </button>
                         {showContactForm && <ContactForm />}
                     </div>

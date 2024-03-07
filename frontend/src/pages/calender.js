@@ -17,7 +17,7 @@ export default function Calender() {
                     
                     <div className="Calendar-header"> 
                         <button class="Arrow-Left"> &larr; </button>
-                        <p className="Month-Text">FEBRUARY</p>
+                        <p className="Month-Text">MARCH</p>
                         <button class="Arrow-Right"> &rarr; </button>
                     </div>
                     <div className="Calendar-main-body">

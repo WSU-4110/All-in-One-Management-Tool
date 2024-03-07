@@ -21,6 +21,7 @@ export default function Settings() {
                         <button key={option.id} className="settings-button">{option.title}</button>
                     ))}
                 </div>
+                <button className="logout-button">Logout</button>
             </div>
             <Footer />
         </div>

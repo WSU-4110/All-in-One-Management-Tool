@@ -1,3 +1,4 @@
+import React, { useState} from 'react';
 import '../stylesheets/homepagestyles.css';
 import CreateEventLogo from '../images/CreateEventLogo.png';
 import '../stylesheets/backgroundstyles.css';
@@ -7,9 +8,16 @@ import ToDoListButtonLogo from '../images/ToDoListButtonLogo.png';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+
 import {Link} from 'react-router-dom'
+import ContactForm from './contactForm';
 
 export default function Home() {
+    const [showContactForm, setShowContactForm] = useState(false);
+    const handleContactButtonClick = () => {
+        setShowContactForm(!showContactForm);
+    };
+
     return (
         <div className='home-background'>
             <Header />
@@ -61,7 +69,12 @@ export default function Home() {
                                 SETTINGS
                             </Link>
                         </div>
-
+                    </div>
+                    <div className='contact-us-section'>
+                        <button className="contact-button" onClick={handleContactButtonClick}>
+                            Contact Us
+                        </button>
+                        {showContactForm && <ContactForm />}
                     </div>
                 </div>
             </main>

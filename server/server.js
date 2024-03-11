@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/record", records);
 
-// Starts the Express server
+// start the Express server
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });

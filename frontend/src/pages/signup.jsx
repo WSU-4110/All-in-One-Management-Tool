@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import '../stylesheets/backgroundstyles.css';
 
 export const SignUp = (props) => {

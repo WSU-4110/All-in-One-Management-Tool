@@ -1,8 +1,56 @@
 import '../stylesheets/addeventstyles.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { useState } from 'react';
 
 export default function Addevent() {
+    const [getClass, setClass] = useState("");
+    const [getAssignment, setAssignment] = useState("");
+    const [getDueDate, setDueDate] = useState("");
+    const [getDescription, setDescription] = useState("");
+
+    function changeClass(e) {
+        e.preventDefault();
+        setClass(e.target.value);
+    }
+
+    function changeAssigment(e) {
+        e.preventDefault();
+        setAssignment(e.target.value);
+    }
+
+    function changeDueDate(e) {
+        e.preventDefault();
+        setDueDate(e.target.value);
+    }
+
+    function changeDescription(e) {
+        e.preventDefault();
+        setDescription(e.target.value);
+    }
+
+    function getEventInfo() {
+        let Info = JSON.parse(localStorage.getItem('eventInfo'));
+
+        if (Info === null) {
+            Info = [];
+        }
+
+       const newEvent = 
+        {
+            class: getClass,
+            Assignment: getAssignment,
+            DueDate: getDueDate,
+            Description: getDescription,
+
+        };
+        
+        Info.push(newEvent);
+        localStorage.setItem('eventInfo', JSON.stringify(Info));
+
+        console.log(Info);
+    }
+
     return (
         <div className = "home-background">
             <Header />
@@ -19,30 +67,30 @@ export default function Addevent() {
                             <div className = "titleabove-input">
                                 Class
                                 <form>
-                                <input type="text" className="actual-box" placeholder="Add your class here" />
+                                <input onChange = {changeClass} type="text" className="actual-box" placeholder="Add your class here" />
                                 </form>
                             </div>
                             <div className = "titleabove-input">
                                 Assignment type
                                 <form>
-                                <input type="text" className="actual-box" placeholder="Whats your assignment?" />
+                                <input onChange = {changeAssigment} type="text" className="actual-box" placeholder="Whats your assignment?" />
                                 </form>
                             </div>
                             <div className = "titleabove-input">
                                 Due date
                                 <form>
-                                <input type="date" className="actual-box-date" placeholder="Whens your assignment due?" />
+                                <input onChange = {changeDueDate} type="date" className="actual-box-date" placeholder="Whens your assignment due?" />
                                 </form>
                             </div>
                             <div className = "titleabove-input">
                                 Description
                                 <form>
-                                <input type="text" className="actual-box" placeholder="Add a description" />
+                                <input onChange = {changeDescription} type="text" className="actual-box" placeholder="Add a description" />
                                 </form>
                             </div>
                         </div>
                     <div className = "footer-Button">
-                        <button class ="submit-button">
+                        <button onClick = {getEventInfo} class ="submit-button">
                             SUBMIT
                         </button>
                     </div>

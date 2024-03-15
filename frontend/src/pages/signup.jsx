@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import '../stylesheets/backgroundstyles.css';
 
 export const SignUp = (props) => {
@@ -21,15 +22,22 @@ export const SignUp = (props) => {
     const [alert, setAlert] = useState(false);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (username !== '') {
+            setVerifiedUsername(true);
+        }
+        if (password1 !== '') {
+            setVerifiedPassword(true);
+        }
+        if (password2 !== '') {
+            setVerifiedPassword(true);
+        }
+    }, [username, password1, password2]);
+
     async function handleSubmit(e) {
         e.preventDefault();
         console.log(username);
         console.log(password1);
-        if (!terms) { 
-            setVerifiedTerms(true);
-        } else {
-            setVerifiedTerms(false);
-        }
         var data = {};
         if (checkPassword()){
             if (terms) {

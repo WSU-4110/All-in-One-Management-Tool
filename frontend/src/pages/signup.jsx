@@ -21,6 +21,16 @@ export const SignUp = (props) => {
     const [verifiedTerms, setVerifiedTerms] = useState(false);
     const [alert, setAlert] = useState(false);
     const navigate = useNavigate();
+    
+    function errormsg(endmsg) {
+        this.endmsg = endmsg;
+    }
+    errormsg.prototype.toString1 = function (){
+        return 'Passwords' + this.endmsg;
+    }
+    errormsg.prototype.toString2 = function (){
+        return 'Password must' + this.endmsg;
+    }
 
     useEffect(() => {
         if (username !== '') {
@@ -122,10 +132,12 @@ export const SignUp = (props) => {
     }
 
     function checkPasswordsMatch() {
+        let match = new errormsg(' do not match');
+
         if (password1 !== password2) {
             setVerifiedPassword(false);
-            setPassword1Error('Passwords do not match');
-            setPassword2Error('Passwords do not match');
+            setPassword1Error(match.toString1());
+            setPassword2Error(match.toString1());
             return false;
         }
         setVerifiedPassword(true);
@@ -136,29 +148,39 @@ export const SignUp = (props) => {
         var hasNumber = /\d/;
         var hasUpper = /[A-Z]/;
         var fail = false;
+        let number = new errormsg(' contain a number');
         if (!hasNumber.test(password1)) {
             fail = true;
             setVerifiedPassword(false);
-            setPassword1Error('Password must contain a number');
-            setPassword2Error('Password must contain a number');
+            setPassword1Error(number.toString2());
+            setPassword2Error(number.toString2());
         }
+
+        let uppercase = new errormsg(' contain an uppercase letter');
+
         if (!hasUpper.test(password1)) {
             fail = true;
             setVerifiedPassword(false);
-            setPassword1Error('Password must contain an uppercase letter');
-            setPassword2Error('Password must contain an uppercase letter');
+            setPassword1Error(uppercase.toString2());
+            setPassword2Error(uppercase.toString2());
         }
+
+        let spaces = new errormsg(' not contain spaces');
+
         if (password1.includes(' ')) {
             fail = true;
             setVerifiedPassword(false);
-            setPassword1Error('Password must not contain spaces');
-            setPassword2Error('Password must not contain spaces');
+            setPassword1Error(spaces.toString2());
+            setPassword2Error(spaces.toString2());
         }
+
+        let length = new errormsg(' be at least 8 characters long');
+
         if (password1.length < 8) {
             fail = true;
             setVerifiedPassword(false);
-            setPassword1Error('Password must be at least 8 characters long');
-            setPassword2Error('Password must be at least 8 characters long');
+            setPassword1Error(length.toString2());
+            setPassword2Error(length.toString2());
         }
         if (!fail) {
             setVerifiedPassword(true);

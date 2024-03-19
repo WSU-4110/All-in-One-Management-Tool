@@ -136,6 +136,7 @@ export const SignUp = (props) => {
         var hasNumber = /\d/;
         var hasUpper = /[A-Z]/;
         var fail = false;
+        console.log(password1);
         if (!hasNumber.test(password1)) {
             fail = true;
             setVerifiedPassword(false);

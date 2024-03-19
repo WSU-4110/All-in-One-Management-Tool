@@ -25,26 +25,51 @@ const Login = (props) => {
         console.log(username);
         console.log(password);
         var data = {}
-        if (username === '' && password === '') {
-            setVerifiedUsername(true);
-            setVerifiedPassword(true);
-            setUsernameError('Please enter a username');
-            setPasswordError('Please enter a password');
-            return;
-        } else if (username === '') {
-            setVerifiedUsername(true);
-            setUsernameError('Please enter a username');
-            return;
-        } else if (password === '') {
-            setVerifiedPassword(true);
-            setPasswordError('Please enter a password');
-            return;
-        } else {
+        var goodUsername = verifyUsername();
+        var goodPassword = verifyPassword();
+
+        if (verifyUsername() && verifyPassword()) {
+            data = {
+                username: username,
+                password: password
+            }
             setSessionVariables(username, password);
-            console.log('Username:', username)
-            console.log('password:', password)
+            console.log('Username:', data.username)
+            console.log('password:', data.password)
             navigate('/home');
             return;
+        }
+    }
+
+    function verifyUsername() {
+        if (username === '') {
+            setVerifiedUsername(true);
+            setUsernameError('Please enter a username');
+            return false;
+        }
+        if ((!(username.includes('@'))) && (!(username.includes('.'))) && (username.includes(' '))
+            && (!(username.endsWith('.com') || username.endsWith('.net')
+            || username.endsWith('.org') || username.endsWith('.edu')
+            || username.endsWith('.gov')))) {
+            setVerifiedUsername(true);
+            setUsernameError('Please enter a valid username');
+            return false;
+        } else {
+            setVerifiedUsername(false);
+            setUsernameError('');
+            return true;
+        }
+    }
+
+    function verifyPassword() {
+        if (password === '') {
+            setVerifiedPassword(true);
+            setPasswordError('Please enter a password');
+            return false;
+        } else {
+            setVerifiedPassword(false);
+            setPasswordError('');
+            return true;
         }
     }
     

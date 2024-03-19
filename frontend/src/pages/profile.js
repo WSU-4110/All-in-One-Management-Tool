@@ -28,7 +28,9 @@ export default function Profile() {
     };
 
     return (
-        <div className='home-background'>
+        <div className='home-outer'>
+            <div className='home-background' />
+            <div className='home-inner'>
             <Header />
             <h1 className="profile-title">Profile</h1>
             <div className='profile-container'>
@@ -74,6 +76,7 @@ export default function Profile() {
                 )}
             </div>
             <Footer />
+            </div>
         </div>
     );
 }

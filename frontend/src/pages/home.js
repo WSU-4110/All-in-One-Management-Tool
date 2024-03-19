@@ -20,56 +20,63 @@ export default function Home() {
     };
 
     return (
-        <div className='home-background'>
+        <div className='home-outer'>
+            <div className='home-background'/>
+            <div className='home-inner'>
             <Header />
             <main>
-                <div className="main-body-grid">
                     <div className="Home-div">
                         <p className="Home-divtext">HOME</p>
                     </div>
-
-                    <div className="nav-buttons">
-                     <div className="Button-4Attributes">
-                            <Link to="/addevent" className="Createevent-Integration">
-                               <span className="CreateEvent-ButtonImage">
+                    <div className="main-body-grid">
+                 
+                     <div className="button-attributes">
+                     <span className="CreateEvent-ButtonImage">
                                     <img className ="CreateEvent-ButtonImageActual"
                                     src={CreateEventLogo} alt="Logo"/>
                                 </span> 
+                            <Link to="/addevent" className="link-style">
+                             
                                     ADD EVENT
                                     
                             </Link>
                         </div>
 
-                        <div className="Button-1Attributes">
-                            <Link to="/calendar" className="Calendar-Integration">
-                                <span className="Calendar-ButtonImage">
+                        <div className="button-attributes">
+                        <span className="Calendar-ButtonImage">
                                     <img className ="Calendar-ButtonImageActual"
                                     src={CalenderButtonLogo} alt="CalendarButtonLogo"/>
                                 </span> 
+                            <Link to="/calendar" className="link-style">
+                               
                                     CALENDAR
                             </Link>
                         </div>
 
-                        <div className="Button-2Attributes">
-                            <Link to = "/todolist" className="ToDoList-Integration">
-                                <span className="ToDoList-ButtonImage">
+                        <div className="button-attributes">
+                        <span className="ToDoList-ButtonImage">
                                     <img className ="ToDoList-ButtonImageActual"
                                     src={ToDoListButtonLogo} alt="ToDoListLogo"/>
                                 </span> 
+                            <Link to = "/todolist" className="link-style">
+                               
                                 TO DO LIST
                             </Link>
                         </div>
 
 
-                        <div className="Button-3Attributes">
-                            <Link to ="/settings" className="Settings-Integration">
-                                <span className="Settings-ButtonImage">
+                        <div className="button-attributes">
+                        <span className="Settings-ButtonImage">
                                     <img className ="Settings-ButtonImageActual"
                                     src={SettingsButtonLogo} alt="ToDoListLogo"/>
                                 </span> 
+                            <Link to ="/settings" className="link-style">
+                               
                                 SETTINGS
                             </Link>
-                        </div>
+                            
+                      
+                    </div>
                     </div>
                     <div className='contact-us-section'>
                         <button className="contact-button" onClick={handleContactButtonClick}>
@@ -77,9 +84,12 @@ export default function Home() {
                         </button>
                         {showContactForm && <ContactForm />}
                     </div>
-                </div>
+                
             </main>
+         
             <Footer />
+            
+            </div>
     </div>
     )
 }

@@ -19,10 +19,12 @@ export default function Settings() {
     };
 
     return (
-        <div className='home-background'>
-            <Header />
-            <h1 className="settings-title">Settings</h1>
-            <div className='settings-container'>
+        <div className='home-outer'>
+            <div className='home-background' />
+                <div className='home-inner'>
+                <Header />
+                <h1 className="settings-title">Settings</h1>
+                <div className='settings-container'>
                 <div className="settings-options">
                     {settingsOptions.map(option => (
                         <button key={option.id} className="settings-button" onClick={option.title === "Change Password" ? handleToggleChangePassword : null}>
@@ -32,8 +34,9 @@ export default function Settings() {
                 </div>
                 {showChangePassword && <ChangePassword />}
                 <button className="logout-button">Logout</button>
+                </div>
+                <Footer />
             </div>
-            <Footer />
         </div>
     );
 }
@@ -43,15 +46,18 @@ function ChangePassword() {
         <div className="change-password">
             {/* Your change password UI goes here */}
             <h2>Change Password</h2>
-            <form>
+            <div >
+            <form className='change-password-form'>
                 <label htmlFor="current-password">Current Password</label>
                 <input type="password" id="current-password" required />
                 <label htmlFor="new-password">New Password</label>
                 <input type="password" id="new-password" required />
                 <label htmlFor="confirm-password">Confirm New Password</label>
                 <input type="password" id="confirm-password" required />
-                <button type="submit">Change Password</button>
+                <button type="submit" className=''>Change Password</button>
             </form>
+            </div>
         </div>
     );
 }
+

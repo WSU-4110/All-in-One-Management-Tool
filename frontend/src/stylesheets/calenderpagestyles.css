@@ -43,7 +43,10 @@
 }
 
 .Calendar-header {
-    background-color: rgba(244, 53, 53, 0.8);
+    background: linear-gradient(to bottom right, 
+    blue, 
+    rgb(42, 58, 201) 40%, 
+    rgb(44, 44, 57));
     display: flex;
     align-items: center;
     width: 310px;
@@ -82,23 +85,68 @@
     color: black;
     text-shadow: none;
     font-weight: bold;
+    margin-bottom: 1px;
 }
 
 .Dates-grid {
     margin-left: 10px;
     margin-right: 10px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 10px;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 10px;
 
 }
 
 .DateButton {
     background-color: transparent;
+    margin-top: 6px;
     color: rgba(0, 0, 0, 1);
     border: none;
     font-size: 20px;
     box-sizing: border-box;
     padding: 1px;
     line-height: 30px;
+}
+
+.EmptyButton {
+    background-color: transparent;
+    height: 1px;
+    width: 1px;
+    padding: 0;
+}
+
+.show-event {
+    margin-top: 15px;
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    background-color: rgba(255, 255, 255, 0.15);
+    gap: 3px;
+    border-radius: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.Class-section {
+    color: white;
+    font-size: 25px;
+    padding-left: 8px;
+    height: 40px;
+}
+
+.Assignment-section {
+    font-size: 25px;
+    color: white;
+    padding-left: 8px;
+}
+
+.date-section {
+    font-size: 25px;
+    color: white;
+    padding-left: 8px;
+}
+
+.description {
+    font-size: 25px;
+    color: white;
+    padding-left: 8px;
 }

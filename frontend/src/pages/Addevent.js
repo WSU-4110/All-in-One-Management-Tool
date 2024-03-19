@@ -92,7 +92,7 @@ export default function Addevent() {
                                     </div>
                                 </div>
                             <div className = "footer-Button">
-                                <button onClick = {getEventInfo} class ="submit-button">
+                                <button onClick = {getEventInfo} className ="submit-button">
                                     SUBMIT
                                 </button>
                             </div>

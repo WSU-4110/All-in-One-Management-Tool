@@ -114,3 +114,39 @@
     width: 1px;
     padding: 0;
 }
+
+.show-event {
+    margin-top: 15px;
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    background-color: rgba(255, 255, 255, 0.15);
+    gap: 3px;
+    border-radius: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.Class-section {
+    color: white;
+    font-size: 25px;
+    padding-left: 8px;
+    height: 40px;
+}
+
+.Assignment-section {
+    font-size: 25px;
+    color: white;
+    padding-left: 8px;
+}
+
+.date-section {
+    font-size: 25px;
+    color: white;
+    padding-left: 8px;
+}
+
+.description {
+    font-size: 25px;
+    color: white;
+    padding-left: 8px;
+}

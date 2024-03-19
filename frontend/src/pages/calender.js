@@ -22,10 +22,19 @@ const generateCalendarDays = (year, month) => {
   };
 
 export default function Calendar() {
+    const [Classtoevent, setClasstoevent] = useState('');
+    const [Assigmenttoevent, setAssignmenttoevent] = useState('');
+    const [Duedatetoevent, setDuedatetoevent] = useState('');
+    const [isEventVisible, setisEventVisible] = useState(0);
+    const [Descriptiontoevent, setDescriptiontoevent] = useState('');
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
     const [calendarDays, setCalendarDays] = useState(generateCalendarDays(currentYear, currentMonth));
     
+    function toggleEventVisibility () {
+        setisEventVisible(1)
+    }
+
     const isToday = (someDate) => {
         const today = new Date();
         return someDate.getDate() === today.getDate() &&
@@ -66,6 +75,35 @@ export default function Calendar() {
         setCurrentYear(newYear);
         setCalendarDays(generateCalendarDays(newYear, newMonth));
     };
+
+    function checkForEvent(day) {
+        const event = JSON.parse(localStorage.getItem('eventInfo'));
+        
+        if (event) {
+            for (let i = 0; i < event.length; i++) {
+                if (Number(event[i].DueDate.substring(8, 10)) === day) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    function addEventDetails(date) {
+        const event = JSON.parse(localStorage.getItem('eventInfo'));
+
+        if (event) {
+            for (let i = 0; i < event.length; i++) {
+                if (Number(event[i].DueDate.substring(8, 10)) === date) {
+                    setClasstoevent(event[i].class);
+                    setAssignmenttoevent(event[i].Assignment);
+                    setDuedatetoevent(event[i].DueDate);
+                    setDescriptiontoevent(event[i].Description);
+                    toggleEventVisibility();
+                    return;
+                }
+            }
+        }
+   }
 
     const firstDate = calendarDays.find(day => day instanceof Date);
     
@@ -111,8 +149,14 @@ export default function Calendar() {
                                         background: 'linear-gradient(to bottom right, rgb(0, 162, 255), rgb(44, 44, 57))',
                                         color: 'white' };
                                     className += " Today";
-                                }
-                                return <button key={index} className="DateButton" style={style}>{day.getDate()}</button>;
+                                } else if (checkForEvent(day.getDate())) {
+                                    style = {
+                                        background: 'linear-gradient(to bottom right, rgb(0, 255, 26), rgb(44, 44, 57))',
+                                        color: 'white'
+                                    }
+                                };
+                                return <button key={index} onClick={() => {addEventDetails(day.getDate())}} 
+                                className="DateButton" style={style}>{day.getDate()}</button>;
                             } else {
                                 return <button key={index} className='EmptyButton'></button>;
                             }
@@ -120,8 +164,38 @@ export default function Calendar() {
                         </div>
                     </div>
             </div>
-            <Footer />
+            <div className='show-event' style={{
+                opacity: isEventVisible
+            }}>
+                <div className='Class-section'>Class: 
+                    <span style={{
+                        color: 'rgba(255, 255, 255, 0.7)',
+                        marginLeft: '10px',
+                        fontSize: '20px',
+                        fontStyle: 'italic'
+                    }}>{Classtoevent}</span> </div>
+                <div className='Assignment-section'>Assignment: 
+                    <span style={{
+                        color: 'rgba(255, 255, 255, 0.7)',
+                        marginLeft: '10px',
+                        fontSize: '20px',
+                        fontStyle: 'italic'
+                    }}>{Assigmenttoevent}</span> </div>
+                <div className='date-section'>Due Date: <span style={{
+                        color: 'rgba(255, 255, 255, 0.7)',
+                        marginLeft: '10px',
+                        fontSize: '20px',
+                        fontStyle: 'italic'
+                    }}>{Duedatetoevent}</span> </div>
+                <div className='description'>Description: <span style={{
+                        color: 'rgba(255, 255, 255, 0.7)',
+                        marginLeft: '10px',
+                        fontSize: '20px',
+                        fontStyle: 'italic'
+                    }}>{Descriptiontoevent}</span></div>
             </div>
+            <Footer />
+        </div>
       </div>
     );
 }

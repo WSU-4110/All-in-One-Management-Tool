@@ -1,16 +1,73 @@
-.home-background {
-    background-image: url(../images/BackgroundImage.png);
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    min-height: 100vh;
-    margin: 0;
-    padding-top: 30px;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+  
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+  
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  *{
+    box-sizing: border-box;
+  }
+ 
+  body {
+    background-color: black;
+  }
+  .home-background {
+    height: fit-content;
+    z-index: 3;
+  width: 100%;
+  max-width: 640px;
+  background-image: radial-gradient(
+      at 27% 37%,
+      hsla(215, 98%, 61%, 1) 0px,
+      transparent 0%
+    ),
+    radial-gradient(at 97% 21%, rgb(253, 0, 156) 0px, transparent 50%),
+    radial-gradient(at 52% 99%, rgb(65, 5, 228) 0px, transparent 50%),
+    radial-gradient(at 10% 29%, rgb(93, 39, 241) 0px, transparent 50%),
+    radial-gradient(at 97% 96%, rgb(0, 4, 253) 0px, transparent 50%),
+    radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 1) 0px, transparent 50%),
+    radial-gradient(at 79% 53%, rgb(107, 8, 36) 0px, transparent 50%);
+  
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  filter: blur(100px) saturate(150%);
+  top: 80px;
+  opacity: 0.4;
+  background-color: black;
+  
+}
+
+
+.home-outer {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    
+
+}
+.home-inner {
+    z-index: 5;
+    
+
 }
 
 .init-background {
-    background-color: #635db8;
+    
+    background-color: #1b1b1b;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -18,6 +75,10 @@
     min-height: 100vh;
     margin: 0;
     padding-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .center-hor-ver {
@@ -46,36 +107,50 @@ h1 {
     width: 100%;
     display: inline-block;
     color: white;
-    text-shadow: 2px 2px 4px #000000;
+    
 }
 
 h2 {
     width: 100%;
     display: inline-block;
     color: white;
-    text-shadow: 2px 2px 4px #000000;
+    
 }
 
 h3 {
     width: 100%;
     display: inline-block;
     color: white;
-    text-shadow: 2px 2px 4px #000000;
+   
 }
 
 h4 {
     width: 20%;
     display: inline-block;
     color: white;
-    text-shadow: 2px 2px 4px #000000;
+   
 }
 
 p {
     color: white;
-    text-shadow: 2px 2px 4px #000000;
+   
 }
 
 .Navbar {
     align-items: center;
     color: white;
 }
+.center-hor {
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(63, 60, 60);
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+
+}
+

@@ -21,47 +21,56 @@ export default function Todolist() {
       }
 
     return (
-        <div className='home-background'>
-            <Header />
-            <div className='todolist-grid'>
-                <div className ="title-div">
-                    <p className = "title-text">
-                        TO DO LIST
-                    </p>
-                </div>
-                <div className ="todolist-mainbody">
-                    <div className="todolist-background">
-                        <div className="clipboard"></div>
-                        <div className="clipboard-circle"></div>
-                        <div className ="Shadow-effect">
-                            <div className ="center-title">
-                                <p className="todolist-title">
-                                TO DO
-                                </p>
-                            </div>
-                            <div className="List">
-                                <ul>
-                                    {Eventobj.map((value, index) => {
-                                        return <><li key = {index} style= {{
-                                           fontSize: '20px',
-                                           display: 'flex',
-                                           flexDirection: 'row',
-                                           alignItems: 'center',
-                                        }}>  
-                                        {value.Assignment + "  "} 
-                                        {value.Description} <button style = {{
-                                            marginTop: '0px',
-                                            marginLeft: '35px',
-                                            backgroundColor: 'red'
-                                        }} onClick={() => removeItem(index)}></button> </li> </>;
-                                    })}
-                                </ul>
-                            </div>
-                        </div>
+        <div className='home-outer'>
+            <div className='home-background'> Hello</div>
+            <div className='home-inner'>
+                <Header />
+                <div className='todolist-grid'>
+                    <div className ="title-div">
+                        <p className = "title-text">
+                            TO DO LIST 
+                        </p>
+                        
                     </div>
+                    <div className='List'>
+                            {Eventobj.map((value, index) => {
+                                return <><div className='item' key = {index} style= {{
+                                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                                fontSize: '20px',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                }}>  
+                                {value.Assignment + "  "} 
+                                {value.Description} <button style = {{
+                                    marginTop: '0px',
+                                    marginLeft: '35px',
+                                    backgroundColor: 'red'
+                                }} onClick={() => removeItem(index)}></button> </div> </>;
+                            })}
+                        </div>
                 </div>
+                <Footer />
             </div>
-            <Footer />
+            
         </div>
     )
 }
+
+/*                                 <ul>
+{Eventobj.map((value, index) => {
+    return <><li key = {index} style= {{
+    fontSize: '20px',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    }}>  
+    {value.Assignment + "  "} 
+    {value.Description} <button style = {{
+        marginTop: '0px',
+        marginLeft: '35px',
+        backgroundColor: 'red'
+    }} onClick={() => removeItem(index)}></button> </li> </>;
+})}
+</ul>
+*/

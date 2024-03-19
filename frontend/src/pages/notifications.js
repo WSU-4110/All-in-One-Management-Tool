@@ -5,7 +5,9 @@ import Header from '../components/Header';
 
 export default function Noficications() {
     return (
-        <div className='home-background'>
+        <div className='home-outer'>
+            <div className='home-background'/>
+            <div className='home-inner'>
             <Header />
             <div className="notifications-body">
             <div className="notifications-header">
@@ -20,6 +22,7 @@ export default function Noficications() {
             </div>
         </div>
             <Footer />
+            </div>
         </div>
     )
 }

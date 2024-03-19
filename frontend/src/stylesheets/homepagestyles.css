@@ -1,22 +1,20 @@
 *{
-    font-family: Roboto;
+    font-family: Inter;
 }
 
 
 /*----------Main Body Section---------*/
 .main-body-grid {
     display: grid;
-    grid-template-rows: 100px minmax(400px, 1fr); 
+    grid-template-columns: 1fr 1fr; /* Two columns with equal width */
+    grid-template-rows: 200px 200px; 
+    
     padding-bottom: 50px; 
+    z-index: 5;
+   
 }
 
-.nav-buttons {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
+
 
 .Home-div{
     display: flex;
@@ -27,27 +25,10 @@
 .Home-divtext{
     color: white;
     font-size: 30px;
+    font-weight: 600;
 }
 
-.Createevent-Integration {
-    background-color: rgba(63, 221, 84, 0.8);
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 55px;
-    padding-right: 55px;
-    border: none;
-    border-radius: 45px;
-    color: white;
-    font-size: 30px;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-    text-decoration: none;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-
-}
 
 .CreateEvent-ButtonImageActual {
     width: 40px;
@@ -58,69 +39,14 @@
     width: 40px;
 }
 
-.Calendar-Integration {
-    background-color: rgba(209, 56, 56, 0.8);
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 60px;
-    padding-right: 60px;
-    border: none;
-    border-radius: 45px;
-    color: white;
-    font-size: 30px;
-    text-decoration: none;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-
-}
 
 
-.ToDoList-Integration {
-    background-color: rgba(68, 236, 236, 0.8);
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 50px;
-    padding-right: 50px;
-    border: none;
-    border-radius: 45px;
-    color: white;
-    font-size: 30px;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-    text-decoration: none;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px
-
-}
 
 .ToDoList-ButtonImageActual{
     width: 65px;
 }
 
-.Settings-Integration {
-    background-color: rgba(27, 30, 30, 0.8);
-    padding-top: 18px;
-    padding-bottom: 18px;
-    padding-left: 63px;
-    padding-right: 63px;
-    border: none;
-    border-radius: 45px;
-    color: white;
-    font-size: 30px;
-    box-shadow: 4px 4px 10px rgba(38, 38, 38, 0.5);
-    text-decoration: none;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
 
 .Settings-ButtonImageActual{
     width: 50px;
@@ -141,6 +67,32 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
+.button-attributes {
+    display: block;
+    margin: 10px auto;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.3);
+    width: 170px;
+    background: linear-gradient(to right, #0c69ff, #4b10b9);
+    border-radius: 20px;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 4px;
+}
+
+.link-style {
+    color:white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 20px;
+}
 /*------------------------------------*/
+
+
+
 
 

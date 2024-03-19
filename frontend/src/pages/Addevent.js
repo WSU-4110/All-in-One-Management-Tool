@@ -52,52 +52,55 @@ export default function Addevent() {
     }
 
     return (
-        <div className = "home-background">
-            <Header />
-            <div className='Addevent-mainbody'>
-                <div className = 'Addevent-title'>
-                    <p className = "Addevent-text">ADD EVENT</p>
-                </div>
-                <div className = "form-grid"> 
-                    <div className = "form-inputbackground">
-                        <div className = "Input-title">
-                            CREATE EVENT
+        <div className="home-outer">
+            <div className="home-background" />
+                <div className="home-inner">
+                    <Header />
+                    <div className='Addevent-mainbody'>
+                        <div className = 'Addevent-title'>
+                            <p className = "Addevent-text">ADD EVENT</p>
                         </div>
-                        <div className = "event-details-grid">
-                            <div className = "titleabove-input">
-                                Class
-                                <form>
-                                <input onChange = {changeClass} type="text" className="actual-box" placeholder="Add your class here" />
-                                </form>
+                        <div className = "form-grid"> 
+                            <div className = "form-inputbackground">
+                                <div className = "Input-title">
+                                    CREATE EVENT
+                                </div>
+                                <div className = "event-details-grid">
+                                    <div className = "titleabove-input">
+                                        Class
+                                        <form>
+                                        <input onChange = {changeClass} type="text" className="actual-box" placeholder="Add your class here" />
+                                        </form>
+                                    </div>
+                                    <div className = "titleabove-input">
+                                        Assignment type
+                                        <form>
+                                        <input onChange = {changeAssigment} type="text" className="actual-box" placeholder="Whats your assignment?" />
+                                        </form>
+                                    </div>
+                                    <div className = "titleabove-input">
+                                        Due date
+                                        <form>
+                                        <input onChange = {changeDueDate} type="date" className="actual-box-date" placeholder="Whens your assignment due?" />
+                                        </form>
+                                    </div>
+                                    <div className = "titleabove-input">
+                                        Description
+                                        <form>
+                                        <input onChange = {changeDescription} type="text" className="actual-box" placeholder="Add a description" />
+                                        </form>
+                                    </div>
+                                </div>
+                            <div className = "footer-Button">
+                                <button onClick = {getEventInfo} class ="submit-button">
+                                    SUBMIT
+                                </button>
                             </div>
-                            <div className = "titleabove-input">
-                                Assignment type
-                                <form>
-                                <input onChange = {changeAssigment} type="text" className="actual-box" placeholder="Whats your assignment?" />
-                                </form>
-                            </div>
-                            <div className = "titleabove-input">
-                                Due date
-                                <form>
-                                <input onChange = {changeDueDate} type="date" className="actual-box-date" placeholder="Whens your assignment due?" />
-                                </form>
-                            </div>
-                            <div className = "titleabove-input">
-                                Description
-                                <form>
-                                <input onChange = {changeDescription} type="text" className="actual-box" placeholder="Add a description" />
-                                </form>
                             </div>
                         </div>
-                    <div className = "footer-Button">
-                        <button onClick = {getEventInfo} class ="submit-button">
-                            SUBMIT
-                        </button>
                     </div>
-                    </div>
+                    <Footer />
                 </div>
-            </div>
-            <Footer />
         </div>
     )
 }

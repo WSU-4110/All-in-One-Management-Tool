@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Init from "./pages/init";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
@@ -28,6 +28,7 @@ function App() {
           <Route path="/todolist" element={<Todolist />} />
         </Routes>
       </BrowserRouter>
+      <Outlet />
     </div>
   )
 }

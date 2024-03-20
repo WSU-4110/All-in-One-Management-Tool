@@ -190,7 +190,7 @@ export default function Calendar() {
                 <div className='description'>Description: <span style={{
                         color: 'rgba(255, 255, 255, 0.7)',
                         marginLeft: '10px',
-                        fontSize: '20px',
+                        fontSize: '15px',
                         fontStyle: 'italic'
                     }}>{Descriptiontoevent}</span></div>
             </div>

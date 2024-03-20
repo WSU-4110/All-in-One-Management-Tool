@@ -2,6 +2,8 @@ import '../stylesheets/todolistpagestyles.css';
 import '../stylesheets/backgroundstyles.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import checkmarkimage from '../images/checkmark.png';
+import trashicon from '../images/trashicon.png';
 import { useState, useEffect } from 'react';
  
 export default function Todolist() {
@@ -30,47 +32,34 @@ export default function Todolist() {
                         <p className = "title-text">
                             TO DO LIST 
                         </p>
-                        
-                    </div>
-                    <div className='List'>
-                            {Eventobj.map((value, index) => {
-                                return <><div className='item' key = {index} style= {{
-                                backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                                fontSize: '20px',
-                                display: 'flex',
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                }}>  
-                                {value.Assignment + "  "} 
-                                {value.Description} <button style = {{
-                                    marginTop: '0px',
-                                    marginLeft: '35px',
-                                    backgroundColor: 'red'
-                                }} onClick={() => removeItem(index)}></button> </div> </>;
-                            })}
-                        </div>
                 </div>
-                <Footer />
+                <div className='list'>
+                    {Eventobj.map((value, index) => {
+                        return <div key = {index} className='list-item'>
+                            <div className='left-side'> 
+                                <img className='checkmark-image' src={checkmarkimage} />
+                                <div className='Assignment-section'>
+                                    <p className='assignment-text'> {value.Assignment} </p>
+                                    <p className='class-text'> {value.class} </p>
+                                    <p className='date-text'> {value.DueDate} </p>
+                                </div>
+                            </div>
+
+                            <div className='right-side'>
+                            <button onClick={() => removeItem(index)}className='trash-button'>
+                                <img className='trash-icon' src={trashicon} />
+                                </button>
+                            </div>
+                        </div>
+                    })}
+                </div>
+                </div>
+            <Footer />
+                
             </div>
-            
         </div>
     )
 }
 
-/*                                 <ul>
-{Eventobj.map((value, index) => {
-    return <><li key = {index} style= {{
-    fontSize: '20px',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    }}>  
-    {value.Assignment + "  "} 
-    {value.Description} <button style = {{
-        marginTop: '0px',
-        marginLeft: '35px',
-        backgroundColor: 'red'
-    }} onClick={() => removeItem(index)}></button> </li> </>;
-})}
-</ul>
-*/
+
+

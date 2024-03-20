@@ -2,19 +2,6 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import '../stylesheets/backgroundstyles.css';
 
-const Temp = (props) => (
-    <div>
-        <h1>Welcome to The All-In-One Managment Tool</h1>
-        <p>Log in with your account to continue</p>
-        <Link to="/login">
-            <Button variant="primary">Log In</Button>
-        </Link>
-        <Link to="/signup">
-            <Button variant="primary">Sign Up</Button>
-        </Link>
-    </div>
-);
-
 export default function Init() {
     return (
         <div className='init-background'>

@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import '../stylesheets/backgroundstyles.css';
 
-const Init = (props) => {
+export default function Init() {
     return (
         <div className='init-background'>
             <div
@@ -41,7 +41,5 @@ const Init = (props) => {
                 </div>
             </div> 
         </div>
-    )
+    );
 }   
-
-export default Init;

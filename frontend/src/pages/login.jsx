@@ -15,17 +15,14 @@ const Login = (props) => {
     const [passwordError, setPasswordError] = useState('');
     const [alertVisible, setAlertVisible] = useState(false);
     const [alertError, setAlertError] = useState('');
-    const [dbUsername, setDbUsername] = useState('');
-    const [dbPassword, setDbPassword] = useState('');
-    const [data, setData] = useState('');
+    const [data, setData] = useState({});
     const navigate = useNavigate();
     
     async function handleSubmit(e) {
         e.preventDefault();
         console.log(username);
         console.log(password);
-        setDbUsername('');
-        setDbPassword('');
+        setData({});
         setAlertVisible(false);
         setAlertError('');
 
@@ -60,27 +57,22 @@ const Login = (props) => {
             for (let i = 0; i < record.length; i++) {
                 if (record[i].username === username) {
                     console.log(record[i]);
-                    console.log(record[i].username);
-                    setData(record[i].password);
-                    setDbUsername(record[i].username);
-                    setDbPassword(record[i].password);
+                    setData(record[i]);
                     break;
                 }
             }
 
             console.log(data);
-            console.log(data[1]);
-            console.log(data[1] === password);
-            console.log(dbUsername);
-            console.log(dbPassword);
-            if (dbUsername === '') {
+            console.log(data.password);
+            console.log(data.password === password);
+            if (data.length === 0) {
                 setAlertVisible(true);
                 setAlertError(`Profile with username ${username} not found`);
                 console.log(`Profile with username ${username} not found`);
                 navigate("/");
                 return;
             }
-            if (data === password) {
+            if (data.password === password) {
                 navigate("/home");
             } else {
                 setAlertVisible(true);

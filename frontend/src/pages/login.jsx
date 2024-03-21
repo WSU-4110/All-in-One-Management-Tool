@@ -15,16 +15,15 @@ const Login = (props) => {
     const [passwordError, setPasswordError] = useState('');
     const [alertVisible, setAlertVisible] = useState(false);
     const [alertError, setAlertError] = useState('');
-    const [data, setData] = useState({});
     const navigate = useNavigate();
     
     async function handleSubmit(e) {
         e.preventDefault();
         console.log(username);
         console.log(password);
-        setData({});
         setAlertVisible(false);
         setAlertError('');
+        let accountData;
 
         if (verifyUsername() && verifyPassword()) {
             const response = await fetch(`http://localhost:5050/record`, {
@@ -43,36 +42,25 @@ const Login = (props) => {
             }
             // Looks to see if username exists in the database
             const record = await response.json();
-            console.log(record);
-            console.log(record[0]);
-            console.log(record[0].username);
-            console.log(username);
-            console.log(record[0].password);
-            console.log(password);
-            console.log(record[0].username == username);
-            console.log(record[0].username === username);
-            console.log(record[0].password == password);
-            console.log(record[0].password === password);
-            
             for (let i = 0; i < record.length; i++) {
                 if (record[i].username === username) {
-                    console.log(record[i]);
-                    setData(record[i]);
+                    accountData = record[i];
                     break;
                 }
             }
 
-            console.log(data);
-            console.log(data.password);
-            console.log(data.password === password);
-            if (data.length === 0) {
+            console.log(accountData);
+            if (accountData.length === 0) {
                 setAlertVisible(true);
                 setAlertError(`Profile with username ${username} not found`);
                 console.log(`Profile with username ${username} not found`);
                 navigate("/");
                 return;
             }
-            if (data.password === password) {
+            if (accountData.password === password) {
+                setAlertVisible(false);
+                setAlertError('');
+                console.log("Login successful");
                 navigate("/home");
             } else {
                 setAlertVisible(true);

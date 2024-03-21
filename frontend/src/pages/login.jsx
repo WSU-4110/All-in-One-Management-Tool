@@ -6,17 +6,6 @@ import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
 import '../stylesheets/backgroundstyles.css';
 
-function fieldNotEmpty(str) {
-    return (str !== "");
-}
-
-function containsSpace(str) {
-    return ((/\s/.test(str)));
-}
-
-module.exports = fieldNotEmpty;
-module.exports = containsSpace;
-
 const Login = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -82,12 +71,12 @@ const Login = (props) => {
     }
 
     function verifyUsername() {
-        if (!fieldNotEmpty()) {
+        if (username === '') {
             setVerifiedUsername(false);
             setUsernameError('Please enter a username');
             return false;
         }
-        if (containsSpace()) {
+        if (username.includes(' ')) {
             setVerifiedUsername(false);
             setUsernameError('Please enter a valid username');
             return false;
@@ -118,7 +107,7 @@ const Login = (props) => {
     // }
 
     function verifyPassword() {
-        if (!fieldNotEmpty()) {
+        if (password === '') {
             setVerifiedPassword(false);
             setPasswordError('Please enter a password');
             return false;
@@ -212,6 +201,7 @@ const Login = (props) => {
                             Login
                         </Button>
                     </Col>
+
                 </Form>
             </div>
         </div>

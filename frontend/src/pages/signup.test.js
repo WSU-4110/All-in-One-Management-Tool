@@ -1,13 +1,11 @@
-// import { containsNumber, containsSpace, containsUpperCase, eightCharacters, fieldNotEmpty, checkEmailValidity, checkPasswordsMatch } from './signup';
+import { containsNumber, containsSpace, containsUpperCase, eightCharacters, fieldNotEmpty, checkEmailValidity, checkPasswordsMatch } from './signup';
 
 test('Sends a string without a number to check if it has a number', () => {
-    const containsNumber = require('./signup').containsNumber;
     const result = containsNumber('abcdefg');
     expect(result).toBe(false);
 });
 
 test('Sends a string with a number to check if it has a number', () => {
-    const containsNumber = require('./signup').containsNumber;
     expect(containsNumber("abcd1fg")).toBe(true);
   });
 

@@ -14,8 +14,8 @@ function containsSpace(str) {
     return ((/\s/.test(str)));
 }
 
-module.exports = fieldNotEmpty;
-module.exports = containsSpace;
+// module.exports = fieldNotEmpty;
+// module.exports = containsSpace;
 
 const Login = (props) => {
     const [username, setUsername] = useState('');

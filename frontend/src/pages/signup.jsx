@@ -43,13 +43,13 @@ export function checkPasswordsMatch(userPassword1, userPassword2) {
     return false;
 }
 
-module.exports = containsNumber;
-module.exports = containsSpace;
-module.exports = containsUpperCase;
-module.exports = eightCharacters;
-module.exports = fieldNotEmpty;
-module.exports = checkEmailValidity;
-module.exports = checkPasswordsMatch;
+// module.exports = containsNumber;
+// module.exports = containsSpace;
+// module.exports = containsUpperCase;
+// module.exports = eightCharacters;
+// module.exports = fieldNotEmpty;
+// module.exports = checkEmailValidity;
+// module.exports = checkPasswordsMatch;
 
 export const SignUp = (props) => {
     const [username, setUsername] = useState('');

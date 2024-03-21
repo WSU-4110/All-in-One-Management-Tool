@@ -9,12 +9,12 @@ test('Sends a string with a number to check if it has a number', () => {
     expect(containsNumber("abcd1fg")).toBe(true);
   });
 
-test('Sends a string without a space to check if it has a space', () => {
-    expect(containsSpace('abcdefg')).toBe(false);
+test('Sends a string with a space to check if it has a space', () => {
+    expect(containsSpace('abcd fg')).toBe(false);
   });
 
-test('Sends a string with a space to check if it has a space', () => {
-    expect(containsSpace("abcd fg")).toBe(true);
+test('Sends a string without a space to check if it has a space', () => {
+    expect(containsSpace("abcdefg")).toBe(true);
   });
 
 test('Sends a string without an uppercase letter to check if it has an uppercase letter', () => {

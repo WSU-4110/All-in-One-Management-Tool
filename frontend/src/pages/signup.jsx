@@ -10,13 +10,16 @@ import '../stylesheets/backgroundstyles.css';
 
 export const SignUp = (props) => {
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
     const [terms, setTerms] = useState(false);
     const [usernameError, setUsernameError] = useState('');
+    const [emailError, setEmailError] = useState('');
     const [password1Error, setPassword1Error] = useState('');
     const [password2Error, setPassword2Error] = useState('');
     const [verifiedUsername, setVerifiedUsername] = useState(true);
+    const [verifiedEmail, setVerifiedEmail] = useState(true);
     const [verifiedPassword, setVerifiedPassword] = useState(true);
     const [verifiedTerms, setVerifiedTerms] = useState(false);
     const [alert, setAlert] = useState(false);
@@ -26,30 +29,45 @@ export const SignUp = (props) => {
         if (username !== '') {
             setVerifiedUsername(true);
         }
+        if (email !== '') {
+            setVerifiedEmail(true);
+        }
         if (password1 !== '') {
             setVerifiedPassword(true);
         }
         if (password2 !== '') {
             setVerifiedPassword(true);
         }
-    }, [username, password1, password2]);
+    }, [username, email, password1, password2]);
 
     async function handleSubmit(e) {
         e.preventDefault();
         console.log(username);
+        console.log(email);
         console.log(password1);
-        var data = {};
+
         if (checkPassword()){
             if (terms) {
-                console.log(data)
-                navigate('/login');
-                // if (data['AccountCreate'] == "True"){
-                //     navigate('/login');
-                // }
-                // else {
-                //     setVerifiedUsername(false);
-                //     setUsernameError('Username already in use. Select new username.');
-                // }
+                try {
+                    const response = await fetch(`http://localhost:5050/record/create`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ username: username, email: email, password: password1 }),
+                    });
+                
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    } else {
+                        console.log('Record added successfully');
+                        navigate("/login");
+                    }
+                } catch (error) {
+                    console.error('A problem occurred with your fetch operation: ', error);
+                } finally {
+                    // navigate("/");
+                }
             } else {
                 setVerifiedTerms(false);
                 setAlert(true);
@@ -59,6 +77,11 @@ export const SignUp = (props) => {
             setVerifiedPassword(false);
         }
     }
+    
+    // function checkEmailValidity() {
+    //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //     return emailRegex.test(email);
+    // }
 
     function checkPassword() {
         var fail = false;
@@ -168,7 +191,6 @@ export const SignUp = (props) => {
         return false;
     }
 
-
     function setCheckedTerms() {
         setTerms(!terms);
         setVerifiedTerms(!verifiedTerms);
@@ -191,7 +213,7 @@ export const SignUp = (props) => {
                         justifyContent: 'center',
                     }}>Sign Up</h1>
                     <br></br>
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group controlId="formBasicUsername">
                         <Form.Label 
                         style={{
                             color: "white",
@@ -209,6 +231,27 @@ export const SignUp = (props) => {
                             textShadow: "2px 2px 4px #FF0000",
                         }}>
                             {usernameError}
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <br></br>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label 
+                        style={{
+                            color: "white",
+                            textShadow: "2px 2px 4px #000000",
+                        }}>Email: </Form.Label>
+                        <Form.Control
+                            isInvalid={!verifiedEmail}
+                            type="username"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}/>
+                        <Form.Control.Feedback type="invalid"
+                        style={{
+                            color: "white",
+                            textShadow: "2px 2px 4px #FF0000",
+                        }}>
+                            {emailError}
                         </Form.Control.Feedback>
                     </Form.Group>
                     <br></br>
@@ -254,6 +297,8 @@ export const SignUp = (props) => {
                         </Form.Control.Feedback>
                         <p style={{
                             width: '300px',
+                            fontSize: '0.85em',
+                            marginTop: '0.5em',
                         }}>Password must be at least
                              8 characters long, contain a capital letter,
                               a number, and have no spaces.</p>

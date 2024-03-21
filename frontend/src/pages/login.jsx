@@ -25,7 +25,13 @@ const Login = (props) => {
         console.log(password);
 
         async function fetchData() {
-            const response = await fetch(`http://localhost:5050/`);
+            const response = await fetch(`http://localhost:5050/record`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+            });
             if (!response.ok) {
                 setAlertVisible(true);
                 const message = `An error has occurred: ${response.statusText}`;
@@ -43,8 +49,8 @@ const Login = (props) => {
             }
             if (!record) {
                 setAlertVisible(true);
-                setAlertError(`Record with username ${username} not found`);
-                console.log(`Record with username ${username} not found`);
+                setAlertError(`Profile with username ${username} not found`);
+                console.log(`Profile with username ${username} not found`);
                 navigate("/");
                 return;
             }

@@ -18,20 +18,20 @@ router.get("/", async (req, res) => {
   res.send(results).status(200);
 });
 
-// // This section will help you get a single record by username
-// router.get("/:username", async (req, res) => {
-//   try {
-//     let collection = await db.collection("records");
-//     let query = { username: req.params.username };
-//     let result = await collection.findOne(query);
+// This section will help you get a single record by username
+router.get("/:username", async (req, res) => {
+  try {
+    let collection = await db.collection("records");
+    let query = { username: req.params.username };
+    let result = await collection.findOne(query);
 
-//     if (!result) res.send("Not found").status(404);
-//     else res.send(result).status(200);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send("Error retrieving record");
-//   }
-// });
+    if (!result) res.send("Not found").status(404);
+    else res.send(result).status(200);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error retrieving record");
+  }
+});
 
 // This section will help you get a single record by id
 router.get("/:id", async (req, res) => {
@@ -44,12 +44,12 @@ router.get("/:id", async (req, res) => {
 });
 
 // This section will help you create a new record.
-router.post("/", async (req, res) => {
+router.post("/create", async (req, res) => {
   try {
     let newDocument = {
-      name: req.body.name,
-      position: req.body.position,
-      level: req.body.level,
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
     };
     let collection = await db.collection("records");
     let result = await collection.insertOne(newDocument);
@@ -66,9 +66,9 @@ router.patch("/:id", async (req, res) => {
     const query = { _id: new ObjectId(req.params.id) };
     const updates = {
       $set: {
-        name: req.body.name,
-        position: req.body.position,
-        level: req.body.level,
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
       },
     };
 

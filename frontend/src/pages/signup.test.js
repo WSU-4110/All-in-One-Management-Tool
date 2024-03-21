@@ -1,7 +1,8 @@
 import { containsNumber, containsSpace, containsUpperCase, eightCharacters, fieldNotEmpty, checkEmailValidity, checkPasswordsMatch } from './signup';
+const containsNumberTest = require('./signup').containsNumber;
 
 test('Sends a string without a number to check if it has a number', () => {
-    const result = containsNumber('abcdefg');
+    const result = containsNumberTest('abcdefg');
     expect(result).toBe(false);
 });
 

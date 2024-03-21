@@ -7,27 +7,27 @@ import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
 import '../stylesheets/backgroundstyles.css';
 
-export function containsNumber(str) {
+function containsNumber(str) {
     return /\d/.test(str);
 }
 
-export function containsUpperCase(str) {
+function containsUpperCase(str) {
     return /[A-Z]/.test(str);
 }
 
-export function containsSpace(str) {
+function containsSpace(str) {
     return (!(/\s/.test(str)));
 }
 
-export function eightCharacters(str) {
+function eightCharacters(str) {
     return (str.length >= 8);
 }
 
-export function fieldNotEmpty(str) {
+function fieldNotEmpty(str) {
     return (str !== '');
 }
 
-export function checkEmailValidity(userEmail) {
+function checkEmailValidity(userEmail) {
     const atIndex = userEmail.indexOf('@');
     const dotIndex = userEmail.lastIndexOf('.');
     if ((atIndex > 0) && (dotIndex > atIndex + 1) && (dotIndex < userEmail.length - 1)) {
@@ -36,7 +36,7 @@ export function checkEmailValidity(userEmail) {
     return false;
 }
 
-export function checkPasswordsMatch(userPassword1, userPassword2) {
+function checkPasswordsMatch(userPassword1, userPassword2) {
     if (userPassword1 === userPassword2) {
         return true;
     }
@@ -44,12 +44,12 @@ export function checkPasswordsMatch(userPassword1, userPassword2) {
 }
 
 module.exports = containsNumber;
-module.exports = containsSpace;
-module.exports = containsUpperCase;
-module.exports = eightCharacters;
-module.exports = fieldNotEmpty;
-module.exports = checkEmailValidity;
-module.exports = checkPasswordsMatch;
+// module.exports = containsSpace;
+// module.exports = containsUpperCase;
+// module.exports = eightCharacters;
+// module.exports = fieldNotEmpty;
+// module.exports = checkEmailValidity;
+// module.exports = checkPasswordsMatch;
 
 export const SignUp = (props) => {
     const [username, setUsername] = useState('');

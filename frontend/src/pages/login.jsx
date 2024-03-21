@@ -8,7 +8,6 @@ import '../stylesheets/backgroundstyles.css';
 
 const Login = (props) => {
     const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [verifiedUsername, setVerifiedUsername] = useState(false);
     const [usernameError, setUsernameError] = useState('');
@@ -16,15 +15,21 @@ const Login = (props) => {
     const [passwordError, setPasswordError] = useState('');
     const [alertVisible, setAlertVisible] = useState(false);
     const [alertError, setAlertError] = useState('');
-    const [data, setData] = useState([]);
+    const [dbUsername, setDbUsername] = useState('');
+    const [dbPassword, setDbPassword] = useState('');
+    const [data, setData] = useState('');
     const navigate = useNavigate();
     
     async function handleSubmit(e) {
         e.preventDefault();
         console.log(username);
         console.log(password);
+        setDbUsername('');
+        setDbPassword('');
+        setAlertVisible(false);
+        setAlertError('');
 
-        async function fetchData() {
+        if (verifyUsername() && verifyPassword()) {
             const response = await fetch(`http://localhost:5050/record`, {
                 method: "GET",
                 headers: {
@@ -41,25 +46,41 @@ const Login = (props) => {
             }
             // Looks to see if username exists in the database
             const record = await response.json();
+            console.log(record);
+            console.log(record[0]);
+            console.log(record[0].username);
+            console.log(username);
+            console.log(record[0].password);
+            console.log(password);
+            console.log(record[0].username == username);
+            console.log(record[0].username === username);
+            console.log(record[0].password == password);
+            console.log(record[0].password === password);
+            
             for (let i = 0; i < record.length; i++) {
                 if (record[i].username === username) {
-                    setData(record[i]);
+                    console.log(record[i]);
+                    console.log(record[i].username);
+                    setData(record[i].password);
+                    setDbUsername(record[i].username);
+                    setDbPassword(record[i].password);
                     break;
                 }
             }
-            if (!record) {
+
+            console.log(data);
+            console.log(data[1]);
+            console.log(data[1] === password);
+            console.log(dbUsername);
+            console.log(dbPassword);
+            if (dbUsername === '') {
                 setAlertVisible(true);
                 setAlertError(`Profile with username ${username} not found`);
                 console.log(`Profile with username ${username} not found`);
                 navigate("/");
                 return;
             }
-            setData(record);
-        }
-
-        if (verifyUsername() && verifyPassword()) {
-            fetchData();
-            if (data.password === password.toString()) {
+            if (data === password) {
                 navigate("/home");
             } else {
                 setAlertVisible(true);

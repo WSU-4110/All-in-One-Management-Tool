@@ -3,7 +3,7 @@ import { Link , useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
-import Alert from "react";
+import Alert from "react-bootstrap/Alert";
 import '../stylesheets/backgroundstyles.css';
 
 const Login = (props) => {
@@ -40,7 +40,7 @@ const Login = (props) => {
                 console.log(message)
                 return;
             }
-            // Looks to see if username exists in the database
+            // Looks for the user's account information in the database using the username the user provided.
             const record = await response.json();
             for (let i = 0; i < record.length; i++) {
                 if (record[i].username === username) {
@@ -50,11 +50,10 @@ const Login = (props) => {
             }
 
             console.log(accountData);
-            if (accountData.length === 0) {
+            if (accountData === undefined) {
                 setAlertVisible(true);
                 setAlertError(`Profile with username ${username} not found`);
                 console.log(`Profile with username ${username} not found`);
-                navigate("/");
                 return;
             }
             if (accountData.password === password) {
@@ -177,19 +176,30 @@ const Login = (props) => {
                         </Form.Control.Feedback>
                     </Form.Group>
                     <br></br>
+                    <Alert show={alertVisible} variant="danger"
+                    style={{
+                        width: "300px",
+                        display: "block",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "red"
+                    }}>
+                        {alertError}
+                        <br></br>
+                    </Alert>
                     <Col
                     style={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}>
+                        <Link to="/signup" className="mx-1">
+                            <Button variant="primary">Sign Up</Button>
+                        </Link>
                         <Button variant="primary" type="submit"
                         className="mx-1" onClick={handleSubmit}>
                             Login
                         </Button>
-                        <Link to="/signup" className="mx-1">
-                            <Button variant="primary">Sign Up</Button>
-                        </Link>
                     </Col>
 
                 </Form>

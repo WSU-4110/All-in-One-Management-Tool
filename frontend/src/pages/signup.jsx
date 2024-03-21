@@ -22,9 +22,12 @@ export const SignUp = (props) => {
     const [verifiedEmail, setVerifiedEmail] = useState(true);
     const [verifiedPassword, setVerifiedPassword] = useState(true);
     const [verifiedTerms, setVerifiedTerms] = useState(false);
-    const [alert, setAlert] = useState(false);
+    const [termsAlert, setTermsAlert] = useState(false);
+    const [verificationAlert, setVerificationAlert] = useState(false);
+    const [alertError, setAlertError] = useState('');
     const navigate = useNavigate();
 
+    // UseEffect to check if fields are not empty
     useEffect(() => {
         if (username !== '') {
             setVerifiedUsername(true);
@@ -40,14 +43,51 @@ export const SignUp = (props) => {
         }
     }, [username, email, password1, password2]);
 
+    // Function to handle the submit button
     async function handleSubmit(e) {
         e.preventDefault();
         console.log(username);
         console.log(email);
         console.log(password1);
+        setVerificationAlert(false);
+        setAlertError('');
 
-        if (checkPassword()){
+        // If all fields are valid, then create a new record
+        if (checkPassword() && checkEmailValidity()){
             if (terms) {
+                const response = await fetch(`http://localhost:5050/record`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                    },
+                });
+                if (!response.ok) {
+                    setVerificationAlert(true);
+                    const message = `An error has occurred: ${response.statusText}`;
+                    setAlertError(message);
+                    console.log(message)
+                    return;
+                }
+                // Checks the database to see if the username is available.
+                const record = await response.json();
+                for (let i = 0; i < record.length; i++) {
+                    if (record[i].username === username) {
+                        setVerificationAlert(true);
+                        setAlertError(`Profile with username ${username} already exists`);
+                        console.log(`Profile with username ${username} already exists`);
+                        return;
+                    }
+                }
+                // Checks the database to see if the email is available.
+                for (let i = 0; i < record.length; i++) {
+                    if (record[i].email === email) {
+                        setVerificationAlert(true);
+                        setAlertError(`Profile with email ${email} already exists`);
+                        console.log(`Profile with email ${email} already exists`);
+                        return;
+                    }
+                }
                 try {
                     const response = await fetch(`http://localhost:5050/record/create`, {
                     method: "POST",
@@ -70,7 +110,7 @@ export const SignUp = (props) => {
                 }
             } else {
                 setVerifiedTerms(false);
-                setAlert(true);
+                setTermsAlert(true);
             }
         }
         else {
@@ -78,11 +118,21 @@ export const SignUp = (props) => {
         }
     }
     
-    // function checkEmailValidity() {
-    //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //     return emailRegex.test(email);
-    // }
+    // Function to check if email is valid
+    function checkEmailValidity() {
+        const atIndex = email.indexOf('@');
+        const dotIndex = email.lastIndexOf('.');
+        if ((atIndex > 0) && (dotIndex > atIndex + 1) && (dotIndex < email.length - 1)) {
+            setVerifiedEmail(true);
+            return true;
+        } else {
+            setVerifiedEmail(false);
+            setEmailError('Please enter a valid email');
+            return false;
+        }
+    }
 
+    // Function to check if password is valid
     function checkPassword() {
         var fail = false;
         if (!checkFieldsNotEmpty()) {
@@ -98,8 +148,9 @@ export const SignUp = (props) => {
         return false;
     }
 
+    // Function to check if fields are not empty
     function checkFieldsNotEmpty() {
-
+        // Function to check if username is not empty
         function checkUsernameNotEmpty() {
             if (username === '') {
                 setVerifiedUsername(false);
@@ -109,7 +160,7 @@ export const SignUp = (props) => {
             setVerifiedUsername(true);
             return true;
         }
-
+        // Function to check if password1 is not empty
         function checkPassword1NotEmpty() {
             if (password1 === '') {
                 setVerifiedPassword(false);
@@ -119,7 +170,7 @@ export const SignUp = (props) => {
             setVerifiedPassword(true);
             return true;
         }
-
+        // Function to check if password2 is not empty
         function checkPassword2NotEmpty() {
             if (password2 === '' && password1 === '') {
                 setVerifiedPassword(false);
@@ -133,17 +184,17 @@ export const SignUp = (props) => {
             setVerifiedPassword(true);
             return true;
         }
-
+        // Checks to see if username, password1, and password2 are not empty
         var usernameValid = checkUsernameNotEmpty();
         var password1Valid = checkPassword1NotEmpty();
         var password2Valid = checkPassword2NotEmpty();
-
         if (usernameValid && password1Valid && password2Valid) {
             return true;
         }
         return false;
     }
 
+    // Function to check if passwords match
     function checkPasswordsMatch() {
         if (password1 !== password2) {
             setVerifiedPassword(false);
@@ -155,6 +206,7 @@ export const SignUp = (props) => {
         return true;
     }
 
+    // Function to check if password complies with password requirements
     function checkPasswordComplexity() {
         var hasNumber = /\d/;
         var hasUpper = /[A-Z]/;
@@ -191,6 +243,7 @@ export const SignUp = (props) => {
         return false;
     }
 
+    // Function to set the terms and conditions checkbox
     function setCheckedTerms() {
         setTerms(!terms);
         setVerifiedTerms(!verifiedTerms);
@@ -314,22 +367,34 @@ export const SignUp = (props) => {
                         textShadow: '2px 2px 4px #000000'}}
                         />
                         <br></br>
-                        <Alert show={alert} variant="danger"
+                        <Alert show={termsAlert} variant="danger"
                         style={{
-                            textShadow: "2px 2px 4px #FF0000",
+                            // textShadow: "2px 2px 4px #FF0000",
+                            color: "red",
                         }}>
                             You must agree to the terms and conditions
                         </Alert>
                     </Form.Group>
+                    <Alert show={verificationAlert} variant="danger"
+                    style={{
+                        // textShadow: "2px 2px 4px #FF0000",
+                        color: "red",
+                    }}>
+                        {alertError}
+                    </Alert>
                     <Col
                     style={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}>
-                        <Link to="/" className='mx-1'>
+                        {/* <Link to="/" className='mx-1'>
                             <Button variant="primary">Back</Button>
-                        </Link>
+                        </Link> */}
+                        <Button variant="primary" type="button"
+                        onClick={() => navigate('/')} className="mx-1">
+                            Back
+                        </Button>
                         <Button variant="primary" type="submit"
                         onClick={handleSubmit} className="mx-1">
                             Sign Up

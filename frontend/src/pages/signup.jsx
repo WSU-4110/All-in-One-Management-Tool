@@ -1,12 +1,55 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
 import '../stylesheets/backgroundstyles.css';
+
+export function containsNumber(str) {
+    return /\d/.test(str);
+}
+
+export function containsUpperCase(str) {
+    return /[A-Z]/.test(str);
+}
+
+export function containsSpace(str) {
+    return (!(/\s/.test(str)));
+}
+
+export function eightCharacters(str) {
+    return (str.length >= 8);
+}
+
+export function fieldNotEmpty(str) {
+    return (str !== '');
+}
+
+export function checkEmailValidity(userEmail) {
+    const atIndex = userEmail.indexOf('@');
+    const dotIndex = userEmail.lastIndexOf('.');
+    if ((atIndex > 0) && (dotIndex > atIndex + 1) && (dotIndex < userEmail.length - 1)) {
+        return true;
+    }
+    return false;
+}
+
+export function checkPasswordsMatch(userPassword1, userPassword2) {
+    if (userPassword1 === userPassword2) {
+        return true;
+    }
+    return false;
+}
+
+module.exports = containsNumber;
+module.exports = containsSpace;
+module.exports = containsUpperCase;
+module.exports = eightCharacters;
+module.exports = fieldNotEmpty;
+module.exports = checkEmailValidity;
+module.exports = checkPasswordsMatch;
 
 export const SignUp = (props) => {
     const [username, setUsername] = useState('');
@@ -53,7 +96,7 @@ export const SignUp = (props) => {
         setAlertError('');
 
         // If all fields are valid, then create a new record
-        if (checkPassword() && checkEmailValidity()){
+        if (checkPassword(username, password1, password2) && checkEmailValidity(email)){
             if (terms) {
                 const response = await fetch(`http://localhost:5050/record`, {
                     method: "GET",
@@ -118,119 +161,157 @@ export const SignUp = (props) => {
         }
     }
     
-    // Function to check if email is valid
-    function checkEmailValidity() {
-        const atIndex = email.indexOf('@');
-        const dotIndex = email.lastIndexOf('.');
-        if ((atIndex > 0) && (dotIndex > atIndex + 1) && (dotIndex < email.length - 1)) {
-            setVerifiedEmail(true);
-            return true;
-        } else {
-            setVerifiedEmail(false);
-            setEmailError('Please enter a valid email');
-            return false;
-        }
-    }
+    // // Function to check if email is valid
+    // function checkEmailValidity(userEmail) {
+    //     const atIndex = userEmail.indexOf('@');
+    //     const dotIndex = userEmail.lastIndexOf('.');
+    //     if ((atIndex > 0) && (dotIndex > atIndex + 1) && (dotIndex < userEmail.length - 1)) {
+    //         setVerifiedEmail(true);
+    //         return true;
+    //     } else {
+    //         setVerifiedEmail(false);
+    //         setEmailError('Please enter a valid email');
+    //         return false;
+    //     }
+    // }
 
     // Function to check if password is valid
-    function checkPassword() {
-        var fail = false;
-        if (!checkFieldsNotEmpty()) {
-            fail = true;
-        }
-        if (verifiedPassword && checkPasswordsMatch()) {
-            if (checkPasswordComplexity()) {
-                if (!fail) {
-                    return true;
+    function checkPassword(userUsername, userPassword1, userPassword2) {
+        if (fieldsNotEmpty(userUsername, userPassword1, userPassword2)) {
+            if (checkPasswordsMatch(userPassword1, userPassword2)) {
+                setVerifiedPassword(true);
+                if (checkPasswordComplexity(userPassword1)) {
+                    return true
                 }
+            } else {
+                setVerifiedPassword(false);
+                setPassword1Error("Passwords do not match");
+                setPassword2Error("Passwords do not match");                
             }
         }
         return false;
+        // if (!checkFieldsNotEmpty(userUsername, userPassword1, userPassword2)) {
+        //     fail = true;
+        // }
+        // if (verifiedPassword && checkPasswordsMatch(userPassword1, userPassword2)) {
+        //     // if (checkPasswordComplexity(userPassword1)) {
+        //     //     if (!fail) {
+        //     //         return true;
+        //     //     }
+        //     // }
+        // }
+        // return false;
     }
 
-    // Function to check if fields are not empty
-    function checkFieldsNotEmpty() {
-        // Function to check if username is not empty
-        function checkUsernameNotEmpty() {
-            if (username === '') {
-                setVerifiedUsername(false);
-                setUsernameError('Please enter a username');
-                return false;
-            }
+    function fieldsNotEmpty(userUsername, userPassword1, userPassword2) {
+        var fail = false;
+        if (fieldNotEmpty(userUsername)) {
+            fail = true;
+            setVerifiedUsername(false);
+            setUsernameError('Please enter a username');
+        } else {
             setVerifiedUsername(true);
-            return true;
         }
-        // Function to check if password1 is not empty
-        function checkPassword1NotEmpty() {
-            if (password1 === '') {
-                setVerifiedPassword(false);
-                setPassword1Error('Please enter a password');
-                return false;
-            }
-            setVerifiedPassword(true);
-            return true;
-        }
-        // Function to check if password2 is not empty
-        function checkPassword2NotEmpty() {
-            if (password2 === '' && password1 === '') {
-                setVerifiedPassword(false);
-                setPassword2Error('Please enter a password');
-                return false;
-            } else if (password2 === '') {
-                setVerifiedPassword(false);
-                setPassword2Error('Please confirm your password');
-                return false;
-            }
-            setVerifiedPassword(true);
-            return true;
-        }
-        // Checks to see if username, password1, and password2 are not empty
-        var usernameValid = checkUsernameNotEmpty();
-        var password1Valid = checkPassword1NotEmpty();
-        var password2Valid = checkPassword2NotEmpty();
-        if (usernameValid && password1Valid && password2Valid) {
-            return true;
-        }
-        return false;
-    }
-
-    // Function to check if passwords match
-    function checkPasswordsMatch() {
-        if (password1 !== password2) {
+        if (fieldNotEmpty(userPassword1)) {
+            fail = true;
             setVerifiedPassword(false);
-            setPassword1Error('Passwords do not match');
-            setPassword2Error('Passwords do not match');
+            setPassword1Error('Please enter a password');
+        } else {
+            setVerifiedPassword(true);
+        }
+        if (fieldNotEmpty(userPassword2)) {
+            fail = true;
+            setVerifiedPassword(false);
+            setPassword2Error('Please confirm your password');
+        } else {
+            setVerifiedPassword(true);
+        }
+        if (fail) {
             return false;
         }
-        setVerifiedPassword(true);
         return true;
     }
+    // // Function to check if fields are not empty
+    // function checkFieldsNotEmpty(userUsername, userPassword1, userPassword2) {
+    //     // Function to check if username is not empty
+    //     function checkUsernameNotEmpty() {
+    //         if (userUsername === '') {
+    //             setVerifiedUsername(false);
+    //             setUsernameError('Please enter a username');
+    //             return false;
+    //         }
+    //         setVerifiedUsername(true);
+    //         return true;
+    //     }
+    //     // Function to check if password1 is not empty
+    //     function checkPassword1NotEmpty() {
+    //         if (userPassword1 === '') {
+    //             setVerifiedPassword(false);
+    //             setPassword1Error('Please enter a password');
+    //             return false;
+    //         }
+    //         setVerifiedPassword(true);
+    //         return true;
+    //     }
+    //     // Function to check if password2 is not empty
+    //     function checkPassword2NotEmpty() {
+    //         if (userPassword2 === '' && userPassword1 === '') {
+    //             setVerifiedPassword(false);
+    //             setPassword2Error('Please enter a password');
+    //             return false;
+    //         } else if (userPassword2 === '') {
+    //             setVerifiedPassword(false);
+    //             setPassword2Error('Please confirm your password');
+    //             return false;
+    //         }
+    //         setVerifiedPassword(true);
+    //         return true;
+    //     }
+    //     // Checks to see if username, password1, and password2 are not empty
+    //     var usernameValid = checkUsernameNotEmpty();
+    //     var password1Valid = checkPassword1NotEmpty();
+    //     var password2Valid = checkPassword2NotEmpty();
+    //     if (usernameValid && password1Valid && password2Valid) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
+
+    // // Function to check if passwords match
+    // function checkPasswordsMatch(userPassword1, userPassword2) {
+    //     if (userPassword1 !== userPassword2) {
+    //         setVerifiedPassword(false);
+    //         setPassword1Error('Passwords do not match');
+    //         setPassword2Error('Passwords do not match');
+    //         return false;
+    //     }
+    //     setVerifiedPassword(true);
+    //     return true;
+    // }
 
     // Function to check if password complies with password requirements
-    function checkPasswordComplexity() {
-        var hasNumber = /\d/;
-        var hasUpper = /[A-Z]/;
+    
+    function checkPasswordComplexity(userPassword) {
         var fail = false;
-        console.log(password1);
-        if (!hasNumber.test(password1)) {
+        if (!containsNumber(userPassword)) {
             fail = true;
             setVerifiedPassword(false);
             setPassword1Error('Password must contain a number');
             setPassword2Error('Password must contain a number');
         }
-        if (!hasUpper.test(password1)) {
+        if (!containsUpperCase(userPassword)) {
             fail = true;
             setVerifiedPassword(false);
             setPassword1Error('Password must contain an uppercase letter');
             setPassword2Error('Password must contain an uppercase letter');
         }
-        if (password1.includes(' ')) {
+        if (!containsSpace(userPassword)) {
             fail = true;
             setVerifiedPassword(false);
             setPassword1Error('Password must not contain spaces');
             setPassword2Error('Password must not contain spaces');
         }
-        if (password1.length < 8) {
+        if (!eightCharacters(userPassword)) {
             fail = true;
             setVerifiedPassword(false);
             setPassword1Error('Password must be at least 8 characters long');
@@ -242,6 +323,43 @@ export const SignUp = (props) => {
         }
         return false;
     }
+
+    // // Function to check if password complies with password requirements
+    // function checkPasswordComplexity(userPassword) {
+    //     var hasNumber = /\d/;
+    //     var hasUpper = /[A-Z]/;
+    //     var fail = false;
+    //     console.log(userPassword);
+    //     if (!hasNumber.test(userPassword)) {
+    //         fail = true;
+    //         setVerifiedPassword(false);
+    //         setPassword1Error('Password must contain a number');
+    //         setPassword2Error('Password must contain a number');
+    //     }
+    //     if (!hasUpper.test(userPassword)) {
+    //         fail = true;
+    //         setVerifiedPassword(false);
+    //         setPassword1Error('Password must contain an uppercase letter');
+    //         setPassword2Error('Password must contain an uppercase letter');
+    //     }
+    //     if (userPassword.includes(' ')) {
+    //         fail = true;
+    //         setVerifiedPassword(false);
+    //         setPassword1Error('Password must not contain spaces');
+    //         setPassword2Error('Password must not contain spaces');
+    //     }
+    //     if (userPassword.length < 8) {
+    //         fail = true;
+    //         setVerifiedPassword(false);
+    //         setPassword1Error('Password must be at least 8 characters long');
+    //         setPassword2Error('Password must be at least 8 characters long');
+    //     }
+    //     if (!fail) {
+    //         setVerifiedPassword(true);
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
     // Function to set the terms and conditions checkbox
     function setCheckedTerms() {

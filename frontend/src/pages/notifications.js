@@ -16,8 +16,12 @@ export default function Noficications() {
             <div className="notifications-list">
                 {/* alskjdlkasjdlkjasd */}
                 <div className="notification-item">
-                    <p className="notification-text">Welcome to your new management tool!</p>
-                    <span className="notification-date">Feb 22, 2024</span>
+                    <p className="notification-text"
+                    style={{
+                        color: "white",
+                        textShadow: "2px 2px 4px #000000",
+                    }}>Welcome to your new management tool!</p>
+                    {/* <span className="notification-date">Feb 22, 2024</span> */}
                 </div>
             </div>
         </div>

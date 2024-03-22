@@ -25,6 +25,17 @@ const Login = (props) => {
         setAlertError('');
         let accountData;
 
+        async function setSessionVariables(username, password, email,
+                notifications, locations, tasks, events) {
+            sessionStorage["Username"] = username;
+            sessionStorage["Password"] = password;
+            sessionStorage["Email"] = email;
+            sessionStorage["Notifications"] = notifications;
+            sessionStorage["Locations"] = locations;
+            sessionStorage["Tasks"] = tasks;
+            sessionStorage["Events"] = events;
+        }
+
         if (verifyUsername() && verifyPassword()) {
             const response = await fetch(`http://localhost:5050/record`, {
                 method: "GET",
@@ -59,6 +70,9 @@ const Login = (props) => {
             if (accountData.password === password) {
                 setAlertVisible(false);
                 setAlertError('');
+                setSessionVariables(accountData.username, accountData.password,
+                    accountData.email, accountData.notifications,
+                    accountData.locations, accountData.tasks, accountData.events);
                 console.log("Login successful");
                 navigate("/home");
             } else {

@@ -50,6 +50,10 @@ router.post("/create", async (req, res) => {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
+      notifications: req.body.notifications,
+      locations: req.body.locations,
+      tasks: req.body.tasks,
+      events: req.body.events,
     };
     let collection = await db.collection("records");
     let result = await collection.insertOne(newDocument);
@@ -69,6 +73,10 @@ router.patch("/:id", async (req, res) => {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
+        notifications: req.body.notifications,
+        locations: req.body.locations,
+        tasks: req.body.tasks,
+        events: req.body.events,
       },
     };
 

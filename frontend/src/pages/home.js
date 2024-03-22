@@ -8,8 +8,6 @@ import ToDoListButtonLogo from '../images/ToDoListButtonLogo.png';
 import contactUsLogo from '../images/ContactUsLogo.png';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-
-
 import {Link} from 'react-router-dom'
 import ContactForm from './contactForm';
 
@@ -18,6 +16,14 @@ export default function Home() {
     const handleContactButtonClick = () => {
         setShowContactForm(!showContactForm);
     };
+
+    console.log(sessionStorage["Username"]);
+    console.log(sessionStorage["Password"]);
+    console.log(sessionStorage["Email"]);
+    console.log(sessionStorage["Notifications"]);
+    console.log(sessionStorage["Locations"]);
+    console.log(sessionStorage["Tasks"]);
+    console.log(sessionStorage["Events"]);
 
     return (
         <div className='home-outer'>
@@ -33,7 +39,7 @@ export default function Home() {
                      <div className="button-attributes">
                      <span className="CreateEvent-ButtonImage">
                                     <img className ="CreateEvent-ButtonImageActual"
-                                    src={CreateEventLogo} alt="Logo"/>
+                                    src={CreateEventLogo} alt="Create Event Button"/>
                                 </span> 
                             <Link to="/addevent" className="link-style">
                              
@@ -45,7 +51,7 @@ export default function Home() {
                         <div className="button-attributes">
                         <span className="Calendar-ButtonImage">
                                     <img className ="Calendar-ButtonImageActual"
-                                    src={CalenderButtonLogo} alt="CalendarButtonLogo"/>
+                                    src={CalenderButtonLogo} alt="Calendar Button"/>
                                 </span> 
                             <Link to="/calendar" className="link-style">
                                
@@ -56,7 +62,7 @@ export default function Home() {
                         <div className="button-attributes">
                         <span className="ToDoList-ButtonImage">
                                     <img className ="ToDoList-ButtonImageActual"
-                                    src={ToDoListButtonLogo} alt="ToDoListLogo"/>
+                                    src={ToDoListButtonLogo} alt="To-Do List"/>
                                 </span> 
                             <Link to = "/todolist" className="link-style">
                                
@@ -68,7 +74,7 @@ export default function Home() {
                         <div className="button-attributes">
                         <span className="Settings-ButtonImage">
                                     <img className ="Settings-ButtonImageActual"
-                                    src={SettingsButtonLogo} alt="ToDoListLogo"/>
+                                    src={SettingsButtonLogo} alt="Settings Button"/>
                                 </span> 
                             <Link to ="/settings" className="link-style">
                                
@@ -80,7 +86,7 @@ export default function Home() {
                     </div>
                     <div className='contact-us-section'>
                         <button className="contact-button" onClick={handleContactButtonClick}>
-                            <img className = "contactUs-image" src={contactUsLogo} /> Contact Us
+                            <img className = "contactUs-image" src={contactUsLogo} alt="Contact Us Button" /> Contact Us
                         </button>
                         {showContactForm && <ContactForm />}
                     </div>

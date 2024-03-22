@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
 import '../stylesheets/backgroundstyles.css';
-import { Home } from "./Home";
+import Home from "./home";
 
 const Login = (props) => {
     const [username, setUsername] = useState('');
@@ -61,11 +61,14 @@ const Login = (props) => {
                 setAlertVisible(false);
                 setAlertError('');
                 console.log("Login successful");
-                <Home
-                    username={accountData.username}
-                    password={accountData.password}
-                    email={accountData.email}/>
-                // navigate("/home");
+                sessionStorage['Username'] = accountData.username;
+                sessionStorage['Password'] = accountData.password;
+                // sessionStorage['Email'] = accountData.email;
+                // <Home
+                //     username={accountData.username}
+                //     password={accountData.password}
+                //     email={accountData.email}/>
+                navigate("/home");
             } else {
                 setAlertVisible(true);
                 setAlertError("Incorrect username or password.");

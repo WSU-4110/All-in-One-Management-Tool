@@ -11,14 +11,14 @@ import Footer from '../components/Footer';
 import {Link} from 'react-router-dom';
 import ContactForm from './contactForm';
 
-export default function Home(props) {
+const Home = (props) =>{
     const [showContactForm, setShowContactForm] = useState(false);
     const handleContactButtonClick = () => {
         setShowContactForm(!showContactForm);
     };
-    console.log(props.username);
-    console.log(props.password);
-    console.log(props.email);
+    console.log(sessionStorage["Username"]);
+    console.log(sessionStorage["Password"]);
+    // console.log(props.email);
 
     return (
         <div className='home-outer'>
@@ -93,4 +93,6 @@ export default function Home(props) {
             </div>
     </div>
     )
-}
+};
+
+export default Home;

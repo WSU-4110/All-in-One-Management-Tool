@@ -93,7 +93,9 @@ export const SignUp = (props) => {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ username: username, email: email, password: password1 }),
+                    body: JSON.stringify(
+                        { username: username, email: email, password: password1,
+                        notifications: "", locations: [], tasks: [], events: []}),
                     });
                 
                     if (!response.ok) {
@@ -104,8 +106,6 @@ export const SignUp = (props) => {
                     }
                 } catch (error) {
                     console.error('A problem occurred with your fetch operation: ', error);
-                } finally {
-                    // navigate("/");
                 }
             } else {
                 setVerifiedTerms(false);
@@ -351,6 +351,7 @@ export const SignUp = (props) => {
                             width: '300px',
                             fontSize: '0.85em',
                             marginTop: '0.5em',
+                            color: "white",
                         }}>Password must be at least
                              8 characters long, contain a capital letter,
                               a number, and have no spaces.</p>

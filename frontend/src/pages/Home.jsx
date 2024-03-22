@@ -8,16 +8,17 @@ import ToDoListButtonLogo from '../images/ToDoListButtonLogo.png';
 import contactUsLogo from '../images/ContactUsLogo.png';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-
-
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
 import ContactForm from './contactForm';
 
-export default function Home() {
+export default function Home(props) {
     const [showContactForm, setShowContactForm] = useState(false);
     const handleContactButtonClick = () => {
         setShowContactForm(!showContactForm);
     };
+    console.log(props.username);
+    console.log(props.password);
+    console.log(props.email);
 
     return (
         <div className='home-outer'>

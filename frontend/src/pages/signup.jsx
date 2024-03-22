@@ -95,7 +95,7 @@ export const SignUp = (props) => {
                     },
                     body: JSON.stringify(
                         { username: username, email: email, password: password1,
-                        notifications: "", locations: [], tasks: [], events: []}),
+                        notifications: "all", locations: ["Home", "Work", "School"], tasks: [], events: []}),
                     });
                 
                     if (!response.ok) {

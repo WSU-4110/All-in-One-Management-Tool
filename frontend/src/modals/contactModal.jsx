@@ -57,7 +57,7 @@ export default function ContactModal() {
                 <Modal.Body>
                     <Form noValidate>
                         <Form.Group controlId="name">
-                            <Form.Label >Your Name</Form.Label>
+                            <Form.Label >Name</Form.Label>
                             <Form.Control
                                 type="username"
                                 isInvalid={!validName}
@@ -81,7 +81,7 @@ export default function ContactModal() {
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group controlId="message">
-                            <Form.Label>Your Message</Form.Label>
+                            <Form.Label>Message</Form.Label>
                             <Form.Control
                                 as="textarea"
                                 rows={3}

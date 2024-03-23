@@ -45,12 +45,14 @@ export default function Profile() {
     const [addLocation, setAddLocation] = useState('');
     const [validLocation, setValidLocation] = useState(true);
     const [locationSuccess, setLocationSuccess] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
     const [key, setKey] = useState(0);
     const navigate = useNavigate();
 
 
 
     const validateLocation = (e) => {
+        setAddLocation(e);
         if (e === '') {
             return false;
         }
@@ -60,7 +62,6 @@ export default function Profile() {
                 return false;
             }
         }
-        setAddLocation(e);
         setValidLocation(true);
         return true;
     }
@@ -72,6 +73,7 @@ export default function Profile() {
             setNewLocation(false);
             setSelectedLocation("Select A Location");
             setLocationSuccess(true);
+            setSuccessMessage("Location successfully added!");
             setKey(key+1);
         }
     }
@@ -86,6 +88,9 @@ export default function Profile() {
         setLocations(locations.filter((location) => location !== selectedLocation));
         sessionStorage["Locations"] = locations.filter((location) => location !== selectedLocation);
         setSelectedLocation('Select A Location');
+        setLocationSuccess(true);
+        setSuccessMessage("Location successfully deleted!");
+        setKey(key+1);
     }
 
     const addNewLocation = () => {
@@ -286,7 +291,7 @@ export default function Profile() {
                         <br></br>
                         <Expire delay="4000" key={key}>
                             <Alert show={locationSuccess} variant='success'>
-                                Location successfully added!
+                                {successMessage}
                             </Alert>
                         </Expire>
                         <Col

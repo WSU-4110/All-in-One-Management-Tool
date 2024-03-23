@@ -6,55 +6,52 @@ import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 export default function Addevent() {
-    const [getClass, setClass] = useState("");
-    const [getAssignment, setAssignment] = useState("");
+    const [getName, setName] = useState("");
     const [getDueDate, setDueDate] = useState("");
     const [getDescription, setDescription] = useState("");
-    const [validClass, setValidClass] = useState(true);
-    const [validAssignment, setValidAssignment] = useState(true);
+    const [getLocation, setLocation] = useState("Select A Location");
+    const [locations, setLocations] = useState([]);
+    const [validName, setValidName] = useState(true);
     const [validDueDate, setValidDueDate] = useState(true);
 
     const nav = useNavigate();
 
-    function changeClass(e) {
-        e.preventDefault();
-        setClass(e.target.value);
-    }
+    // function changeName(e) {
+    //     e.preventDefault();
+    //     setName(e.target.value);
+    // }
 
-    function changeAssigment(e) {
-        e.preventDefault();
-        setAssignment(e.target.value);
-    }
+    // function changeAssigment(e) {
+    //     e.preventDefault();
+    //     setAssignment(e.target.value);
+    // }
 
-    function changeDueDate(e) {
-        e.preventDefault();
-        setDueDate(e.target.value);
-    }
+    // function changeDueDate(e) {
+    //     e.preventDefault();
+    //     setDueDate(e.target.value);
+    // }
 
-    function changeDescription(e) {
-        e.preventDefault();
-        setDescription(e.target.value);
-    }
+    // function changeDescription(e) {
+    //     e.preventDefault();
+    //     setDescription(e.target.value);
+    // }
 
     function checkForEmpty() {
-        if (getClass === "") {
-            setValidClass(false);
+        if (getName === "") {
+            setValidName(false);
         } else {
-            setValidClass(true);
-        }
-        if (getAssignment === "") {
-            setValidAssignment(false);
-        } else {
-            setValidAssignment(true);
+            setValidName(true);
         }
         if (getDueDate === "") {
             setValidDueDate(false);
         } else {
             setValidDueDate(true);
         }
-        if (getClass === "" || getAssignment === "" || getDueDate === "") {
+        if (getName === "" || getDueDate === "") {
             return false;
         }
         return true;
@@ -71,8 +68,7 @@ export default function Addevent() {
 
             const newEvent = 
             {
-                class: getClass,
-                Assignment: getAssignment,
+                name: getName,
                 DueDate: getDueDate,
                 Description: getDescription,
 
@@ -84,6 +80,23 @@ export default function Addevent() {
             console.log(Info);
             nav('/todolist');
         }
+    }
+
+    // Function to list the locations in the session storage
+    // into the locations array.
+    const locationsList = () => {
+        const locationsArray = sessionStorage["Locations"].split(',');
+        console.log(locationsArray);
+        for (var i = 0; i < locationsArray.length; i++) {
+            if (locationsArray[i] !== ''
+                && locationsArray[i] !== undefined) {
+                    if(!locations.includes(locationsArray[i])){
+                        locations.push(locationsArray[i]);
+                    }
+            }
+        }
+        console.log("locationsList: " + locations);
+        return locations;
     }
 
     return (
@@ -104,19 +117,19 @@ export default function Addevent() {
                             <Form.Label 
                             style={{
                                 color: "white",
-                            }}>Class: </Form.Label>
+                            }}>Event Name: </Form.Label>
                             <Form.Control
                             type="input"
-                            placeholder="Class"
-                            value={getClass}
-                            isInvalid={!validClass}
-                            onChange={(u) => setClass(u.target.value)}/>
+                            placeholder="Event Name"
+                            value={getName}
+                            isInvalid={!validName}
+                            onChange={(u) => setName(u.target.value)}/>
                             <Form.Control.Feedback type="invalid"
                                 style={{
                                     color: "red",
                                     textShadow: "2px 2px 4px #000000",
                                 }}>
-                                Please enter a class
+                                Please enter an event name
                             </Form.Control.Feedback>
                         </Form.Group>
                         <br></br>
@@ -124,30 +137,10 @@ export default function Addevent() {
                             <Form.Label 
                             style={{
                                 color: "white",
-                            }}>Assignment: </Form.Label>
-                            <Form.Control
-                            type="input"
-                            placeholder="Assignment"
-                            value={getAssignment}
-                            isInvalid={!validAssignment}
-                            onChange={(p) => setAssignment(p.target.value)}/>
-                            <Form.Control.Feedback type="invalid"
-                                style={{
-                                    color: "red",
-                                    textShadow: "2px 2px 4px #000000",
-                                }}>
-                                Please enter an assignment
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                        <br></br>
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label 
-                            style={{
-                                color: "white",
-                            }}>Due Date: </Form.Label>
+                            }}>Date: </Form.Label>
                             <Form.Control
                             type="date"
-                            placeholder="Due Date"
+                            placeholder="Date"
                             value={getDueDate}
                             isInvalid={!validDueDate}
                             onChange={(p) => setDueDate(p.target.value)}/>
@@ -156,7 +149,7 @@ export default function Addevent() {
                                     color: "red",
                                     textShadow: "2px 2px 4px #000000",
                                 }}>
-                                Please enter a due date
+                                Please enter a date
                             </Form.Control.Feedback>
                         </Form.Group>
                         <br></br>
@@ -176,6 +169,39 @@ export default function Addevent() {
                             fontSize: "0.8em",
                             marginTop: "0.3em",
                         }}>*Description not required</p>
+                        <Form.Label 
+                            style={{
+                                color: "white",
+                                textShadow: "2px 2px 4px #000000",
+                            }}>Location: </Form.Label>
+                        <DropdownButton title={getLocation}
+                            style={{
+                                marginTop: "-1em",
+                                width: "100%",
+                                }}>
+                                {(locationsList() !== undefined)
+                                    && (locations.length !== 0) && (
+                                    <ul>
+                                        {locations && locations.map
+                                            && locations.map((location) => (
+                                            <Dropdown.Item
+                                                onClick={
+                                                    () => setLocation(location)}
+                                                >
+                                                {location}
+                                            </Dropdown.Item>
+                                        ))}
+                                    </ul>)}
+                                    <Dropdown.Item
+                                        onClick={() => setLocation("None")}>
+                                            None
+                                        </Dropdown.Item>
+                        </DropdownButton>
+                        <p style={{
+                            color: "white",
+                            fontSize: "0.8em",
+                            marginTop: "0.3em",
+                        }}>*Location not required</p>
                         <br></br>
                         <Col
                         style={{
@@ -185,7 +211,7 @@ export default function Addevent() {
                         }}>
                             <Button variant="primary" type="submit"
                             className="mx-1" onClick={getEventInfo}>
-                                Submit
+                                Create Event
                             </Button>
                         </Col>
                     </Form>
@@ -206,9 +232,9 @@ export default function Addevent() {
                                 </div>
                                 <div className = "event-details-grid">
                                     <div className = "titleabove-input">
-                                        Class
+                                        Name
                                         <form>
-                                        <input onChange = {changeClass} type="text" className="actual-box" placeholder="Add your class here" />
+                                        <input onChange = {changeName} type="text" className="actual-box" placeholder="Add your class here" />
                                         </form>
                                     </div>
                                     <div className = "titleabove-input">

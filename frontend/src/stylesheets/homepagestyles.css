@@ -31,9 +31,12 @@
 
 
 .CreateEvent-ButtonImageActual {
-    width: 40px;
+    width: 55px;
 }
 
+.CreateTask-ButtonImageActual {
+    width: 40px;
+}
 
 .Calendar-ButtonImageActual {
     width: 40px;

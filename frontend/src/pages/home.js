@@ -7,7 +7,8 @@ import ConfigureProfile from '../modals/configureProfile';
 import ContactModal from '../modals/contactModal';
 import CreateEventLogo from '../images/CreateEventLogo.png';
 import CalenderButtonLogo from '../images/CalanderButtonLogo.png';
-import SettingsButtonLogo from '../images/SettingsButtonLogo.png';
+import CreateTaskLogo from '../images/CreateTaskLogo.png';
+// import SettingsButtonLogo from '../images/SettingsButtonLogo.png';
 import ToDoListButtonLogo from '../images/ToDoListButtonLogo.png';
 import contactUsLogo from '../images/ContactUsLogo.png';
 import '../stylesheets/homepagestyles.css';
@@ -59,6 +60,17 @@ export default function Home() {
                             </div>
 
                             <div className="button-attributes">
+                                <span className="Settings-ButtonImage">
+                                    <img className ="CreateTask-ButtonImageActual"
+                                    src={CreateTaskLogo} alt="Create Task Button"/>
+                                </span> 
+                                <Link to ="/addTask" className="link-style">
+
+                                    ADD TASK
+                                </Link>
+                            </div>
+
+                            <div className="button-attributes">
                                 <span className="Calendar-ButtonImage">
                                     <img className ="Calendar-ButtonImageActual"
                                     src={CalenderButtonLogo} alt="Calendar Button"/>
@@ -77,17 +89,6 @@ export default function Home() {
                                 <Link to = "/todolist" className="link-style">
 
                                     TO DO LIST
-                                </Link>
-                            </div>
-
-                            <div className="button-attributes">
-                                <span className="Settings-ButtonImage">
-                                    <img className ="Settings-ButtonImageActual"
-                                    src={SettingsButtonLogo} alt="Settings Button"/>
-                                </span> 
-                                <Link to ="/settings" className="link-style">
-
-                                    SETTINGS
                                 </Link>
                             </div>
 

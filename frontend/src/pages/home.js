@@ -64,9 +64,10 @@ export default function Home() {
                                     <img className ="CreateTask-ButtonImageActual"
                                     src={CreateTaskLogo} alt="Create Task Button"/>
                                 </span> 
-                                <Link to ="/addTask" className="link-style">
+                                <Link to ="/addTask" className="link-style" style={{marginTop: "0.55em"}}>
 
                                     ADD TASK
+                                    
                                 </Link>
                             </div>
 

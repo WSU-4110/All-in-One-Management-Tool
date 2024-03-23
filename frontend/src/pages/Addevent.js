@@ -17,8 +17,7 @@ export default function Addevent() {
     const [locations, setLocations] = useState([]);
     const [validName, setValidName] = useState(true);
     const [validDueDate, setValidDueDate] = useState(true);
-
-    const nav = useNavigate();
+    const navigate = useNavigate();
 
     // function changeName(e) {
     //     e.preventDefault();
@@ -78,7 +77,7 @@ export default function Addevent() {
             localStorage.setItem('eventInfo', JSON.stringify(Info));
 
             console.log(Info);
-            nav('/todolist');
+            navigate('/todolist');
         }
     }
 
@@ -97,6 +96,53 @@ export default function Addevent() {
         }
         console.log("locationsList: " + locations);
         return locations;
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        if (checkForEmpty()) {
+            if (getLocation === "Select A Location") {
+                setLocation("None");
+            }
+            const newEvent = {
+                name: getName,
+                DueDate: getDueDate,
+                Description: getDescription,
+                Location: getLocation,
+            };
+            sessionStorage.setItem('Events', JSON.stringify([...sessionStorage["Events"], newEvent]));
+            
+            // Replaces existing user information in the database with new
+            // information entered by the user using the 'edit' server route.
+            try {
+                const response = await fetch(
+                    `http://localhost:5050/record/edit`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                },
+                    body: JSON.stringify(
+                        { username: sessionStorage["Username"],
+                            email: sessionStorage["Email"],
+                            password: sessionStorage["Password"],
+                            notifications: sessionStorage["Notifications"],
+                            locations: sessionStorage["Locations"],
+                            tasks: sessionStorage["Tasks"],
+                            events: sessionStorage["Events"] }),
+                });
+                // Checks whether the fetch operation was successful.
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                } else {
+                    console.log('Record modified successfully');
+                    navigate("/home");
+                }
+            // Catches any errors that occur during the fetch operation.
+            } catch (error) {
+                console.error(
+                    'A problem occurred with your fetch operation: ', error);
+            }
+            }
     }
 
     return (
@@ -210,7 +256,7 @@ export default function Addevent() {
                             justifyContent: 'center',
                         }}>
                             <Button variant="primary" type="submit"
-                            className="mx-1" onClick={getEventInfo}>
+                            className="mx-1" onClick={(e) => handleSubmit(e)}>
                                 Create Event
                             </Button>
                         </Col>

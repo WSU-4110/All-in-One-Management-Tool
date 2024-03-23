@@ -16,7 +16,8 @@ export default function Addevent() {
     const [validClass, setValidClass] = useState(true);
     const [validAssignment, setValidAssignment] = useState(true);
     const [validDueDate, setValidDueDate] = useState(true);
-    const nav = useNavigate();
+    const [validTime, setValidTime] = useState(true);
+    const navigate = useNavigate();
 
     function checkForEmpty() {
         if (getClass === "") {
@@ -34,7 +35,12 @@ export default function Addevent() {
         } else {
             setValidDueDate(true);
         }
-        if (getClass === "" || getAssignment === "" || getDueDate === "") {
+        if (getTime === "") {
+            setValidTime(false);
+        } else {
+            setValidTime(true);
+        }
+        if (getClass === "" || getAssignment === "" || getDueDate === "" || getTime === "") {
             return false;
         }
         return true;
@@ -62,8 +68,53 @@ export default function Addevent() {
             localStorage.setItem('eventInfo', JSON.stringify(Info));
 
             console.log(Info);
-            nav('/todolist');
+            navigate('/todolist');
         }
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        if (checkForEmpty()) {
+            const newTask = {
+                class: getClass,
+                Assignment: getAssignment,
+                DueDate: getDueDate,
+                Time: getTime,
+                Description: getDescription,
+            };
+            sessionStorage.setItem('Tasks', JSON.stringify(...sessionStorage['Tasks'], newTask));
+
+            // Replaces existing user information in the database with new
+            // information entered by the user using the 'edit' server route.
+            try {
+                const response = await fetch(
+                    `http://localhost:5050/record/edit`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                },
+                    body: JSON.stringify(
+                        { username: sessionStorage["Username"],
+                            email: sessionStorage["Email"],
+                            password: sessionStorage["Password"],
+                            notifications: sessionStorage["Notifications"],
+                            locations: sessionStorage["Locations"],
+                            tasks: sessionStorage["Tasks"],
+                            events: sessionStorage["Events"] }),
+                });
+                // Checks whether the fetch operation was successful.
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                } else {
+                    console.log('Record modified successfully');
+                    navigate("/home");
+                }
+            // Catches any errors that occur during the fetch operation.
+            } catch (error) {
+                console.error(
+                    'A problem occurred with your fetch operation: ', error);
+            }
+            }
     }
 
     return (
@@ -146,10 +197,18 @@ export default function Addevent() {
                             }}>Deadline Time:
                         </Form.Label>
                         <Form.Control
+                        isInvalid={!validTime}
                         type="time"
                         placeholder="Time"
                         value={getTime}
                         onChange={(p) => setTime(p.target.value)}/>
+                        <Form.Control.Feedback type="invalid"
+                            style={{
+                                color: "red",
+                                textShadow: "2px 2px 4px #000000",
+                            }}>
+                            Please enter a deadline time
+                        </Form.Control.Feedback>
                         <br></br>
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label 
@@ -174,7 +233,7 @@ export default function Addevent() {
                             justifyContent: 'center',
                         }}>
                             <Button variant="primary" type="submit"
-                            className="mx-1" onClick={getEventInfo}>
+                            className="mx-1" onClick={(e) => handleSubmit(e)}>
                                 Create Task
                             </Button>
                         </Col>

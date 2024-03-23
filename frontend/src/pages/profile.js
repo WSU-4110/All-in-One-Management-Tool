@@ -373,13 +373,13 @@ export default function Profile() {
                     justifyContent: 'center',
                 }}>
                     <Form noValidate>
+                        <br></br>
                         <h1
                         style={{
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                         }}>Profile</h1>
-                        <br></br>
                         <Form.Group controlId="formBasicUsername">
                             <Form.Label 
                             style={{
@@ -513,19 +513,19 @@ export default function Profile() {
                                     Receive no notifications for all events
                                 </option>
                                 <option value="weekOf">
-                                    Receive notifications a week before deadline
+                                    Receive notifications a week before a deadline
                                 </option>
                                 <option value="dayOf">
-                                    Receive notifications on the day of deadline
+                                    Receive notifications on the day of a deadline
                                 </option>
                                 <option value="12hours">
-                                    Receive notifications 12 hours before deadline
+                                    Receive notifications 12 hours before a deadline
                                 </option>
                                 <option value="6hours">
-                                    Receive notifications 6 hours before deadline
+                                    Receive notifications 6 hours before a deadline
                                 </option>
                                 <option value="1hours">
-                                    Receive notifications 1 hours before deadline
+                                    Receive notifications 1 hours before a deadline
                                 </option>
                                 <option value="all">
                                     Receive notifications for all events

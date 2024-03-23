@@ -4,6 +4,7 @@ import ContactForm from './contactForm';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ConfigureProfile from '../modals/configureProfile';
+import ContactModal from '../modals/contactModal';
 import CreateEventLogo from '../images/CreateEventLogo.png';
 import CalenderButtonLogo from '../images/CalanderButtonLogo.png';
 import SettingsButtonLogo from '../images/SettingsButtonLogo.png';
@@ -39,6 +40,7 @@ export default function Home() {
                 <div className='home-inner'>
                     <Header />
                     {(!profileConfigured) && (<ConfigureProfile />)}
+                    {showContactForm && <ContactModal />}
                     <main>
                         <div className="Home-div">
                             <p className="Home-divtext">HOME</p>
@@ -94,7 +96,7 @@ export default function Home() {
                             <button className="contact-button" onClick={handleContactButtonClick}>
                                 <img className = "contactUs-image" src={contactUsLogo} alt="Contact Us Button" /> Contact Us
                             </button>
-                            {showContactForm && <ContactForm />}
+                            {/* {showContactForm && <ContactForm />} */}
                         </div>
                     </main>
                     <Footer />

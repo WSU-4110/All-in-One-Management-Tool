@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-function Expire(props)
-{
+// Copied and pasted from stack overflow with slight modifications
+function Expire(props) {
     const [isVisible, setIsVisible] = useState(true);
 
-    useEffect(() =>
-    {
-        setTimer(props.delay);
+    useEffect(() => {
+        setTimeout(() => setIsVisible(false), props.delay);
     }, []);
-
-
-    const setTimer = (delay) =>
-    {
-        setTimeout(() => setIsVisible(false), delay);
-    };
 
     return (
         isVisible

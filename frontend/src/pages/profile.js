@@ -84,6 +84,7 @@ export default function Profile() {
 
     const deleteLocation = () => {
         setLocations(locations.filter((location) => location !== selectedLocation));
+        sessionStorage["Locations"] = locations.filter((location) => location !== selectedLocation);
         setSelectedLocation('Select A Location');
     }
 
@@ -120,20 +121,21 @@ export default function Profile() {
         navigate("/home");
     }
 
-    async function locationsList() {
-        for (var i = 0; i < locations.length; i++) {
-            locations.pop(i);
-        }
+    const locationsList = () => {
+        // for (var i = 0; i < locations.length; i++) {
+        //     locations.pop(i);
+        // }
         const locationsArray = sessionStorage["Locations"].split(',');
+        console.log(locationsArray);
         for (var i = 0; i < locationsArray.length; i++) {
-            if (locationsArray !== ''
-                && locationsArray !== undefined) {
-                    if(!locationsArray.includes(locationsArray)){
+            if (locationsArray[i] !== ''
+                && locationsArray[i] !== undefined) {
+                    if(!locations.includes(locationsArray[i])){
                         locations.push(locationsArray[i]);
                     }
             }
         }
-        console.log("locationsList" + locations);
+        console.log("locationsList: " + locations);
         return locations;
     }
     console.log(sessionStorage["Locations"]);
@@ -219,9 +221,9 @@ export default function Profile() {
                                 marginTop: "-1em",
                                 width: "100%",
                                 }}>
-                                {(locations !== "") && (
+                                {(locationsList() !== undefined) && (locations.length !== 0) && (
                                     <ul>
-                                        {(locationsList() !== undefined) && locations && locations.map && locations.map((location) => (
+                                        {locations && locations.map && locations.map((location) => (
                                             <Dropdown.Item onClick={() => changeSelectedLocation(location)}>{location}</Dropdown.Item>
                                         ))}
                                     </ul>)}

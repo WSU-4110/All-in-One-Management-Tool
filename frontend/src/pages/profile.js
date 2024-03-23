@@ -37,20 +37,29 @@ export default function Profile() {
 
     const [username, setUsername] = useState(sessionStorage["Username"]);
     const [email, setEmail] = useState(sessionStorage["Email"]);
-    const [notifications, setNotifications] = useState(sessionStorage["Notifications"]);
+    const [notifications, setNotifications] = useState(
+        sessionStorage["Notifications"]);
     const [locations, setLocations] = useState([]);
-    // const [locations, setLocations] = useState(["Home", "Work", "School"]);
-    const [selectedLocation, setSelectedLocation] = useState('Select A Location');
+    // Variable storing the location selected in the location dropdown button.
+    const [selectedLocation, setSelectedLocation] = useState(
+        'Select A Location');
+    // Variable storing whether the user is adding a new location.
     const [newLocation, setNewLocation] = useState(false);
+    // Variable storing the location to add.
     const [addLocation, setAddLocation] = useState('');
+    // Variable storing whether the location is valid.
     const [validLocation, setValidLocation] = useState(true);
+    // Variable storing whether the location was successfully added
+    // or deleted.
     const [locationSuccess, setLocationSuccess] = useState(false);
+    // Variable storing the message to display in success alert.
     const [successMessage, setSuccessMessage] = useState('');
+    // Variable needed to force the alert to re-render.
     const [key, setKey] = useState(0);
     const navigate = useNavigate();
 
 
-
+    // Function to check whether the location being added is valid.
     const validateLocation = (e) => {
         setAddLocation(e);
         if (e === '') {
@@ -66,6 +75,7 @@ export default function Profile() {
         return true;
     }
 
+    // Function to submit the location to be added.
     const submitLocation = () => {
         if (validateLocation(addLocation)) {
             setLocations([...locations, addLocation]);
@@ -78,58 +88,72 @@ export default function Profile() {
         }
     }
 
+    // Function to change the selected location in the dropdown button.
     const changeSelectedLocation = (e) => {
         setSelectedLocation(e);
         setNewLocation(false);
         setAddLocation("");
     }
 
+    // Function to delete the selected location.
     const deleteLocation = () => {
-        setLocations(locations.filter((location) => location !== selectedLocation));
-        sessionStorage["Locations"] = locations.filter((location) => location !== selectedLocation);
+        setLocations(locations.filter(
+            (location) => location !== selectedLocation));
+        sessionStorage["Locations"] = locations.filter(
+            (location) => location !== selectedLocation);
         setSelectedLocation('Select A Location');
         setLocationSuccess(true);
         setSuccessMessage("Location successfully deleted!");
         setKey(key+1);
     }
 
+    // Function to add a new location.
     const addNewLocation = () => {
         setNewLocation(true);
         setAddLocation('');
         setSelectedLocation('Select A Location');
     }
 
+    // Function to handle the submission of the form.
     async function handleSubmit(e) {
         e.preventDefault();
         sessionStorage["Notifications"] = notifications;
         sessionStorage["Locations"] = locations;
+
+        // Replaces existing user information in the database with new
+        // information entered by the user using the 'edit' server route.
         try {
-            const response = await fetch(`http://localhost:5050/record/edit`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
+            const response = await fetch(
+                `http://localhost:5050/record/edit`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
             },
-            body: JSON.stringify(
-                { username: username, email: email, password: sessionStorage["Password"],
-                notifications: notifications, locations: locations, tasks: sessionStorage["Tasks"], events: sessionStorage["Events"] }),
+                body: JSON.stringify(
+                    { username: username, email: email,
+                        password: sessionStorage["Password"],
+                        notifications: notifications, locations: locations,
+                        tasks: sessionStorage["Tasks"],
+                        events: sessionStorage["Events"] }),
             });
-        
+            // Checks whether the fetch operation was successful.
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             } else {
                 console.log('Record modified successfully');
                 navigate("/home");
             }
+        // Catches any errors that occur during the fetch operation.
         } catch (error) {
-            console.error('A problem occurred with your fetch operation: ', error);
+            console.error(
+                'A problem occurred with your fetch operation: ', error);
         }
         navigate("/home");
     }
 
+    // Function to list the locations in the session storage
+    // into the locations array.
     const locationsList = () => {
-        // for (var i = 0; i < locations.length; i++) {
-        //     locations.pop(i);
-        // }
         const locationsArray = sessionStorage["Locations"].split(',');
         console.log(locationsArray);
         for (var i = 0; i < locationsArray.length; i++) {
@@ -144,7 +168,6 @@ export default function Profile() {
         return locations;
     }
     console.log(sessionStorage["Locations"]);
-    // console.log(locationsList());
     console.log(locations);
 
     return (
@@ -204,14 +227,32 @@ export default function Profile() {
                                 color: "white",
                                 textShadow: "2px 2px 4px #000000",
                             }}>Notifications: </Form.Label>
-                            <Form.Select value={notifications} onChange={(u) => setNotifications(u.target.value)}>
-                                <option value="none">Receive no notifications for all events</option>
-                                <option value="weekOf">Receive notifications a week before deadline</option>
-                                <option value="dayOf">Receive notifications on the day of deadline</option>
-                                <option value="12hours">Receive notifications 12 hours before deadline</option>
-                                <option value="6hours">Receive notifications 6 hours before deadline</option>
-                                <option value="1hours">Receive notifications 1 hours before deadline</option>
-                                <option value="all">Receive notifications for all events</option>
+                            <Form.Select
+                                value={notifications}
+                                onChange={
+                                    (u) => setNotifications(u.target.value)}
+                                >
+                                <option value="none">
+                                    Receive no notifications for all events
+                                </option>
+                                <option value="weekOf">
+                                    Receive notifications a week before deadline
+                                </option>
+                                <option value="dayOf">
+                                    Receive notifications on the day of deadline
+                                </option>
+                                <option value="12hours">
+                                    Receive notifications 12 hours before deadline
+                                </option>
+                                <option value="6hours">
+                                    Receive notifications 6 hours before deadline
+                                </option>
+                                <option value="1hours">
+                                    Receive notifications 1 hours before deadline
+                                </option>
+                                <option value="all">
+                                    Receive notifications for all events
+                                </option>
                             </Form.Select>
                         </Form.Group>
                         <br></br>
@@ -226,10 +267,17 @@ export default function Profile() {
                                 marginTop: "-1em",
                                 width: "100%",
                                 }}>
-                                {(locationsList() !== undefined) && (locations.length !== 0) && (
+                                {(locationsList() !== undefined)
+                                    && (locations.length !== 0) && (
                                     <ul>
-                                        {locations && locations.map && locations.map((location) => (
-                                            <Dropdown.Item onClick={() => changeSelectedLocation(location)}>{location}</Dropdown.Item>
+                                        {locations && locations.map
+                                            && locations.map((location) => (
+                                            <Dropdown.Item
+                                                onClick={
+                                                    () => changeSelectedLocation(location)}
+                                                >
+                                                {location}
+                                            </Dropdown.Item>
                                         ))}
                                     </ul>)}
                                 <Dropdown.Item onClick={() => addNewLocation()}
@@ -260,7 +308,8 @@ export default function Profile() {
                                         type="username"
                                         placeholder="Enter a new location"
                                         value={addLocation}
-                                        onChange={(u) => validateLocation(u.target.value)}
+                                        onChange={
+                                            (u) => validateLocation(u.target.value)}
                                         />
                                     <Form.Control.Feedback type="invalid"
                                         style={{
@@ -270,7 +319,8 @@ export default function Profile() {
                                         Location already exists
                                     </Form.Control.Feedback>
                                     <Button variant="primary"
-                                        onClick={(u) => submitLocation(u.target.value)}
+                                        onClick={
+                                            (u) => submitLocation(u.target.value)}
                                     >
                                         Add Location
                                     </Button>
@@ -311,8 +361,8 @@ export default function Profile() {
                         </Col>
                     </Form>
                 </div>
+                <Footer/>
             </div>
-
         </div>
     );
 

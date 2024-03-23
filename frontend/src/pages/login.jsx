@@ -13,7 +13,9 @@ const Login = (props) => {
     const [usernameError, setUsernameError] = useState('');
     const [verifiedPassword, setVerifiedPassword] = useState(false);
     const [passwordError, setPasswordError] = useState('');
+    // Variable to determine if the alert is visible or not.
     const [alertVisible, setAlertVisible] = useState(false);
+    // Variable to store the error message.
     const [alertError, setAlertError] = useState('');
     const navigate = useNavigate();
     
@@ -25,6 +27,7 @@ const Login = (props) => {
         setAlertError('');
         let accountData;
 
+        // Function to set the session variables.
         async function setSessionVariables(username, password, email,
                 notifications, locations, tasks, events) {
             sessionStorage["Username"] = username;
@@ -36,7 +39,9 @@ const Login = (props) => {
             sessionStorage["Events"] = events;
         }
 
+        // First verifies the username and password.
         if (verifyUsername() && verifyPassword()) {
+            // Then fetches the record data from the database.
             const response = await fetch(`http://localhost:5050/record`, {
                 method: "GET",
                 headers: {
@@ -44,6 +49,7 @@ const Login = (props) => {
                     "Accept": "application/json",
                 },
             });
+            // If the response is not okay, an error message is displayed.
             if (!response.ok) {
                 setAlertVisible(true);
                 const message = `An error has occurred: ${response.statusText}`;
@@ -51,7 +57,8 @@ const Login = (props) => {
                 console.log(message)
                 return;
             }
-            // Looks for the user's account information in the database using the username the user provided.
+            // Looks for the user's account information in the database
+            // using the username the user provided.
             const record = await response.json();
             for (let i = 0; i < record.length; i++) {
                 if (record[i].username === username) {
@@ -59,14 +66,17 @@ const Login = (props) => {
                     break;
                 }
             }
-
             console.log(accountData);
+
+            // Checks to see if account with the username provided exists.
             if (accountData === undefined) {
                 setAlertVisible(true);
                 setAlertError(`Profile with username ${username} not found`);
                 console.log(`Profile with username ${username} not found`);
                 return;
             }
+            // If the account exists, it checks to see if the password
+            // provided matches the password in the database.
             if (accountData.password === password) {
                 setAlertVisible(false);
                 setAlertError('');
@@ -84,6 +94,7 @@ const Login = (props) => {
         }
     }
 
+    // Function to verify the username.
     function verifyUsername() {
         if (username === '') {
             setVerifiedUsername(false);
@@ -120,6 +131,7 @@ const Login = (props) => {
     //     }
     // }
 
+    // Function to verify the password.
     function verifyPassword() {
         if (password === '') {
             setVerifiedPassword(false);

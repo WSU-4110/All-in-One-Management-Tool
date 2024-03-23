@@ -21,8 +21,11 @@ export const SignUp = (props) => {
     const [verifiedEmail, setVerifiedEmail] = useState(true);
     const [verifiedPassword, setVerifiedPassword] = useState(true);
     const [verifiedTerms, setVerifiedTerms] = useState(false);
+    // Variable in charge of displaying the terms alert.
     const [termsAlert, setTermsAlert] = useState(false);
+    // Variable in charge of displaying the verification alert.
     const [verificationAlert, setVerificationAlert] = useState(false);
+    // Variable in charge of displaying the error message.
     const [alertError, setAlertError] = useState('');
     const navigate = useNavigate();
 
@@ -54,6 +57,7 @@ export const SignUp = (props) => {
         // If all fields are valid, then create a new record
         if (checkPassword() && checkEmailValidity()){
             if (terms) {
+                // Fetches the records from the database
                 const response = await fetch(`http://localhost:5050/record`, {
                     method: "GET",
                     headers: {
@@ -61,6 +65,7 @@ export const SignUp = (props) => {
                         "Accept": "application/json",
                     },
                 });
+                // Checks whether the fetch operation was successful.
                 if (!response.ok) {
                     setVerificationAlert(true);
                     const message = `An error has occurred: ${response.statusText}`;
@@ -87,6 +92,7 @@ export const SignUp = (props) => {
                         return;
                     }
                 }
+                // Adds the record to the database.
                 try {
                     const response = await fetch(`http://localhost:5050/record/create`, {
                     method: "POST",
@@ -95,15 +101,16 @@ export const SignUp = (props) => {
                     },
                     body: JSON.stringify(
                         { username: username, email: email, password: password1,
-                        notifications: "all", locations: ["Home", "Work", "School"], tasks: [], events: []}),
+                        notifications: "all", locations: [], tasks: [], events: []}),
                     });
-                
+                    // Checks whether the fetch operation was successful.
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     } else {
                         console.log('Record added successfully');
                         navigate("/login");
                     }
+                // Catches any errors that may occur.
                 } catch (error) {
                     console.error('A problem occurred with your fetch operation: ', error);
                 }
@@ -211,30 +218,35 @@ export const SignUp = (props) => {
         var hasUpper = /[A-Z]/;
         var fail = false;
         console.log(password1);
+        // Check if password contains a number
         if (!hasNumber.test(password1)) {
             fail = true;
             setVerifiedPassword(false);
             setPassword1Error('Password must contain a number');
             setPassword2Error('Password must contain a number');
         }
+        // Check if password contains an uppercase letter
         if (!hasUpper.test(password1)) {
             fail = true;
             setVerifiedPassword(false);
             setPassword1Error('Password must contain an uppercase letter');
             setPassword2Error('Password must contain an uppercase letter');
         }
+        // Check if password contains a space
         if (password1.includes(' ')) {
             fail = true;
             setVerifiedPassword(false);
             setPassword1Error('Password must not contain spaces');
             setPassword2Error('Password must not contain spaces');
         }
+        // Check if password is at least 8 characters long
         if (password1.length < 8) {
             fail = true;
             setVerifiedPassword(false);
             setPassword1Error('Password must be at least 8 characters long');
             setPassword2Error('Password must be at least 8 characters long');
         }
+        // If password passes all checks, set verifiedPassword to true
         if (!fail) {
             setVerifiedPassword(true);
             return true;

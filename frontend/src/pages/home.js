@@ -19,6 +19,8 @@ export default function Home() {
         setShowContactForm(!showContactForm);
     };
 
+    // Check if the user has configured their profile, if they have not
+    // it will display the configure profile modal.
     if (sessionStorage["Locations"] === "") {
         setProfileConfigured(false);
     }
@@ -30,11 +32,6 @@ export default function Home() {
     console.log(sessionStorage["Locations"]);
     console.log(sessionStorage["Tasks"]);
     console.log(sessionStorage["Events"]);
-
-    console.log(sessionStorage["Notifications"] === undefined);
-    console.log(sessionStorage["Notifications"] === "");
-    console.log(sessionStorage["Locations"] === undefined);
-    console.log(sessionStorage["Locations"] === "");
 
     return (
         <div className='home-outer'>

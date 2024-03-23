@@ -37,6 +37,12 @@ export default function Profile() {
 
     const [username, setUsername] = useState(sessionStorage["Username"]);
     const [email, setEmail] = useState(sessionStorage["Email"]);
+    const [newPasswordBool, setNewPasswordBool] = useState(false);
+    const [newPassword1, setNewPassword1] = useState('');
+    const [newPassword2, setNewPassword2] = useState('');
+    const [newPassword1Error, setNewPassword1Error] = useState('');
+    const [newPassword2Error, setNewPassword2Error] = useState('');
+    const [verifiedPassword, setVerifiedPassword] = useState(true);
     const [notifications, setNotifications] = useState(
         sessionStorage["Notifications"]);
     const [locations, setLocations] = useState([]);
@@ -49,11 +55,14 @@ export default function Profile() {
     const [addLocation, setAddLocation] = useState('');
     // Variable storing whether the location is valid.
     const [validLocation, setValidLocation] = useState(true);
+    const [validLocationMessage, setValidLocationMessage] = useState('');
     // Variable storing whether the location was successfully added
     // or deleted.
     const [locationSuccess, setLocationSuccess] = useState(false);
     // Variable storing the message to display in success alert.
     const [successMessage, setSuccessMessage] = useState('');
+    const [passwordSuccess, setPasswordSuccess] = useState(false);
+    const [passwordSuccessMessage, setPasswordSuccessMessage] = useState('');
     // Variable needed to force the alert to re-render.
     const [key, setKey] = useState(0);
     const navigate = useNavigate();
@@ -63,15 +72,21 @@ export default function Profile() {
     const validateLocation = (e) => {
         setAddLocation(e);
         if (e === '') {
+            setValidLocation(false);
+            setValidLocationMessage("Location field cannot be empty");
             return false;
         }
+        setValidLocation(true);
+        setValidLocationMessage('');
         for (var i = 0; i < locations.length; i++) {
             if (locations[i] === e) {
                 setValidLocation(false);
+                setValidLocationMessage("Location already exists");
                 return false;
             }
         }
         setValidLocation(true);
+        setValidLocationMessage('');
         return true;
     }
 
@@ -112,7 +127,203 @@ export default function Profile() {
         setNewLocation(true);
         setAddLocation('');
         setSelectedLocation('Select A Location');
+        setValidLocation(true);
+        setValidLocationMessage('');
     }
+
+    const logout = () => {
+        sessionStorage["Username"] = '';
+        sessionStorage["Password"] = '';
+        sessionStorage["Email"] = '';
+        sessionStorage["Notifications"] = '';
+        sessionStorage["Locations"] = [];
+        sessionStorage["Tasks"] = [];
+        sessionStorage["Events"] = [];
+        navigate("/");
+    }
+
+    // Function to check if password is valid
+    function checkPassword() {
+        setVerifiedPassword(true);
+        var fail = false;
+        if (!checkFieldsNotEmpty()) {
+            fail = true;
+        }
+        if (verifiedPassword && checkPasswordsMatch()) {
+            if (checkPasswordComplexity()) {
+                if (checkSamePassword()) {
+                    if (!fail) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    // Function to check if fields are not empty
+    function checkFieldsNotEmpty() {
+        // Function to check if newPassword1 is not empty
+        function checkPassword1NotEmpty() {
+            if (newPassword1 === '') {
+                setVerifiedPassword(false);
+                setNewPassword1Error('Please enter a password');
+                return false;
+            }
+            setVerifiedPassword(true);
+            return true;
+        }
+        // Function to check if newPassword2 is not empty
+        function checkPassword2NotEmpty() {
+            if (newPassword2 === '' && newPassword1 === '') {
+                setVerifiedPassword(false);
+                setNewPassword2Error('Please enter a password');
+                return false;
+            } else if (newPassword2 === '') {
+                setVerifiedPassword(false);
+                setNewPassword2Error('Please confirm your password');
+                return false;
+            }
+            setVerifiedPassword(true);
+            return true;
+        }
+        var password1Valid = checkPassword1NotEmpty();
+        var password2Valid = checkPassword2NotEmpty();
+        if (password1Valid && password2Valid) {
+            return true;
+        }
+        return false;
+    }
+
+    // Function to check if passwords match
+    function checkPasswordsMatch() {
+        if (newPassword1 !== newPassword2) {
+            setVerifiedPassword(false);
+            setNewPassword1Error('Passwords do not match');
+            setNewPassword2Error('Passwords do not match');
+            return false;
+        }
+        setVerifiedPassword(true);
+        return true;
+    }
+
+    function checkSamePassword() {
+        if (newPassword1 === sessionStorage["Password"]) {
+            setVerifiedPassword(false);
+            setNewPassword1Error('New password cannot be old password');
+            setNewPassword2Error('New password cannot be old password');
+            return false;
+        }
+        setVerifiedPassword(true);
+        return true;
+    }
+
+
+    // Function to check if password complies with password requirements
+    function checkPasswordComplexity() {
+        var hasNumber = /\d/;
+        var hasUpper = /[A-Z]/;
+        var fail = false;
+        console.log(newPassword1);
+        // Check if password contains a number
+        if (!hasNumber.test(newPassword1)) {
+            fail = true;
+            setVerifiedPassword(false);
+            setNewPassword1Error('Password must contain a number');
+            setNewPassword2Error('Password must contain a number');
+        }
+        // Check if password contains an uppercase letter
+        if (!hasUpper.test(newPassword1)) {
+            fail = true;
+            setVerifiedPassword(false);
+            setNewPassword1Error('Password must contain an uppercase letter');
+            setNewPassword2Error('Password must contain an uppercase letter');
+        }
+        // Check if password contains a space
+        if (newPassword1.includes(' ')) {
+            fail = true;
+            setVerifiedPassword(false);
+            setNewPassword1Error('Password must not contain spaces');
+            setNewPassword2Error('Password must not contain spaces');
+        }
+        // Check if password is at least 8 characters long
+        if (newPassword1.length < 8) {
+            fail = true;
+            setVerifiedPassword(false);
+            setNewPassword1Error('Password must be at least 8 characters long');
+            setNewPassword2Error('Password must be at least 8 characters long');
+        }
+        // If password passes all checks, set verifiedPassword to true
+        if (!fail) {
+            setVerifiedPassword(true);
+            return true;
+        }
+        return false;
+    }
+
+    const discardChanges = () => {
+        setNewPassword1('');
+        setNewPassword2('');
+        setNewPasswordBool(false);
+    }
+
+    async function saveChanges() {
+        if (checkPassword()) {
+            sessionStorage["Password"] = newPassword1;
+            console.log(newPassword1);
+            console.log(sessionStorage["Password"]);
+            try {
+                const response = await fetch(
+                    `http://localhost:5050/record/edit`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                },
+                    body: JSON.stringify(
+                        { username: username, email: email,
+                            password: newPassword1,
+                            notifications: sessionStorage["Notifications"],
+                            locations: sessionStorage["Locations"],
+                            tasks: sessionStorage["Tasks"],
+                            events: sessionStorage["Events"] }),
+                });
+                // Checks whether the fetch operation was successful.
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                } else {
+                    console.log('Record modified successfully');
+                    setNewPassword1('');
+                    setNewPassword2('');
+                    setNewPasswordBool(false);
+                    setPasswordSuccess(true);
+                    setKey(key + 1);
+                }
+            // Catches any errors that occur during the fetch operation.
+            } catch (error) {
+                console.error(
+                    'A problem occurred with your fetch operation: ', error);
+            }
+        }
+    }
+
+    // Function to list the locations in the session storage
+    // into the locations array.
+    const locationsList = () => {
+        const locationsArray = sessionStorage["Locations"].split(',');
+        console.log(locationsArray);
+        for (var i = 0; i < locationsArray.length; i++) {
+            if (locationsArray[i] !== ''
+                && locationsArray[i] !== undefined) {
+                    if(!locations.includes(locationsArray[i])){
+                        locations.push(locationsArray[i]);
+                    }
+            }
+        }
+        console.log("locationsList: " + locations);
+        return locations;
+    }
+    console.log(sessionStorage["Locations"]);
+    console.log(locations);
 
     // Function to handle the submission of the form.
     async function handleSubmit(e) {
@@ -148,27 +359,7 @@ export default function Profile() {
             console.error(
                 'A problem occurred with your fetch operation: ', error);
         }
-        navigate("/home");
     }
-
-    // Function to list the locations in the session storage
-    // into the locations array.
-    const locationsList = () => {
-        const locationsArray = sessionStorage["Locations"].split(',');
-        console.log(locationsArray);
-        for (var i = 0; i < locationsArray.length; i++) {
-            if (locationsArray[i] !== ''
-                && locationsArray[i] !== undefined) {
-                    if(!locations.includes(locationsArray[i])){
-                        locations.push(locationsArray[i]);
-                    }
-            }
-        }
-        console.log("locationsList: " + locations);
-        return locations;
-    }
-    console.log(sessionStorage["Locations"]);
-    console.log(locations);
 
     return (
         <div className='home-outer'>
@@ -219,6 +410,92 @@ export default function Profile() {
                                 style={{
                                     opacity: 0.5,
                                 }}/>
+                        </Form.Group>
+                        <br></br>
+                        <Form.Group controlId="formBasicNewPassword">
+                            {!newPasswordBool && (
+                                <Form.Group controlId="formBasicNewPasswordButton"
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}>
+                                    <Button variant='primary' type='button'
+                                    className='mx-1' onClick={() => setNewPasswordBool(!newPasswordBool)}>
+                                        Change Password
+                                    </Button>
+                                </Form.Group>
+                            )}
+                            {newPasswordBool && (
+                                <Form.Group controlId='formBasicChangePassword'>
+                                    <Form.Label 
+                                    style={{
+                                        color: "white",
+                                        textShadow: "2px 2px 4px #000000",
+                                    }}>New Password: </Form.Label>
+                                    <Form.Control
+                                        isInvalid={!verifiedPassword}
+                                        type="password"
+                                        placeholder="Password"
+                                        value={newPassword1}
+                                        onChange={(p) => setNewPassword1(p.target.value)}/>
+                                    <Form.Control.Feedback type="invalid"
+                                    style={{
+                                        color: "white",
+                                        textShadow: "2px 2px 4px #FF0000",
+                                    }}>
+                                        {newPassword1Error}
+                                    </Form.Control.Feedback>
+                                    <br></br>
+                                    <Form.Label 
+                                    style={{
+                                        color: "white",
+                                        textShadow: "2px 2px 4px #000000",
+                                    }}>Confirm New Password: </Form.Label>
+                                    <Form.Control
+                                        isInvalid={!verifiedPassword}
+                                        type="password"
+                                        placeholder="Password"
+                                        value={newPassword2}
+                                        onChange={(p) => setNewPassword2(p.target.value)}/>
+                                    <Form.Control.Feedback type="invalid"
+                                    style={{
+                                        color: "white",
+                                        textShadow: "2px 2px 4px #FF0000",
+                                    }}>
+                                        {newPassword2Error}
+                                    </Form.Control.Feedback>
+                                    <p style={{
+                                        width: '300px',
+                                        fontSize: '0.85em',
+                                        marginTop: '0.5em',
+                                        color: "white",
+                                    }}>Password must be at least
+                                        8 characters long, contain a capital letter,
+                                        a number, and have no spaces.</p>
+                                    <Form.Group controlId='formBasicPasswordButtons'
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                    }}>
+                                        <Button variant='secondary' type='button'
+                                        className='mx-1' onClick={() => discardChanges()}>
+                                            Discard Changes
+                                        </Button>
+                                        <Button variant='primary' type='button'
+                                        className='mx-1' onClick={() => saveChanges()}>
+                                            Save Changes
+                                        </Button>
+                                    </Form.Group>
+                                </Form.Group>
+                            )}
+                            <Expire delay="4000" key={key}>
+                                <br></br>
+                                <Alert show={passwordSuccess} variant='success'>
+                                    Password successfully changed!
+                                </Alert>
+                            </Expire>
                         </Form.Group>
                         <br></br>
                         <Form.Group controlId="formBasicNotifications">
@@ -316,7 +593,7 @@ export default function Profile() {
                                             color: "white",
                                             textShadow: "2px 2px 4px #FF0000",
                                         }}>
-                                        Location already exists
+                                        {validLocationMessage}
                                     </Form.Control.Feedback>
                                     <Button variant="primary"
                                         onClick={
@@ -359,9 +636,21 @@ export default function Profile() {
                                 Save Changes
                             </Button>
                         </Col>
+                        <br></br>
+                        <Col
+                        style={{
+                            display: "flex",
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}>
+                            <Button variant='danger' type='submit'
+                            className='mx-1' onClick={() => logout()}>
+                                Logout
+                            </Button>
+                        </Col>
                     </Form>
                 </div>
-                <Footer/>
+                {/* <Footer/> */}
             </div>
         </div>
     );

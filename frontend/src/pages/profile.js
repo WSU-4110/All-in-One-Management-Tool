@@ -6,7 +6,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
-import Footer from '../components/Footer';
+// import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Expire from '../components/Expire';
 import '../stylesheets/profilepagestyles.css';
@@ -62,7 +62,6 @@ export default function Profile() {
     // Variable storing the message to display in success alert.
     const [successMessage, setSuccessMessage] = useState('');
     const [passwordSuccess, setPasswordSuccess] = useState(false);
-    const [passwordSuccessMessage, setPasswordSuccessMessage] = useState('');
     // Variable needed to force the alert to re-render.
     const [key, setKey] = useState(0);
     const navigate = useNavigate();
@@ -261,6 +260,7 @@ export default function Profile() {
         return false;
     }
 
+    // Function to discard changes to the password
     const discardChanges = () => {
         setNewPassword1('');
         setNewPassword2('');

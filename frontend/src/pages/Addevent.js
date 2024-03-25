@@ -56,30 +56,30 @@ export default function Addevent() {
         return true;
     }
 
-    async function getEventInfo(e) {
-        e.preventDefault();
-        if (checkForEmpty()) {
-            let Info = JSON.parse(localStorage.getItem('eventInfo'));
+    // async function getEventInfo(e) {
+    //     e.preventDefault();
+    //     if (checkForEmpty()) {
+    //         let Info = JSON.parse(localStorage.getItem('eventInfo'));
 
-            if (Info === null) {
-                Info = [];
-            }
+    //         if (Info === null) {
+    //             Info = [];
+    //         }
 
-            const newEvent = 
-            {
-                name: getName,
-                DueDate: getDueDate,
-                Description: getDescription,
+    //         const newEvent = 
+    //         {
+    //             name: getName,
+    //             DueDate: getDueDate,
+    //             Description: getDescription,
 
-            };
+    //         };
             
-            Info.push(newEvent);
-            localStorage.setItem('eventInfo', JSON.stringify(Info));
+    //         Info.push(newEvent);
+    //         localStorage.setItem('eventInfo', JSON.stringify(Info));
 
-            console.log(Info);
-            navigate('/todolist');
-        }
-    }
+    //         console.log(Info);
+    //         navigate('/todolist');
+    //     }
+    // }
 
     // Function to list the locations in the session storage
     // into the locations array.

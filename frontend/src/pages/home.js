@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import {Link} from 'react-router-dom';
-import ContactForm from './contactForm';
+// import ContactForm from './contactForm';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ConfigureProfile from '../modals/configureProfile';
@@ -96,7 +96,8 @@ export default function Home() {
                         </div>
                         <div className='contact-us-section'>
                             <button className="contact-button" onClick={handleContactButtonClick}>
-                                <img className = "contactUs-image" src={contactUsLogo} alt="Contact Us Button" /> Contact Us
+                                <img className = "contactUs-image" src={contactUsLogo} alt="Contact Us Button" />
+                                Contact Us
                             </button>
                             {/* {showContactForm && <ContactForm />} */}
                         </div>

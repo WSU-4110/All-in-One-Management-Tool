@@ -43,7 +43,12 @@
 }
 
 
-
+.contactUs-image {
+    width: 40px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-right: 0.4em;
+}
 
 
 .ToDoList-ButtonImageActual{

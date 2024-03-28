@@ -3,7 +3,8 @@ import {Link} from 'react-router-dom'
 import '../stylesheets/footerstyles.css'
 import CalenderLogo from '../images/CalenderLogo.png';
 import HomeLogo from '../images/HomeLogo.png';
-import SettingsLogo from '../images/SettingsLogo.png';
+// import SettingsLogo from '../images/SettingsLogo.png';
+import ProfileLogo from '../images/ProfilePicture.png';
 import ToDoListLogo from '../images/ToDoListLogo.png';
 
 const Footer = () => {
@@ -31,9 +32,9 @@ const Footer = () => {
                 </div>
                 
                 <div className="Fourth-Section">
-                    <Link to="/settings" className="footer-link">
-                        <img className ="Settings-Image" src={SettingsLogo} alt="Home-Logo"/>
-                        <p className="Footer-Text">SETTINGS</p>
+                    <Link to="/profile" className="footer-link">
+                        <img className ="Profile-Image" src={ProfileLogo} alt="Profile-Logo"/>
+                        <p className="Footer-Text">PROFILE</p>
                     </Link>
                 </div>
             </div>

@@ -20,7 +20,7 @@ export default function ContactModal() {
         const encodedBody = encodeURIComponent(
             message + '\n\nSent by: ' + name);
         window.location.href = (
-            `mailto:istiaque.ony@gmail.com?
+            `mailto:allinonemanagementtool@gmail.com?
             subject=${encodedSubject}&body=${encodedBody}`);
     }
 
@@ -54,7 +54,7 @@ export default function ContactModal() {
                 <Modal.Header>
                     <Modal.Title>Contact Us</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body style = {{backgroundColor: 'whitesmoke'}}>
                     <Form noValidate>
                         <Form.Group controlId="name">
                             <Form.Label

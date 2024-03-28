@@ -43,4 +43,43 @@
     color: rgba(255, 255, 255, 0.7);
 }
 
+.events-render {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+    color: white;
+    border: 3px solid white;
+    height: 125px;
+    width: 400px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
 
+.event-details {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    
+
+}
+
+.event-details h1 {
+    font-size: 15px;
+}
+
+
+.event-buttons {
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    text-align: center;
+    align-items: center;
+    flex-direction: column
+}
+
+.event-buttons button {
+    font-size: 15px;
+}

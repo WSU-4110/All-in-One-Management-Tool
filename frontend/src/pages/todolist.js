@@ -109,7 +109,8 @@ export default function Todolist() {
                                     <div className='Assignment-section'>
                                         <p className='assignment-text'> {value.Assignment ? value.Assignment : value.name} </p>
                                         <p className='class-text'> {value.class} </p>
-                                        <p className='date-text'> {value.DueDate} </p>
+                                        <p className='date-text'>Due {value.DueDate} </p>
+                                        <p className='time-text'>By: {value.Time} </p>
                                     </div>
                                 </div>
 

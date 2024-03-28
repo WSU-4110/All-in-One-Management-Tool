@@ -78,3 +78,11 @@ button {
         width: 90%; 
     }
 }
+
+.footer-section {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+    /* other necessary styles */
+}

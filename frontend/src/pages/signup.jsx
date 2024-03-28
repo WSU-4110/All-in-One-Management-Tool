@@ -307,7 +307,7 @@ export const SignUp = (props) => {
                         }}>Email: </Form.Label>
                         <Form.Control
                             isInvalid={!verifiedEmail}
-                            type="username"
+                            type="email"
                             placeholder="Email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}/>

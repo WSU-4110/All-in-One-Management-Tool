@@ -37,12 +37,9 @@ export default function Profile() {
 
     const [username, setUsername] = useState(sessionStorage.getItem("Username"));
     const [email, setEmail] = useState(sessionStorage.getItem("Email"));
-    const [profileImage, setProfileImage] = useState(null);
-    const [showUploadOption, setShowUploadOption] = useState(true);
 
     const [fullName, setFullName] = useState('');
     const [contactNumber, setContactNumber] = useState('');
-    const [bio, setBio] = useState('');
 
 
     const [newPasswordBool, setNewPasswordBool] = useState(false);
@@ -76,21 +73,12 @@ export default function Profile() {
     useEffect(() => {
         const storedFullName = localStorage.getItem('FullName');
         const storedContactNumber = localStorage.getItem('ContactNumber');
-        const storedBio = localStorage.getItem('Bio');
-        const storedImage = localStorage.getItem('profileImage');
 
         if (storedFullName) {
             setFullName(storedFullName);
         }
         if (storedContactNumber) {
             setContactNumber(storedContactNumber);
-        }
-        if (storedBio) {
-            setBio(storedBio);
-        }
-        if (storedImage){
-            setProfileImage(storedImage);
-            setShowUploadOption(false);
         }
     }, []);
     
@@ -105,27 +93,6 @@ export default function Profile() {
     // Update the full name value in session storage
     const updateFullNameInStorage = (newFullName) => {
         sessionStorage["FullName"] = newFullName;
-    };
-
-    const handleImageChange = (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-
-        reader.onloadend = () => {
-            // Convert image to Base64
-            const base64Image = reader.result;
-            
-            // Save Base64 image to localStorage
-            localStorage.setItem('profileImage', base64Image);
-            
-            // Update state to display the new image
-            setProfileImage(base64Image);
-            setShowUploadOption(false);
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
-        }
     };
 
     // Function to check whether the location being added is valid.
@@ -344,7 +311,6 @@ export default function Profile() {
                     events: sessionStorage["Events"],
                     fullName: fullName, // Include full name
                     contactNumber: contactNumber, // Include contact number
-                    bio: bio // Include bio
                 };
                 const response = await fetch(
                     `http://localhost:5050/record/edit`, {
@@ -367,8 +333,7 @@ export default function Profile() {
 
                     localStorage.setItem('FullName', fullName);
                     localStorage.setItem('ContactNumber', contactNumber);
-                    localStorage.setItem('Bio', bio);
-                }
+               }
             // Catches any errors that occur during the fetch operation.
             } catch (error) {
                 console.error(
@@ -403,7 +368,6 @@ export default function Profile() {
         localStorage.setItem("Locations", JSON.stringify(locations));
         localStorage.setItem('FullName', fullName);
         localStorage.setItem('ContactNumber', contactNumber);
-        localStorage.setItem('Bio', bio);
 
     
         // Creating FormData to handle file upload along with other data
@@ -417,7 +381,6 @@ export default function Profile() {
         formData.append('events', sessionStorage["Events"]);
         formData.append('fullName', fullName);
         formData.append('contactNumber', contactNumber);
-        formData.append('bio', bio);
     
     
         try {
@@ -439,15 +402,7 @@ export default function Profile() {
         }
     }
 
-    const handleChangeProfilePicture = () => {
-        setShowUploadOption(true); // Show the upload option when change profile picture is clicked
-    };
-
-    const handleLogout = () => {
-        // Clear profile picture from localStorage when logging out
-        localStorage.removeItem('profileImage');
-        // Perform logout action
-    };
+   
     
 
     return (
@@ -471,19 +426,6 @@ export default function Profile() {
                         }}>
                         {fullName ? fullName : 'Profile'}
                     </h1>
-                        {profileImage && (
-                            <div style={{ borderRadius: '50%', overflow: 'hidden', width: '100px', height: '100px', margin: '10px auto' }}>
-                                <img src={profileImage} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                            </div>
-                        )}
-                        <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            {showUploadOption && (
-                                <input type="file" accept="image/*" onChange={handleImageChange} />
-                            )}
-                            {!showUploadOption && (
-                                <Button variant="primary" onClick={handleChangeProfilePicture}>Change Profile Picture</Button>
-                            )}
-                        </div>
 
 
                         <Form.Group controlId="formBasicUsername">
@@ -510,11 +452,6 @@ export default function Profile() {
                         <Form.Group controlId="formContactNumber">
                             <Form.Label>Contact Number</Form.Label>
                             <Form.Control type="text" value={contactNumber} onChange={e => setContactNumber(e.target.value)} readOnly={!isEditMode} />
-                        </Form.Group>
-                        <br></br>
-                        <Form.Group controlId="formBio">
-                            <Form.Label>Bio</Form.Label>
-                            <Form.Control as="textarea" rows={3} value={bio} onChange={e => setBio(e.target.value)} readOnly={!isEditMode} />
                         </Form.Group>
                         <br></br>
 

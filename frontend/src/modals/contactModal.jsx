@@ -54,7 +54,7 @@ export default function ContactModal() {
                 <Modal.Header>
                     <Modal.Title>Contact Us</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body style = {{backgroundColor: 'darkblue'}}>
                     <Form noValidate>
                         <Form.Group controlId="name">
                             <Form.Label

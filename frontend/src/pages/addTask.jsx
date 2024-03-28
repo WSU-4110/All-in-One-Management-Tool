@@ -82,11 +82,41 @@ export default function Addevent() {
                 Time: getTime,
                 Description: getDescription,
             };
-            if (sessionStorage["Tasks"] === undefined || sessionStorage["Tasks"] === null || sessionStorage["Tasks"] === "") {
-                sessionStorage["Tasks"] = JSON.stringify(newTask);
-            } else {
-                sessionStorage["Tasks"] = sessionStorage["Tasks"] + "," + JSON.stringify(newTask);
+            let Info;
+            try {
+                Info = JSON.parse(sessionStorage["Tasks"]);
+            } catch (error) {
+                Info = [];
             }
+
+            Info.push(newTask);
+            sessionStorage["Tasks"] = JSON.stringify(Info);
+            console.log(Info);
+
+            let locationsDB;
+            let tasksDB;
+            let eventsDB;
+            try {
+                locationsDB = JSON.parse(sessionStorage["Locations"]);
+            } catch {
+                locationsDB = [];
+            }
+            try {
+                tasksDB = JSON.parse(sessionStorage["Tasks"]);
+            } catch {
+                tasksDB = [];
+            }
+            try {
+                eventsDB = JSON.parse(sessionStorage["Events"]);
+            } catch {
+                eventsDB = [];
+            }
+
+            // if (sessionStorage["Tasks"] === undefined || sessionStorage["Tasks"] === null || sessionStorage["Tasks"] === "") {
+            //     sessionStorage["Tasks"] = JSON.stringify(newTask);
+            // } else {
+            //     sessionStorage["Tasks"] = sessionStorage["Tasks"] + "," + JSON.stringify(newTask);
+            // }
             // sessionStorage.setItem('Tasks', JSON.stringify(...sessionStorage['Tasks'], newTask));
 
             // Replaces existing user information in the database with new
@@ -103,9 +133,9 @@ export default function Addevent() {
                             email: sessionStorage["Email"],
                             password: sessionStorage["Password"],
                             notifications: sessionStorage["Notifications"],
-                            locations: sessionStorage["Locations"],
-                            tasks: sessionStorage["Tasks"],
-                            events: sessionStorage["Events"] }),
+                            locations: locationsDB,
+                            tasks: tasksDB,
+                            events: eventsDB }),
                 });
                 // Checks whether the fetch operation was successful.
                 if (!response.ok) {
@@ -119,7 +149,7 @@ export default function Addevent() {
                 console.error(
                     'A problem occurred with your fetch operation: ', error);
             }
-            }
+        }
     }
 
     return (

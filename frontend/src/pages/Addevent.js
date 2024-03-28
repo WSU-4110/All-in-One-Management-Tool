@@ -59,22 +59,21 @@ export default function Addevent() {
     // async function getEventInfo(e) {
     //     e.preventDefault();
     //     if (checkForEmpty()) {
-    //         let Info = JSON.parse(localStorage.getItem('eventInfo'));
+    //         let Info = JSON.parse(sessionStorage.getItem('Events'));
 
     //         if (Info === null) {
     //             Info = [];
     //         }
 
-    //         const newEvent = 
-    //         {
+    //         const newEvent = {
     //             name: getName,
     //             DueDate: getDueDate,
     //             Description: getDescription,
-
+    //             Location: getLocation,
     //         };
             
     //         Info.push(newEvent);
-    //         localStorage.setItem('eventInfo', JSON.stringify(Info));
+    //         localStorage.setItem('Events', JSON.stringify(Info));
 
     //         console.log(Info);
     //         navigate('/todolist');
@@ -104,18 +103,68 @@ export default function Addevent() {
             if (getLocation === "Select A Location") {
                 setLocation("None");
             }
+            // const newEvent = {
+            //     name: getName,
+            //     DueDate: getDueDate,
+            //     Description: getDescription,
+            //     Location: getLocation,
+            // };
+            // const eventsList = [];
+            // if (sessionStorage["Events"] === undefined || sessionStorage["Events"] === null || sessionStorage["Events"] === "") {
+            //     eventsList.push(JSON.stringify(newEvent));
+            //     // sessionStorage["Events"] = JSON.stringify(newEvent);
+            // } else {
+            //     for (var i = 0; i < JSON.parse(sessionStorage["Events"]).length; i++) {
+            //         eventsList.push(JSON.parse(sessionStorage["Events"])[i]);
+            //     }
+            //     console.log(eventsList);
+            //     // JSON.parse(sessionStorage["Events"])
+            //     eventsList.push(newEvent);
+            //     console.log(eventsList);
+            //     // sessionStorage["Events"] = sessionStorage["Events"] + "," + JSON.stringify(newEvent);
+            // }
+            // sessionStorage.setItem('Events', JSON.stringify([...sessionStorage["Events"], newEvent]));
+
+            let Info;
+            try{
+                Info = JSON.parse(sessionStorage.getItem('Events'));
+            } catch {
+                Info = []
+            }
+
+            // if (Info === null) {
+            //     Info = [];
+            // }
+
             const newEvent = {
                 name: getName,
                 DueDate: getDueDate,
                 Description: getDescription,
                 Location: getLocation,
             };
-            if (sessionStorage["Events"] === undefined || sessionStorage["Events"] === null || sessionStorage["Events"] === "") {
-                sessionStorage["Events"] = JSON.stringify(newEvent);
-            } else {
-                sessionStorage["Events"] = sessionStorage["Events"] + "," + JSON.stringify(newEvent);
+            
+            Info.push(newEvent);
+            sessionStorage.setItem('Events', JSON.stringify(Info));
+            console.log(Info);
+
+            let locationsDB;
+            let tasksDB;
+            let eventsDB;
+            try {
+                locationsDB = JSON.parse(sessionStorage["Locations"]);
+            } catch {
+                locationsDB = [];
             }
-            // sessionStorage.setItem('Events', JSON.stringify([...sessionStorage["Events"], newEvent]));
+            try {
+                tasksDB = JSON.parse(sessionStorage["Tasks"]);
+            } catch {
+                tasksDB = [];
+            }
+            try {
+                eventsDB = JSON.parse(sessionStorage["Events"]);
+            } catch {
+                eventsDB = [];
+            }
             
             // Replaces existing user information in the database with new
             // information entered by the user using the 'edit' server route.
@@ -131,9 +180,9 @@ export default function Addevent() {
                             email: sessionStorage["Email"],
                             password: sessionStorage["Password"],
                             notifications: sessionStorage["Notifications"],
-                            locations: sessionStorage["Locations"],
-                            tasks: sessionStorage["Tasks"],
-                            events: sessionStorage["Events"] }),
+                            locations: locationsDB,
+                            tasks: tasksDB,
+                            events: eventsDB }),
                 });
                 // Checks whether the fetch operation was successful.
                 if (!response.ok) {
@@ -147,7 +196,7 @@ export default function Addevent() {
                 console.error(
                     'A problem occurred with your fetch operation: ', error);
             }
-            }
+        }
     }
 
     return (

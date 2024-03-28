@@ -11,13 +11,27 @@ import Button from 'react-bootstrap/Button';
 export default function Todolist() {
     const [todos, setTodos] = useState([]);
     // const Eventobj = JSON.parse(localStorage.getItem('eventInfo'));
-    const [events, setEvents] = useState(sessionStorage["Events"]);
-    const [tasks, setTasks] = useState(sessionStorage["Tasks"]);
+    // const [events, setEvents] = useState(sessionStorage["Events"]);
+    // const [tasks, setTasks] = useState(sessionStorage["Tasks"]);
     const [containsEvents, setContainsEvents] = useState(true);
     const navigate = useNavigate();
 
-    if ((events === '' || events === 'undefined' || events === 'null')
-        && (tasks === '' || tasks === 'undefined' || tasks === 'null')) {
+    let events;
+    let tasks;
+
+    try{
+        events = JSON.parse(sessionStorage["Events"]);
+    } catch (error) {
+        events = [];
+    }
+    try{
+        tasks = JSON.parse(sessionStorage["Tasks"]);
+    } catch (error) {
+        tasks = [];
+    }
+
+    if ((events.length === 0 || events === 'undefined' || events === 'null')
+        && (tasks.length === 0 || tasks === 'undefined' || tasks === 'null')) {
         setContainsEvents(false);
     }
 

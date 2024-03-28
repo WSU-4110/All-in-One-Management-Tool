@@ -37,6 +37,8 @@ export default function Profile() {
 
     const [username, setUsername] = useState(sessionStorage.getItem("Username"));
     const [email, setEmail] = useState(sessionStorage.getItem("Email"));
+    const [profileImage, setProfileImage] = useState(null);
+    const [showUploadOption, setShowUploadOption] = useState(true);
 
     const [fullName, setFullName] = useState('');
     const [contactNumber, setContactNumber] = useState('');
@@ -75,6 +77,7 @@ export default function Profile() {
         const storedFullName = localStorage.getItem('FullName');
         const storedContactNumber = localStorage.getItem('ContactNumber');
         const storedBio = localStorage.getItem('Bio');
+        const storedImage = localStorage.getItem('profileImage');
 
         if (storedFullName) {
             setFullName(storedFullName);
@@ -84,6 +87,10 @@ export default function Profile() {
         }
         if (storedBio) {
             setBio(storedBio);
+        }
+        if (storedImage){
+            setProfileImage(storedImage);
+            setShowUploadOption(false);
         }
     }, []);
     
@@ -100,6 +107,26 @@ export default function Profile() {
         sessionStorage["FullName"] = newFullName;
     };
 
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            // Convert image to Base64
+            const base64Image = reader.result;
+            
+            // Save Base64 image to localStorage
+            localStorage.setItem('profileImage', base64Image);
+            
+            // Update state to display the new image
+            setProfileImage(base64Image);
+            setShowUploadOption(false);
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    };
 
     // Function to check whether the location being added is valid.
     const validateLocation = (e) => {
@@ -411,6 +438,16 @@ export default function Profile() {
             console.error('A problem occurred with your fetch operation: ', error);
         }
     }
+
+    const handleChangeProfilePicture = () => {
+        setShowUploadOption(true); // Show the upload option when change profile picture is clicked
+    };
+
+    const handleLogout = () => {
+        // Clear profile picture from localStorage when logging out
+        localStorage.removeItem('profileImage');
+        // Perform logout action
+    };
     
 
     return (
@@ -432,6 +469,21 @@ export default function Profile() {
                             alignItems: 'center',
                             justifyContent: 'center',
                         }}>Profile</h1>
+                        {profileImage && (
+                            <div style={{ borderRadius: '50%', overflow: 'hidden', width: '100px', height: '100px', margin: '10px auto' }}>
+                                <img src={profileImage} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </div>
+                        )}
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            {showUploadOption && (
+                                <input type="file" accept="image/*" onChange={handleImageChange} />
+                            )}
+                            {!showUploadOption && (
+                                <Button variant="primary" onClick={handleChangeProfilePicture}>Change Profile Picture</Button>
+                            )}
+                        </div>
+
+
                         <Form.Group controlId="formBasicUsername">
                             <Form.Label 
                             style={{

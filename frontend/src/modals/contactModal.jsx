@@ -57,7 +57,11 @@ export default function ContactModal() {
                 <Modal.Body style = {{backgroundColor: 'darkblue'}}>
                     <Form noValidate>
                         <Form.Group controlId="name">
-                            <Form.Label >Name</Form.Label>
+                            <Form.Label
+                            style={{
+                                color: "black",
+                                textShadow: "2px 2px 4px #FFFFFF",
+                            }}>Name</Form.Label>
                             <Form.Control
                                 type="username"
                                 isInvalid={!validName}
@@ -69,7 +73,11 @@ export default function ContactModal() {
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group controlId="subject">
-                            <Form.Label>Subject</Form.Label>
+                            <Form.Label
+                            style={{
+                                color: "black",
+                                textShadow: "2px 2px 4px #FFFFFF",
+                            }}>Subject</Form.Label>
                             <Form.Control 
                                 type="username"
                                 isInvalid={!validSubject}
@@ -81,7 +89,12 @@ export default function ContactModal() {
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group controlId="message">
-                            <Form.Label>Message</Form.Label>
+                            <Form.Label
+                            style={{
+                                color: "black",
+                                textShadow: "2px 2px 4px #FFFFFF",
+                                marginBottom: "-0.2em",
+                            }}>Message</Form.Label>
                             <Form.Control
                                 as="textarea"
                                 rows={3}

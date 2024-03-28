@@ -437,16 +437,18 @@ export default function Profile() {
         //     console.log(error);
         //     locationsDB = sessionStorage["Locations"];
         // }
-        try {
-            tasksDB = JSON.parse(sessionStorage["Tasks"]);
-        } catch {
-            tasksDB = [];
-        }
-        try {
-            eventsDB = JSON.parse(sessionStorage["Events"]);
-        } catch {
-            eventsDB = [];
-        }
+        // try {
+        //     tasksDB = JSON.parse(sessionStorage["Tasks"]);
+        // } catch {
+        //     tasksDB = [];
+        // }
+        // try {
+        //     eventsDB = JSON.parse(sessionStorage["Events"]);
+        // } catch {
+        //     eventsDB = [];
+        // }
+        tasksDB = sessionStorage["Tasks"];
+        eventsDB = sessionStorage["Events"];
         
         console.log(locations);
         // console.log(locationsDB);

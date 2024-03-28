@@ -101,16 +101,18 @@ export default function Addevent() {
             // } catch {
             //     locationsDB = [];
             // }
-            try {
-                tasksDB = JSON.parse(sessionStorage["Tasks"]);
-            } catch {
-                tasksDB = [];
-            }
-            try {
-                eventsDB = JSON.parse(sessionStorage["Events"]);
-            } catch {
-                eventsDB = [];
-            }
+            // try {
+            //     tasksDB = JSON.parse(sessionStorage["Tasks"]);
+            // } catch {
+            //     tasksDB = [];
+            // }
+            // try {
+            //     eventsDB = JSON.parse(sessionStorage["Events"]);
+            // } catch {
+            //     eventsDB = [];
+            // }
+            tasksDB = sessionStorage["Tasks"];
+            eventsDB = sessionStorage["Events"];
 
             // if (sessionStorage["Tasks"] === undefined || sessionStorage["Tasks"] === null || sessionStorage["Tasks"] === "") {
             //     sessionStorage["Tasks"] = JSON.stringify(newTask);

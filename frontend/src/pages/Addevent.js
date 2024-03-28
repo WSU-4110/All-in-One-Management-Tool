@@ -110,7 +110,12 @@ export default function Addevent() {
                 Description: getDescription,
                 Location: getLocation,
             };
-            sessionStorage.setItem('Events', JSON.stringify([...sessionStorage["Events"], newEvent]));
+            if (sessionStorage["Events"] === undefined || sessionStorage["Events"] === null || sessionStorage["Events"] === "") {
+                sessionStorage["Events"] = JSON.stringify(newEvent);
+            } else {
+                sessionStorage["Events"] = sessionStorage["Events"] + "," + JSON.stringify(newEvent);
+            }
+            // sessionStorage.setItem('Events', JSON.stringify([...sessionStorage["Events"], newEvent]));
             
             // Replaces existing user information in the database with new
             // information entered by the user using the 'edit' server route.

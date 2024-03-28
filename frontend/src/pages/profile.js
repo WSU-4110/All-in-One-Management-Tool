@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -20,11 +20,11 @@ export default function Profile() {
     //     age: 30,
     //     location: "Example City"
     // });
-    // const [isEditMode, setIsEditMode] = useState(false);
+    const [isEditMode, setIsEditMode] = useState(false);
 
-    // const toggleEditMode = () => {
-    //     setIsEditMode(!isEditMode);
-    // };
+    const toggleEditMode = () => {
+            setIsEditMode(!isEditMode);
+    };
 
     // const handleInputChange = (e) => {
     //     setUserProfile({ ...userProfile, [e.target.name]: e.target.value });
@@ -35,16 +35,21 @@ export default function Profile() {
     //     setIsEditMode(false);
     // };
 
-    const [username, setUsername] = useState(sessionStorage["Username"]);
-    const [email, setEmail] = useState(sessionStorage["Email"]);
+    const [username, setUsername] = useState(sessionStorage.getItem("Username"));
+    const [email, setEmail] = useState(sessionStorage.getItem("Email"));
+
+    const [fullName, setFullName] = useState('');
+    const [contactNumber, setContactNumber] = useState('');
+    const [bio, setBio] = useState('');
+
+
     const [newPasswordBool, setNewPasswordBool] = useState(false);
     const [newPassword1, setNewPassword1] = useState('');
     const [newPassword2, setNewPassword2] = useState('');
     const [newPassword1Error, setNewPassword1Error] = useState('');
     const [newPassword2Error, setNewPassword2Error] = useState('');
     const [verifiedPassword, setVerifiedPassword] = useState(true);
-    const [notifications, setNotifications] = useState(
-        sessionStorage["Notifications"]);
+    const [notifications, setNotifications] = useState(localStorage.getItem("Notifications"));
     const [locations, setLocations] = useState([]);
     // Variable storing the location selected in the location dropdown button.
     const [selectedLocation, setSelectedLocation] = useState(
@@ -65,6 +70,35 @@ export default function Profile() {
     // Variable needed to force the alert to re-render.
     const [key, setKey] = useState(0);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const storedFullName = localStorage.getItem('FullName');
+        const storedContactNumber = localStorage.getItem('ContactNumber');
+        const storedBio = localStorage.getItem('Bio');
+
+        if (storedFullName) {
+            setFullName(storedFullName);
+        }
+        if (storedContactNumber) {
+            setContactNumber(storedContactNumber);
+        }
+        if (storedBio) {
+            setBio(storedBio);
+        }
+    }, []);
+    
+
+
+
+    // Function to handle changes in the full name input field
+    const handleFullNameChange = (e) => {
+        setFullName(e.target.value);
+    };
+
+    // Update the full name value in session storage
+    const updateFullNameInStorage = (newFullName) => {
+        sessionStorage["FullName"] = newFullName;
+    };
 
 
     // Function to check whether the location being added is valid.
@@ -269,24 +303,30 @@ export default function Profile() {
 
     async function saveChanges() {
         if (checkPassword()) {
-            sessionStorage["Password"] = newPassword1;
+            sessionStorage.setItem("Password", newPassword1);
             console.log(newPassword1);
             console.log(sessionStorage["Password"]);
             try {
+                const profileData = {
+                    username: username,
+                    email: email,
+                    password: newPassword1,
+                    notifications: sessionStorage["Notifications"],
+                    locations: sessionStorage["Locations"],
+                    tasks: sessionStorage["Tasks"],
+                    events: sessionStorage["Events"],
+                    fullName: fullName, // Include full name
+                    contactNumber: contactNumber, // Include contact number
+                    bio: bio // Include bio
+                };
                 const response = await fetch(
                     `http://localhost:5050/record/edit`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json",
                 },
-                    body: JSON.stringify(
-                        { username: username, email: email,
-                            password: newPassword1,
-                            notifications: sessionStorage["Notifications"],
-                            locations: sessionStorage["Locations"],
-                            tasks: sessionStorage["Tasks"],
-                            events: sessionStorage["Events"] }),
-                });
+                body: JSON.stringify(profileData) // Use profileData here
+            });
                 // Checks whether the fetch operation was successful.
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -297,6 +337,10 @@ export default function Profile() {
                     setNewPasswordBool(false);
                     setPasswordSuccess(true);
                     setKey(key + 1);
+
+                    localStorage.setItem('FullName', fullName);
+                    localStorage.setItem('ContactNumber', contactNumber);
+                    localStorage.setItem('Bio', bio);
                 }
             // Catches any errors that occur during the fetch operation.
             } catch (error) {
@@ -328,25 +372,34 @@ export default function Profile() {
     // Function to handle the submission of the form.
     async function handleSubmit(e) {
         e.preventDefault();
-        sessionStorage["Notifications"] = notifications;
-        sessionStorage["Locations"] = locations;
+        localStorage.setItem("Notifications", notifications);
+        localStorage.setItem("Locations", JSON.stringify(locations));
+        localStorage.setItem('FullName', fullName);
+        localStorage.setItem('ContactNumber', contactNumber);
+        localStorage.setItem('Bio', bio);
 
-        // Replaces existing user information in the database with new
-        // information entered by the user using the 'edit' server route.
+    
+        // Creating FormData to handle file upload along with other data
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('password', sessionStorage["Password"]);
+        formData.append('notifications', notifications);
+        formData.append('locations', JSON.stringify(locations)); // Convert array to string
+        formData.append('tasks', sessionStorage["Tasks"]);
+        formData.append('events', sessionStorage["Events"]);
+        formData.append('fullName', fullName);
+        formData.append('contactNumber', contactNumber);
+        formData.append('bio', bio);
+    
+    
         try {
-            const response = await fetch(
-                `http://localhost:5050/record/edit`, {
+            const response = await fetch(`http://localhost:5050/record/edit`, {
                 method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-            },
-                body: JSON.stringify(
-                    { username: username, email: email,
-                        password: sessionStorage["Password"],
-                        notifications: notifications, locations: locations,
-                        tasks: sessionStorage["Tasks"],
-                        events: sessionStorage["Events"] }),
+                body: formData // Send FormData
+                // Note: Don't set 'Content-Type' header when sending FormData
             });
+    
             // Checks whether the fetch operation was successful.
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -354,12 +407,11 @@ export default function Profile() {
                 console.log('Record modified successfully');
                 navigate("/home");
             }
-        // Catches any errors that occur during the fetch operation.
         } catch (error) {
-            console.error(
-                'A problem occurred with your fetch operation: ', error);
+            console.error('A problem occurred with your fetch operation: ', error);
         }
     }
+    
 
     return (
         <div className='home-outer'>
@@ -396,6 +448,23 @@ export default function Profile() {
                                 }}/>
                         </Form.Group>
                         <br></br>
+                        <Form.Group controlId="formFullName">
+                            <Form.Label>Full Name</Form.Label>
+                            <Form.Control type="text" value={fullName} onChange={handleFullNameChange} readOnly={!isEditMode} />
+                        </Form.Group>
+                        <br></br>
+                        <Form.Group controlId="formContactNumber">
+                            <Form.Label>Contact Number</Form.Label>
+                            <Form.Control type="text" value={contactNumber} onChange={e => setContactNumber(e.target.value)} readOnly={!isEditMode} />
+                        </Form.Group>
+                        <br></br>
+                        <Form.Group controlId="formBio">
+                            <Form.Label>Bio</Form.Label>
+                            <Form.Control as="textarea" rows={3} value={bio} onChange={e => setBio(e.target.value)} readOnly={!isEditMode} />
+                        </Form.Group>
+                        <br></br>
+
+                    
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label 
                             style={{
@@ -637,6 +706,27 @@ export default function Profile() {
                             </Button>
                         </Col>
                         <br></br>
+
+                        {/* Edit Mode Toggle */}
+                        <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            {isEditMode ? (
+                                <>
+                                    <Button variant="secondary" type="button" className="mx-1" onClick={toggleEditMode}>
+                                        Cancel
+                                    </Button>
+                                    <Button variant="primary" type="submit" className="mx-1" onClick={(e) => handleSubmit(e)}>
+                                        Save Changes
+                                    </Button>
+                                </>
+                            ) : (
+                                <Button variant="primary" type="button" className="mx-1" onClick={toggleEditMode}>
+                                    Edit Profile
+                                </Button>
+                            )}
+                        </Col>
+                        <br></br>
+
+                        
                         <Col
                         style={{
                             display: "flex",

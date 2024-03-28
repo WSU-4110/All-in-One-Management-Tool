@@ -11,9 +11,6 @@ import Header from '../components/Header';
 import Expire from '../components/Expire';
 import '../stylesheets/profilepagestyles.css';
 
-
-//This is the most piece of shit code I have seen in my entire life 
-//In what world is a react componenty 700 fucking lines of code
 export default function Profile() {
     // const [userProfile, setUserProfile] = useState({
     //     username: "example_user",
@@ -73,7 +70,7 @@ export default function Profile() {
     const [key, setKey] = useState(0);
     const navigate = useNavigate();
 
-    useEffect(() => {
+    /*useEffect(() => {
         const storedFullName = localStorage.getItem('FullName');
         const storedContactNumber = localStorage.getItem('ContactNumber');
 
@@ -83,20 +80,25 @@ export default function Profile() {
         if (storedContactNumber) {
             setContactNumber(storedContactNumber);
         }
-    }, []);
+    }, []);*/
+
+    const disabledStyle = {
+        opacity: 0.5, // Adjust this as needed for visibility
+        backgroundColor: "#e9ecef" // Grey out color
+    };
     
 
 
 
-    // Function to handle changes in the full name input field
+    /* Function to handle changes in the full name input field
     const handleFullNameChange = (e) => {
         setFullName(e.target.value);
-    };
+    };*/
 
-    // Update the full name value in session storage
+    /* Update the full name value in session storage
     const updateFullNameInStorage = (newFullName) => {
         sessionStorage["FullName"] = newFullName;
-    };
+    }; */
 
     // Function to check whether the location being added is valid.
     const validateLocation = (e) => {
@@ -312,8 +314,8 @@ export default function Profile() {
                     locations: sessionStorage["Locations"],
                     tasks: sessionStorage["Tasks"],
                     events: sessionStorage["Events"],
-                    fullName: fullName, // Include full name
-                    contactNumber: contactNumber, // Include contact number
+                    //fullName: fullName, // Include full name
+                    //contactNumber: contactNumber, // Include contact number
                 };
                 const response = await fetch(
                     `http://localhost:5050/record/edit`, {
@@ -419,7 +421,7 @@ export default function Profile() {
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}>
-                    <Form noValidate>
+                    <Form noValidate onSubmit={handleSubmit}>
                         <br></br>
                         <h1
                         style={{
@@ -427,7 +429,7 @@ export default function Profile() {
                             alignItems: 'center',
                             justifyContent: 'center',
                         }}>
-                        {fullName ? fullName : 'Profile'}
+                        Hello, {username}
                     </h1>
 
 
@@ -445,16 +447,6 @@ export default function Profile() {
                                 style={{
                                     opacity: 0.5,
                                 }}/>
-                        </Form.Group>
-                        <br></br>
-                        <Form.Group controlId="formFullName">
-                            <Form.Label>Full Name</Form.Label>
-                            <Form.Control type="username" value={fullName} onChange={handleFullNameChange} readOnly={!isEditMode} />
-                        </Form.Group>
-                        <br></br>
-                        <Form.Group controlId="formContactNumber">
-                            <Form.Label>Contact Number</Form.Label>
-                            <Form.Control type="username" value={contactNumber} onChange={e => setContactNumber(e.target.value)} readOnly={!isEditMode} />
                         </Form.Group>
                         <br></br>
 
@@ -486,6 +478,8 @@ export default function Profile() {
                                 value={notifications}
                                 onChange={
                                     (u) => setNotifications(u.target.value)}
+                                disabled={!isEditMode}
+                                style={!isEditMode ? disabledStyle : {}}
                                 >
                                 <option value="none">
                                     Receive no notifications for all events
@@ -517,7 +511,7 @@ export default function Profile() {
                                 color: "white",
                                 textShadow: "2px 2px 4px #000000",
                             }}>Locations: </Form.Label>
-                            <DropdownButton title={selectedLocation}
+                            <DropdownButton title={selectedLocation} disabled = {!isEditMode}
                             style={{
                                 marginTop: "-1em",
                                 width: "100%",
@@ -600,21 +594,22 @@ export default function Profile() {
                             </Alert>
                         </Expire>
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        {isEditMode ? (
-                            <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <Button variant="secondary" type="button" className="mx-1" onClick={toggleEditMode}>
-                                    Discard Changes
+                            {isEditMode ? (
+                                <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <Button variant="secondary" className="mx-1" onClick={toggleEditMode}>
+                                        Discard Changes
+                                    </Button>
+                                    <Button variant="primary" type="submit" className="mx-1">
+                                        Save Changes
+                                    </Button>
+                                </Col>
+                            ) : (
+                                <Button variant="primary" className="mx-1" onClick={toggleEditMode}> 
+                                    Edit Profile
                                 </Button>
-                                <Button variant="primary" type="submit" className="mx-1" onClick={(e) => handleSubmit(e)}>
-                                    Save Changes
-                                </Button>
-                            </Col>
-                        ) : (
-                            <Button variant="primary" type="button" className="mx-1" onClick={toggleEditMode}>
-                                Edit Profile
-                            </Button>
                             )}
-                    </div>
+                        </div>
+
                     <br></br>
 
                        

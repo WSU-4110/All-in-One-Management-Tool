@@ -36,8 +36,18 @@ export default function Todolist() {
             setContainsEvents(false);
         }
 
-        todos.push(events);
-        todos.push(tasks);
+        if (events.length !== 0) {
+            for (let i = 0; i < events.length; i++) {
+                todos.push(events[i]);
+            }
+        }
+        if (tasks.length !== 0) {
+            for (let i = 0; i < tasks.length; i++) {
+                todos.push(tasks[i]);
+            }
+        }
+        // todos.push(events);
+        // todos.push(tasks);
         // const eventInfo = JSON.parse(localStorage.getItem('eventInfo')) || [];
         // setTodos(eventInfo);
     }, []);

@@ -446,12 +446,12 @@ export default function Profile() {
                         <br></br>
                         <Form.Group controlId="formFullName">
                             <Form.Label>Full Name</Form.Label>
-                            <Form.Control type="text" value={fullName} onChange={handleFullNameChange} readOnly={!isEditMode} />
+                            <Form.Control type="username" value={fullName} onChange={handleFullNameChange} readOnly={!isEditMode} />
                         </Form.Group>
                         <br></br>
                         <Form.Group controlId="formContactNumber">
                             <Form.Label>Contact Number</Form.Label>
-                            <Form.Control type="text" value={contactNumber} onChange={e => setContactNumber(e.target.value)} readOnly={!isEditMode} />
+                            <Form.Control type="username" value={contactNumber} onChange={e => setContactNumber(e.target.value)} readOnly={!isEditMode} />
                         </Form.Group>
                         <br></br>
 

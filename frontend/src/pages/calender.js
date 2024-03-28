@@ -148,19 +148,19 @@ export default function Calendar() {
                             if (day) {
                                 let className = "DateButton";
                                 let style = {};
-
+                        
                                 if (isToday(day)) {
                                     style = { 
                                         background: 'linear-gradient(to bottom right, rgb(0, 162, 255), rgb(44, 44, 57))',
                                         color: 'white' };
                                     className += " Today";
-                                } else if (checkForEvent(day.getDate())) {
+                                } else if (checkForEvent(day)) { // Changed here: pass day directly
                                     style = {
                                         background: 'linear-gradient(to bottom right, rgb(0, 255, 26), rgb(44, 44, 57))',
                                         color: 'white'
                                     }
                                 };
-                                return <button key={index} onClick={() => {addEventDetails(day.getDate())}} 
+                                return <button key={index} onClick={() => {addEventDetails(day)}} // And here: pass day directly
                                 className="DateButton" style={style}>{day.getDate()}</button>;
                             } else {
                                 return <button key={index} className='EmptyButton'></button>;

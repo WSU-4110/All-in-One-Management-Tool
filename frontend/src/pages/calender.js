@@ -99,8 +99,8 @@ export default function Calendar() {
         });
 
         if (eventForDay) {
-            setClasstoevent(eventForDay.class); 
-            setAssignmenttoevent(eventForDay.Assignment); 
+            setClasstoevent(eventForDay.name); 
+            setAssignmenttoevent(eventForDay.Location); 
             setDuedatetoevent(eventForDay.DueDate);
             setDescriptiontoevent(eventForDay.Description);
             setisEventVisible(1);
@@ -172,14 +172,14 @@ export default function Calendar() {
             <div className='show-event' style={{
                 opacity: isEventVisible
             }}>
-                <div className='Class-section'>Class: 
+                <div className='Class-section'>Event Name: 
                     <span style={{
                         color: 'rgba(255, 255, 255, 0.7)',
                         marginLeft: '10px',
                         fontSize: '20px',
                         fontStyle: 'italic'
                     }}>{Classtoevent}</span> </div>
-                <div className='Assignment-section'>Assignment: 
+                <div className='Assignment-section'>Location: 
                     <span style={{
                         color: 'rgba(255, 255, 255, 0.7)',
                         marginLeft: '10px',

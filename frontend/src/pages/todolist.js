@@ -19,28 +19,28 @@ export default function Todolist() {
     let events;
     let tasks;
 
-    try{
-        events = JSON.parse(sessionStorage["Events"]);
-    } catch (error) {
-        events = [];
-    }
-    try{
-        tasks = JSON.parse(sessionStorage["Tasks"]);
-    } catch (error) {
-        tasks = [];
-    }
-
-    if ((events.length === 0 || events === 'undefined' || events === 'null')
-        && (tasks.length === 0 || tasks === 'undefined' || tasks === 'null')) {
-        setContainsEvents(false);
-    }
-
     useEffect(() => {
+        try{
+            events = JSON.parse(sessionStorage["Events"]);
+        } catch (error) {
+            events = [];
+        }
+        try{
+            tasks = JSON.parse(sessionStorage["Tasks"]);
+        } catch (error) {
+            tasks = [];
+        }
+    
+        if ((events.length === 0 || events === 'undefined' || events === 'null')
+            && (tasks.length === 0 || tasks === 'undefined' || tasks === 'null')) {
+            setContainsEvents(false);
+        }
+
         todos.push(events);
         todos.push(tasks);
         // const eventInfo = JSON.parse(localStorage.getItem('eventInfo')) || [];
         // setTodos(eventInfo);
-      }, []);
+    }, []);
 
     async function removeItem(i) {
         const newTodos = [...todos];

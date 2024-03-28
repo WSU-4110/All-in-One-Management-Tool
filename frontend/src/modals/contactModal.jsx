@@ -112,7 +112,7 @@ export default function ContactModal() {
                             <Button variant="secondary" onClick={handleClose}
                             style={{
                                 float: "right",
-                                width: "12em",
+                                width: "10em",
                             }}>
                                 Close
                             </Button>
@@ -121,7 +121,7 @@ export default function ContactModal() {
                             <Button variant="primary" onClick={(e) => handleSubmit(e)}
                             style={{
                                 float: "left",
-                                width: "12em",
+                                width: "10em",
                             }}>
                                 Submit Message
                             </Button>

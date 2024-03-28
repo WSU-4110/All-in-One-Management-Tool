@@ -468,7 +468,9 @@ export default function Profile() {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                        }}>Profile</h1>
+                        }}>
+                        {fullName ? fullName : 'Profile'}
+                    </h1>
                         {profileImage && (
                             <div style={{ borderRadius: '50%', overflow: 'hidden', width: '100px', height: '100px', margin: '10px auto' }}>
                                 <img src={profileImage} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -533,92 +535,7 @@ export default function Profile() {
                                 }}/>
                         </Form.Group>
                         <br></br>
-                        <Form.Group controlId="formBasicNewPassword">
-                            {!newPasswordBool && (
-                                <Form.Group controlId="formBasicNewPasswordButton"
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                }}>
-                                    <Button variant='primary' type='button'
-                                    className='mx-1' onClick={() => setNewPasswordBool(!newPasswordBool)}>
-                                        Change Password
-                                    </Button>
-                                </Form.Group>
-                            )}
-                            {newPasswordBool && (
-                                <Form.Group controlId='formBasicChangePassword'>
-                                    <Form.Label 
-                                    style={{
-                                        color: "white",
-                                        textShadow: "2px 2px 4px #000000",
-                                    }}>New Password: </Form.Label>
-                                    <Form.Control
-                                        isInvalid={!verifiedPassword}
-                                        type="password"
-                                        placeholder="Password"
-                                        value={newPassword1}
-                                        onChange={(p) => setNewPassword1(p.target.value)}/>
-                                    <Form.Control.Feedback type="invalid"
-                                    style={{
-                                        color: "white",
-                                        textShadow: "2px 2px 4px #FF0000",
-                                    }}>
-                                        {newPassword1Error}
-                                    </Form.Control.Feedback>
-                                    <br></br>
-                                    <Form.Label 
-                                    style={{
-                                        color: "white",
-                                        textShadow: "2px 2px 4px #000000",
-                                    }}>Confirm New Password: </Form.Label>
-                                    <Form.Control
-                                        isInvalid={!verifiedPassword}
-                                        type="password"
-                                        placeholder="Password"
-                                        value={newPassword2}
-                                        onChange={(p) => setNewPassword2(p.target.value)}/>
-                                    <Form.Control.Feedback type="invalid"
-                                    style={{
-                                        color: "white",
-                                        textShadow: "2px 2px 4px #FF0000",
-                                    }}>
-                                        {newPassword2Error}
-                                    </Form.Control.Feedback>
-                                    <p style={{
-                                        width: '300px',
-                                        fontSize: '0.85em',
-                                        marginTop: '0.5em',
-                                        color: "white",
-                                    }}>Password must be at least
-                                        8 characters long, contain a capital letter,
-                                        a number, and have no spaces.</p>
-                                    <Form.Group controlId='formBasicPasswordButtons'
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                    }}>
-                                        <Button variant='secondary' type='button'
-                                        className='mx-1' onClick={() => discardChanges()}>
-                                            Discard Changes
-                                        </Button>
-                                        <Button variant='primary' type='button'
-                                        className='mx-1' onClick={() => saveChanges()}>
-                                            Save Changes
-                                        </Button>
-                                    </Form.Group>
-                                </Form.Group>
-                            )}
-                            <Expire delay="4000" key={key}>
-                                <br></br>
-                                <Alert show={passwordSuccess} variant='success'>
-                                    Password successfully changed!
-                                </Alert>
-                            </Expire>
-                        </Form.Group>
-                        <br></br>
+                        
                         <Form.Group controlId="formBasicNotifications">
                             <Form.Label 
                             style={{
@@ -742,40 +659,111 @@ export default function Profile() {
                                 {successMessage}
                             </Alert>
                         </Expire>
-                        <Col
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}>
-                            <Button variant="secondary" type="button"
-                            className="mx-1" onClick={() => navigate("/home")}>
-                                Discard Changes
-                            </Button>
-                            <Button variant="primary" type="submit"
-                            className="mx-1" onClick={(e) => handleSubmit(e)}>
-                                Save Changes
-                            </Button>
-                        </Col>
-                        <br></br>
-
-                        {/* Edit Mode Toggle */}
-                        <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            {isEditMode ? (
-                                <>
-                                    <Button variant="secondary" type="button" className="mx-1" onClick={toggleEditMode}>
-                                        Cancel
-                                    </Button>
-                                    <Button variant="primary" type="submit" className="mx-1" onClick={(e) => handleSubmit(e)}>
-                                        Save Changes
-                                    </Button>
-                                </>
-                            ) : (
-                                <Button variant="primary" type="button" className="mx-1" onClick={toggleEditMode}>
-                                    Edit Profile
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        {isEditMode ? (
+                            <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <Button variant="secondary" type="button" className="mx-1" onClick={toggleEditMode}>
+                                    Discard Changes
                                 </Button>
+                                <Button variant="primary" type="submit" className="mx-1" onClick={(e) => handleSubmit(e)}>
+                                    Save Changes
+                                </Button>
+                            </Col>
+                        ) : (
+                            <Button variant="primary" type="button" className="mx-1" onClick={toggleEditMode}>
+                                Edit Profile
+                            </Button>
                             )}
-                        </Col>
+                    </div>
+                    <br></br>
+
+                       
+
+                        <Form.Group controlId="formBasicNewPassword">
+                            {!newPasswordBool && (
+                                <Form.Group controlId="formBasicNewPasswordButton"
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}>
+                                    <Button variant='primary' type='button'
+                                    className='mx-1' onClick={() => setNewPasswordBool(!newPasswordBool)}>
+                                        Change Password
+                                    </Button>
+                                </Form.Group>
+                            )}
+                            {newPasswordBool && (
+                                <Form.Group controlId='formBasicChangePassword'>
+                                    <Form.Label 
+                                    style={{
+                                        color: "white",
+                                        textShadow: "2px 2px 4px #000000",
+                                    }}>New Password: </Form.Label>
+                                    <Form.Control
+                                        isInvalid={!verifiedPassword}
+                                        type="password"
+                                        placeholder="Password"
+                                        value={newPassword1}
+                                        onChange={(p) => setNewPassword1(p.target.value)}/>
+                                    <Form.Control.Feedback type="invalid"
+                                    style={{
+                                        color: "white",
+                                        textShadow: "2px 2px 4px #FF0000",
+                                    }}>
+                                        {newPassword1Error}
+                                    </Form.Control.Feedback>
+                                    <br></br>
+                                    <Form.Label 
+                                    style={{
+                                        color: "white",
+                                        textShadow: "2px 2px 4px #000000",
+                                    }}>Confirm New Password: </Form.Label>
+                                    <Form.Control
+                                        isInvalid={!verifiedPassword}
+                                        type="password"
+                                        placeholder="Password"
+                                        value={newPassword2}
+                                        onChange={(p) => setNewPassword2(p.target.value)}/>
+                                    <Form.Control.Feedback type="invalid"
+                                    style={{
+                                        color: "white",
+                                        textShadow: "2px 2px 4px #FF0000",
+                                    }}>
+                                        {newPassword2Error}
+                                    </Form.Control.Feedback>
+                                    <p style={{
+                                        width: '300px',
+                                        fontSize: '0.85em',
+                                        marginTop: '0.5em',
+                                        color: "white",
+                                    }}>Password must be at least
+                                        8 characters long, contain a capital letter,
+                                        a number, and have no spaces.</p>
+                                    <Form.Group controlId='formBasicPasswordButtons'
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                    }}>
+                                        <Button variant='secondary' type='button'
+                                        className='mx-1' onClick={() => discardChanges()}>
+                                            Discard Changes
+                                        </Button>
+                                        <Button variant='primary' type='button'
+                                        className='mx-1' onClick={() => saveChanges()}>
+                                            Save Changes
+                                        </Button>
+                                    </Form.Group>
+                                </Form.Group>
+                            )}
+                            <Expire delay="4000" key={key}>
+                                <br></br>
+                                <Alert show={passwordSuccess} variant='success'>
+                                    Password successfully changed!
+                                </Alert>
+                            </Expire>
+                        </Form.Group>
                         <br></br>
 
                         

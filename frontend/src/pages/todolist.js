@@ -41,11 +41,53 @@ export default function Todolist() {
 
 
     async function removeItem(i) {
-        const newTodos = [...todos];
-        newTodos.splice(i, 1);
+        const newTodos = todos.filter((_, index) => index !== i);
         setTodos(newTodos);
-        sessionStorage.setItem('Events', JSON.stringify(newTodos));
+        newTodos.map((value, index) => {
+            if (index === i) {
+                if (value.Assignment) {
+                    sessionStorage.setItem('Tasks', JSON.stringify(newTodos));
+                } else {
+                    sessionStorage.setItem('Events', JSON.stringify(newTodos));
+                }
+            }
+        });
+        // sessionStorage.setItem('Events', JSON.stringify(newTodos));
+        // const newTodos = [...todos];
+        // newTodos.splice(i, 1);
+        // setTodos(newTodos);
+        // sessionStorage.setItem('Events', JSON.stringify(newTodos));
 
+            // // Replaces existing user information in the database with new
+            // // information entered by the user using the 'edit' server route.
+            // try {
+            //     const response = await fetch(
+            //         `http://localhost:5050/record/edit`, {
+            //         method: "PATCH",
+            //         headers: {
+            //             "Content-Type": "application/json",
+            //     },
+            //         body: JSON.stringify(
+            //             { username: sessionStorage["Username"],
+            //                 email: sessionStorage["Email"],
+            //                 password: sessionStorage["Password"],
+            //                 notifications: sessionStorage["Notifications"],
+            //                 locations: sessionStorage["Locations"],
+            //                 tasks: sessionStorage["Tasks"],
+            //                 events: sessionStorage["Events"] }),
+            //     });
+            //     // Checks whether the fetch operation was successful.
+            //     if (!response.ok) {
+            //         throw new Error(`HTTP error! status: ${response.status}`);
+            //     } else {
+            //         console.log('Record modified successfully');
+            //         navigate("/home");
+            //     }
+            // // Catches any errors that occur during the fetch operation.
+            // } catch (error) {
+            //     console.error(
+            //         'A problem occurred with your fetch operation: ', error);
+            // }
     }
 
     return (

@@ -19,26 +19,6 @@ export default function Addevent() {
     const [validDueDate, setValidDueDate] = useState(true);
     const navigate = useNavigate();
 
-    // function changeName(e) {
-    //     e.preventDefault();
-    //     setName(e.target.value);
-    // }
-
-    // function changeAssigment(e) {
-    //     e.preventDefault();
-    //     setAssignment(e.target.value);
-    // }
-
-    // function changeDueDate(e) {
-    //     e.preventDefault();
-    //     setDueDate(e.target.value);
-    // }
-
-    // function changeDescription(e) {
-    //     e.preventDefault();
-    //     setDescription(e.target.value);
-    // }
-
     function checkForEmpty() {
         if (getName === "") {
             setValidName(false);
@@ -55,31 +35,6 @@ export default function Addevent() {
         }
         return true;
     }
-
-    // async function getEventInfo(e) {
-    //     e.preventDefault();
-    //     if (checkForEmpty()) {
-    //         let Info = JSON.parse(localStorage.getItem('eventInfo'));
-
-    //         if (Info === null) {
-    //             Info = [];
-    //         }
-
-    //         const newEvent = 
-    //         {
-    //             name: getName,
-    //             DueDate: getDueDate,
-    //             Description: getDescription,
-
-    //         };
-            
-    //         Info.push(newEvent);
-    //         localStorage.setItem('eventInfo', JSON.stringify(Info));
-
-    //         console.log(Info);
-    //         navigate('/todolist');
-    //     }
-    // }
 
     // Function to list the locations in the session storage
     // into the locations array.
@@ -262,53 +217,6 @@ export default function Addevent() {
                         </Col>
                     </Form>
 
-
-
-
-
-
-
-                        {/* <div className = 'Addevent-title'>
-                            <p className = "Addevent-text">ADD EVENT</p>
-                        </div>
-                        <div className = "form-grid"> 
-                            <div className = "form-inputbackground">
-                                <div className = "Input-title">
-                                    CREATE EVENT
-                                </div>
-                                <div className = "event-details-grid">
-                                    <div className = "titleabove-input">
-                                        Name
-                                        <form>
-                                        <input onChange = {changeName} type="text" className="actual-box" placeholder="Add your class here" />
-                                        </form>
-                                    </div>
-                                    <div className = "titleabove-input">
-                                        Assignment type
-                                        <form>
-                                        <input onChange = {changeAssigment} type="text" className="actual-box" placeholder="Whats your assignment?" />
-                                        </form>
-                                    </div>
-                                    <div className = "titleabove-input">
-                                        Due date
-                                        <form>
-                                        <input onChange = {changeDueDate} type="date" className="actual-box-date" placeholder="Whens your assignment due?" />
-                                        </form>
-                                    </div>
-                                    <div className = "titleabove-input">
-                                        Description
-                                        <form>
-                                        <input onChange = {changeDescription} type="text" className="actual-box" placeholder="Add a description" />
-                                        </form>
-                                    </div>
-                                </div>
-                            <div className = "footer-Button">
-                                <button onClick = {getEventInfo} className ="submit-button">
-                                    SUBMIT
-                                </button>
-                            </div>
-                        </div>
-                    </div> */}
                 </div>
                 <Footer />
             </div>

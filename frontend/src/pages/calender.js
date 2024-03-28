@@ -76,41 +76,46 @@ export default function Calendar() {
         setCalendarDays(generateCalendarDays(newYear, newMonth));
     };
 
+
     function checkForEvent(day) {
-        const event = JSON.parse(localStorage.getItem('eventInfo'));
+        const events = sessionStorage.getItem('Events') ? JSON.parse(sessionStorage.getItem('Events')) : [];
         
-        if (event) {
-            for (let i = 0; i < event.length; i++) {
-                if (Number(event[i].DueDate.substring(8, 10)) === day) {
-                    return true;
-                }
-            }
+        return events.some(event => {
+            const eventDate = new Date(event.DueDate);
+            return eventDate.getDate() === day.getDate() &&
+                   eventDate.getMonth() === day.getMonth() &&
+                   eventDate.getFullYear() === day.getFullYear();
+        });
+    }
+
+    function addEventDetails(day) {
+        const events = sessionStorage.getItem('Events') ? JSON.parse(sessionStorage.getItem('Events')) : [];
+        
+        const eventForDay = events.find(event => {
+            const eventDate = new Date(event.DueDate);
+            return eventDate.getDate() === day.getDate() &&
+                   eventDate.getMonth() === day.getMonth() &&
+                   eventDate.getFullYear() === day.getFullYear();
+        });
+
+        if (eventForDay) {
+            setClasstoevent(eventForDay.class); 
+            setAssignmenttoevent(eventForDay.Assignment); 
+            setDuedatetoevent(eventForDay.DueDate);
+            setDescriptiontoevent(eventForDay.Description);
+            setisEventVisible(1);
         }
     }
 
-    function addEventDetails(date) {
-        const event = JSON.parse(localStorage.getItem('eventInfo'));
-
-        if (event) {
-            for (let i = 0; i < event.length; i++) {
-                if (Number(event[i].DueDate.substring(8, 10)) === date) {
-                    setClasstoevent(event[i].class);
-                    setAssignmenttoevent(event[i].Assignment);
-                    setDuedatetoevent(event[i].DueDate);
-                    setDescriptiontoevent(event[i].Description);
-                    toggleEventVisibility();
-                    return;
-                }
-            }
-        }
-   }
-
-    const firstDate = calendarDays.find(day => day instanceof Date);
+    useEffect(() => {
+        setCalendarDays(generateCalendarDays(currentYear, currentMonth));
+    }, [currentYear, currentMonth]);
     
+    const firstDate = calendarDays.find(day => day instanceof Date);
     let monthName = ' ';
 
     if (firstDate) {
-      monthName = firstDate.toLocaleString('default', { month: 'long' });
+        monthName = firstDate.toLocaleString('default', { month: 'long' });
     }
 
     return (

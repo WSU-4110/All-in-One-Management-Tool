@@ -77,7 +77,7 @@
 }
 
 .button-attributes {
-    display: block;
+   
     margin: 10px auto;
     box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.3);
     width: 170px;
@@ -89,7 +89,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 4px;
+    
 }
 
 .link-style {

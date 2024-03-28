@@ -10,6 +10,8 @@ import Alert from "react-bootstrap/Alert";
 import Header from '../components/Header';
 import Expire from '../components/Expire';
 import '../stylesheets/profilepagestyles.css';
+import Footer from '../components/Footer';
+
 
 export default function Profile() {
     // const [userProfile, setUserProfile] = useState({
@@ -770,10 +772,14 @@ export default function Profile() {
                                 Logout
                             </Button>
                         </Col>
+                        <br></br>
+                        <br></br>
+                        <br></br>
                     </Form>
                 </div>
-                {/* <Footer/> */}
+               
             </div>
+            <Footer/> 
         </div>
     );
 

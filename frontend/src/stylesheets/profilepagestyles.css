@@ -34,7 +34,22 @@ ul {
     margin-bottom: 10px;
 }
 
-input[type="text"], input[type="email"], input[type="number"] {
+.form-label {
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.input-group > label {
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+input[type="text"], 
+input[type="email"], 
+input[type="number"], 
+input[type="password"], 
+input[type="file"], 
+textarea {
     width: 70%;
     padding: 10px;
     margin: 10px 0;

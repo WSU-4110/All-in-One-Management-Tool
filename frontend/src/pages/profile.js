@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -20,11 +20,11 @@ export default function Profile() {
     //     age: 30,
     //     location: "Example City"
     // });
-    // const [isEditMode, setIsEditMode] = useState(false);
+    const [isEditMode, setIsEditMode] = useState(false);
 
-    // const toggleEditMode = () => {
-    //     setIsEditMode(!isEditMode);
-    // };
+    const toggleEditMode = () => {
+            setIsEditMode(!isEditMode);
+    };
 
     // const handleInputChange = (e) => {
     //     setUserProfile({ ...userProfile, [e.target.name]: e.target.value });
@@ -35,16 +35,20 @@ export default function Profile() {
     //     setIsEditMode(false);
     // };
 
-    const [username, setUsername] = useState(sessionStorage["Username"]);
-    const [email, setEmail] = useState(sessionStorage["Email"]);
+    const [username, setUsername] = useState(sessionStorage.getItem("Username"));
+    const [email, setEmail] = useState(sessionStorage.getItem("Email"));
+
+    const [fullName, setFullName] = useState('');
+    const [contactNumber, setContactNumber] = useState('');
+
+
     const [newPasswordBool, setNewPasswordBool] = useState(false);
     const [newPassword1, setNewPassword1] = useState('');
     const [newPassword2, setNewPassword2] = useState('');
     const [newPassword1Error, setNewPassword1Error] = useState('');
     const [newPassword2Error, setNewPassword2Error] = useState('');
     const [verifiedPassword, setVerifiedPassword] = useState(true);
-    const [notifications, setNotifications] = useState(
-        sessionStorage["Notifications"]);
+    const [notifications, setNotifications] = useState(localStorage.getItem("Notifications"));
     const [locations, setLocations] = useState([]);
     // Variable storing the location selected in the location dropdown button.
     const [selectedLocation, setSelectedLocation] = useState(
@@ -66,6 +70,35 @@ export default function Profile() {
     const [key, setKey] = useState(0);
     const navigate = useNavigate();
 
+    /*useEffect(() => {
+        const storedFullName = localStorage.getItem('FullName');
+        const storedContactNumber = localStorage.getItem('ContactNumber');
+
+        if (storedFullName) {
+            setFullName(storedFullName);
+        }
+        if (storedContactNumber) {
+            setContactNumber(storedContactNumber);
+        }
+    }, []);*/
+
+    const disabledStyle = {
+        opacity: 0.5, // Adjust this as needed for visibility
+        backgroundColor: "#e9ecef" // Grey out color
+    };
+    
+
+
+
+    /* Function to handle changes in the full name input field
+    const handleFullNameChange = (e) => {
+        setFullName(e.target.value);
+    };*/
+
+    /* Update the full name value in session storage
+    const updateFullNameInStorage = (newFullName) => {
+        sessionStorage["FullName"] = newFullName;
+    }; */
 
     // Function to check whether the location being added is valid.
     const validateLocation = (e) => {
@@ -269,24 +302,29 @@ export default function Profile() {
 
     async function saveChanges() {
         if (checkPassword()) {
-            sessionStorage["Password"] = newPassword1;
+            sessionStorage.setItem("Password", newPassword1);
             console.log(newPassword1);
             console.log(sessionStorage["Password"]);
             try {
+                const profileData = {
+                    username: username,
+                    email: email,
+                    password: newPassword1,
+                    notifications: sessionStorage["Notifications"],
+                    locations: sessionStorage["Locations"],
+                    tasks: sessionStorage["Tasks"],
+                    events: sessionStorage["Events"],
+                    //fullName: fullName, // Include full name
+                    //contactNumber: contactNumber, // Include contact number
+                };
                 const response = await fetch(
                     `http://localhost:5050/record/edit`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json",
                 },
-                    body: JSON.stringify(
-                        { username: username, email: email,
-                            password: newPassword1,
-                            notifications: sessionStorage["Notifications"],
-                            locations: sessionStorage["Locations"],
-                            tasks: sessionStorage["Tasks"],
-                            events: sessionStorage["Events"] }),
-                });
+                body: JSON.stringify(profileData) // Use profileData here
+            });
                 // Checks whether the fetch operation was successful.
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -297,7 +335,10 @@ export default function Profile() {
                     setNewPasswordBool(false);
                     setPasswordSuccess(true);
                     setKey(key + 1);
-                }
+
+                    localStorage.setItem('FullName', fullName);
+                    localStorage.setItem('ContactNumber', contactNumber);
+               }
             // Catches any errors that occur during the fetch operation.
             } catch (error) {
                 console.error(
@@ -328,25 +369,32 @@ export default function Profile() {
     // Function to handle the submission of the form.
     async function handleSubmit(e) {
         e.preventDefault();
-        sessionStorage["Notifications"] = notifications;
-        sessionStorage["Locations"] = locations;
+        localStorage.setItem("Notifications", notifications);
+        localStorage.setItem("Locations", JSON.stringify(locations));
+        localStorage.setItem('FullName', fullName);
+        localStorage.setItem('ContactNumber', contactNumber);
 
-        // Replaces existing user information in the database with new
-        // information entered by the user using the 'edit' server route.
+    
+        // Creating FormData to handle file upload along with other data
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('password', sessionStorage["Password"]);
+        formData.append('notifications', notifications);
+        formData.append('locations', JSON.stringify(locations)); // Convert array to string
+        formData.append('tasks', sessionStorage["Tasks"]);
+        formData.append('events', sessionStorage["Events"]);
+        formData.append('fullName', fullName);
+        formData.append('contactNumber', contactNumber);
+    
+    
         try {
-            const response = await fetch(
-                `http://localhost:5050/record/edit`, {
+            const response = await fetch(`http://localhost:5050/record/edit`, {
                 method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-            },
-                body: JSON.stringify(
-                    { username: username, email: email,
-                        password: sessionStorage["Password"],
-                        notifications: notifications, locations: locations,
-                        tasks: sessionStorage["Tasks"],
-                        events: sessionStorage["Events"] }),
+                body: formData // Send FormData
+                // Note: Don't set 'Content-Type' header when sending FormData
             });
+    
             // Checks whether the fetch operation was successful.
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -354,12 +402,13 @@ export default function Profile() {
                 console.log('Record modified successfully');
                 navigate("/home");
             }
-        // Catches any errors that occur during the fetch operation.
         } catch (error) {
-            console.error(
-                'A problem occurred with your fetch operation: ', error);
+            console.error('A problem occurred with your fetch operation: ', error);
         }
     }
+
+   
+    
 
     return (
         <div className='home-outer'>
@@ -372,14 +421,18 @@ export default function Profile() {
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}>
-                    <Form noValidate>
+                    <Form noValidate onSubmit={handleSubmit}>
                         <br></br>
                         <h1
                         style={{
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                        }}>Profile</h1>
+                        }}>
+                        Hello, {username}
+                    </h1>
+
+
                         <Form.Group controlId="formBasicUsername">
                             <Form.Label 
                             style={{
@@ -396,6 +449,8 @@ export default function Profile() {
                                 }}/>
                         </Form.Group>
                         <br></br>
+
+                    
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label 
                             style={{
@@ -412,6 +467,153 @@ export default function Profile() {
                                 }}/>
                         </Form.Group>
                         <br></br>
+                        
+                        <Form.Group controlId="formBasicNotifications">
+                            <Form.Label 
+                            style={{
+                                color: "white",
+                                textShadow: "2px 2px 4px #000000",
+                            }}>Notifications: </Form.Label>
+                            <Form.Select
+                                value={notifications}
+                                onChange={
+                                    (u) => setNotifications(u.target.value)}
+                                disabled={!isEditMode}
+                                style={!isEditMode ? disabledStyle : {}}
+                                >
+                                <option value="none">
+                                    Receive no notifications for all events
+                                </option>
+                                <option value="weekOf">
+                                    Receive notifications a week before a deadline
+                                </option>
+                                <option value="dayOf">
+                                    Receive notifications on the day of a deadline
+                                </option>
+                                <option value="12hours">
+                                    Receive notifications 12 hours before a deadline
+                                </option>
+                                <option value="6hours">
+                                    Receive notifications 6 hours before a deadline
+                                </option>
+                                <option value="1hours">
+                                    Receive notifications 1 hours before a deadline
+                                </option>
+                                <option value="all">
+                                    Receive notifications for all events
+                                </option>
+                            </Form.Select>
+                        </Form.Group>
+                        <br></br>
+                        <Form.Group controlId="formBasicLocations">
+                            <Form.Label 
+                            style={{
+                                color: "white",
+                                textShadow: "2px 2px 4px #000000",
+                            }}>Locations: </Form.Label>
+                            <DropdownButton title={selectedLocation} disabled = {!isEditMode}
+                            style={{
+                                marginTop: "-1em",
+                                width: "100%",
+                                }}>
+                                {(locationsList() !== undefined)
+                                    && (locations.length !== 0) && (
+                                    <ul>
+                                        {locations && locations.map
+                                            && locations.map((location) => (
+                                            <Dropdown.Item
+                                                onClick={
+                                                    () => changeSelectedLocation(location)}
+                                                >
+                                                {location}
+                                            </Dropdown.Item>
+                                        ))}
+                                    </ul>)}
+                                <Dropdown.Item onClick={() => addNewLocation()}
+                                style={{
+                                    color: "green",
+                                    width: "100%",
+                                }}>
+                                    Add new location
+                                </Dropdown.Item>
+                                {/* <option value="">Select a location</option>
+                                <option value="home">Home</option>
+                                <option value="school">School</option>
+                                <option value="work">Work</option>
+                                <option value="other">Other</option> */}
+                            </DropdownButton>
+                        </Form.Group>
+
+                        {(newLocation) && (
+                            <Form.Group controlId="formBasicAddLocation">
+                                <br></br>
+                                <Form.Label 
+                                style={{
+                                    color: "white",
+                                    textShadow: "2px 2px 4px #000000",
+                                }}>Add Location: </Form.Label>
+                                    <Form.Control
+                                        isInvalid={!validLocation}
+                                        type="username"
+                                        placeholder="Enter a new location"
+                                        value={addLocation}
+                                        onChange={
+                                            (u) => validateLocation(u.target.value)}
+                                        />
+                                    <Form.Control.Feedback type="invalid"
+                                        style={{
+                                            color: "white",
+                                            textShadow: "2px 2px 4px #FF0000",
+                                        }}>
+                                        {validLocationMessage}
+                                    </Form.Control.Feedback>
+                                    <Button variant="primary"
+                                        onClick={
+                                            (u) => submitLocation(u.target.value)}
+                                    >
+                                        Add Location
+                                    </Button>
+                            </Form.Group>
+                        )}
+
+                        {(selectedLocation !== 'Select A Location') && (
+                            <Form.Group controlId="formBasicRemoveLocation">
+                                <br></br>
+                                <Button variant="danger"
+                                    onClick={() => deleteLocation()}
+                                >
+                                    Remove Location
+                                </Button>
+                            </Form.Group>
+                        )}
+
+                        <br></br>
+                        <Expire delay="4000" key={key}>
+                            <Alert show={locationSuccess} variant='success'>
+                                {successMessage}
+                            </Alert>
+                        </Expire>
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            {isEditMode ? (
+                                <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <Button variant="secondary" className="mx-1" onClick={toggleEditMode}>
+                                        Discard Changes
+                                    </Button>
+                                    <Button variant="primary" type="submit" className="mx-1">
+                                        Save Changes
+                                    </Button>
+                                </Col>
+                            ) : (
+                                <Button variant="primary" className="mx-1" onClick={toggleEditMode}> 
+                                    Edit Profile
+                                </Button>
+                            )}
+                        </div>
+
+                    <br></br>
+
+                       
+
                         <Form.Group controlId="formBasicNewPassword">
                             {!newPasswordBool && (
                                 <Form.Group controlId="formBasicNewPasswordButton"
@@ -498,145 +700,8 @@ export default function Profile() {
                             </Expire>
                         </Form.Group>
                         <br></br>
-                        <Form.Group controlId="formBasicNotifications">
-                            <Form.Label 
-                            style={{
-                                color: "white",
-                                textShadow: "2px 2px 4px #000000",
-                            }}>Notifications: </Form.Label>
-                            <Form.Select
-                                value={notifications}
-                                onChange={
-                                    (u) => setNotifications(u.target.value)}
-                                >
-                                <option value="none">
-                                    Receive no notifications for all events
-                                </option>
-                                <option value="weekOf">
-                                    Receive notifications a week before a deadline
-                                </option>
-                                <option value="dayOf">
-                                    Receive notifications on the day of a deadline
-                                </option>
-                                <option value="12hours">
-                                    Receive notifications 12 hours before a deadline
-                                </option>
-                                <option value="6hours">
-                                    Receive notifications 6 hours before a deadline
-                                </option>
-                                <option value="1hours">
-                                    Receive notifications 1 hours before a deadline
-                                </option>
-                                <option value="all">
-                                    Receive notifications for all events
-                                </option>
-                            </Form.Select>
-                        </Form.Group>
-                        <br></br>
-                        <Form.Group controlId="formBasicLocations">
-                            <Form.Label 
-                            style={{
-                                color: "white",
-                                textShadow: "2px 2px 4px #000000",
-                            }}>Locations: </Form.Label>
-                            <DropdownButton title={selectedLocation}
-                            style={{
-                                marginTop: "-1em",
-                                width: "100%",
-                                }}>
-                                {(locationsList() !== undefined)
-                                    && (locations.length !== 0) && (
-                                    <ul>
-                                        {locations && locations.map
-                                            && locations.map((location) => (
-                                            <Dropdown.Item
-                                                onClick={
-                                                    () => changeSelectedLocation(location)}
-                                                >
-                                                {location}
-                                            </Dropdown.Item>
-                                        ))}
-                                    </ul>)}
-                                <Dropdown.Item onClick={() => addNewLocation()}
-                                style={{
-                                    color: "green",
-                                    width: "100%",
-                                }}>
-                                    Add new location
-                                </Dropdown.Item>
-                                {/* <option value="">Select a location</option>
-                                <option value="home">Home</option>
-                                <option value="school">School</option>
-                                <option value="work">Work</option>
-                                <option value="other">Other</option> */}
-                            </DropdownButton>
-                        </Form.Group>
 
-                        {(newLocation) && (
-                            <Form.Group controlId="formBasicAddLocation">
-                                <br></br>
-                                <Form.Label 
-                                style={{
-                                    color: "white",
-                                    textShadow: "2px 2px 4px #000000",
-                                }}>Add Location: </Form.Label>
-                                    <Form.Control
-                                        isInvalid={!validLocation}
-                                        type="username"
-                                        placeholder="Enter a new location"
-                                        value={addLocation}
-                                        onChange={
-                                            (u) => validateLocation(u.target.value)}
-                                        />
-                                    <Form.Control.Feedback type="invalid"
-                                        style={{
-                                            color: "white",
-                                            textShadow: "2px 2px 4px #FF0000",
-                                        }}>
-                                        {validLocationMessage}
-                                    </Form.Control.Feedback>
-                                    <Button variant="primary"
-                                        onClick={
-                                            (u) => submitLocation(u.target.value)}
-                                    >
-                                        Add Location
-                                    </Button>
-                            </Form.Group>
-                        )}
-
-                        {(selectedLocation !== 'Select A Location') && (
-                            <Form.Group controlId="formBasicRemoveLocation">
-                                <br></br>
-                                <Button variant="danger"
-                                    onClick={() => deleteLocation()}
-                                >
-                                    Remove Location
-                                </Button>
-                            </Form.Group>
-                        )}
-
-                        <br></br>
-                        <Expire delay="4000" key={key}>
-                            <Alert show={locationSuccess} variant='success'>
-                                {successMessage}
-                            </Alert>
-                        </Expire>
-                        <Col
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}>
-                            <Button variant="secondary" type="button"
-                            className="mx-1" onClick={() => navigate("/home")}>
-                                Discard Changes
-                            </Button>
-                            <Button variant="primary" type="submit"
-                            className="mx-1" onClick={(e) => handleSubmit(e)}>
-                                Save Changes
-                            </Button>
-                        </Col>
-                        <br></br>
+                        
                         <Col
                         style={{
                             display: "flex",

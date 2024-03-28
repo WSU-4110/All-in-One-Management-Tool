@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 // import ContactForm from './contactForm';
 import Header from '../components/Header';
@@ -23,17 +23,19 @@ export default function Home() {
 
     // Check if the user has configured their profile, if they have not
     // it will display the configure profile modal.
-    if (sessionStorage["Locations"] === "") {
-        setProfileConfigured(false);
-    }
+    useEffect(() => {
+        if (sessionStorage["Locations"] === "") {
+            setProfileConfigured(false);
+        }
+        console.log(sessionStorage["Username"]);
+        console.log(sessionStorage["Password"]);
+        console.log(sessionStorage["Email"]);
+        console.log(sessionStorage["Notifications"]);
+        console.log(sessionStorage["Locations"]);
+        console.log(sessionStorage["Tasks"]);
+        console.log(sessionStorage["Events"]);
+    }, []);
 
-    console.log(sessionStorage["Username"]);
-    console.log(sessionStorage["Password"]);
-    console.log(sessionStorage["Email"]);
-    console.log(sessionStorage["Notifications"]);
-    console.log(sessionStorage["Locations"]);
-    console.log(sessionStorage["Tasks"]);
-    console.log(sessionStorage["Events"]);
 
     return (
         <div className='home-outer'>

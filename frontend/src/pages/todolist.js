@@ -10,25 +10,76 @@ import Button from 'react-bootstrap/Button';
  
 export default function Todolist() {
     const [todos, setTodos] = useState([]);
-    const Eventobj = JSON.parse(localStorage.getItem('eventInfo'));
+    // const Eventobj = JSON.parse(localStorage.getItem('eventInfo'));
+    // const [events, setEvents] = useState(sessionStorage["Events"]);
+    // const [tasks, setTasks] = useState(sessionStorage["Tasks"]);
     const [containsEvents, setContainsEvents] = useState(true);
     const navigate = useNavigate();
 
-    if (Eventobj === null) {
+    let events;
+    let tasks;
+
+    try{
+        events = JSON.parse(sessionStorage["Events"]);
+    } catch (error) {
+        events = [];
+    }
+    try{
+        tasks = JSON.parse(sessionStorage["Tasks"]);
+    } catch (error) {
+        tasks = [];
+    }
+
+    if ((events.length === 0 || events === 'undefined' || events === 'null')
+        && (tasks.length === 0 || tasks === 'undefined' || tasks === 'null')) {
         setContainsEvents(false);
     }
 
     useEffect(() => {
-        const eventInfo = JSON.parse(localStorage.getItem('eventInfo')) || [];
-        setTodos(eventInfo);
+        todos.push(events);
+        todos.push(tasks);
+        // const eventInfo = JSON.parse(localStorage.getItem('eventInfo')) || [];
+        // setTodos(eventInfo);
       }, []);
 
-     function removeItem(i) {
+    async function removeItem(i) {
         const newTodos = [...todos];
         newTodos.splice(i, 1);
         setTodos(newTodos);
-        localStorage.setItem('eventInfo', JSON.stringify(newTodos));
-      }
+        // localStorage.setItem('eventInfo', JSON.stringify(newTodos));
+        // sessionStorage["Events"] = JSON.stringify(newTodos);
+        sessionStorage["Events"] = newTodos;
+        // // Replaces existing user information in the database with new
+        // // information entered by the user using the 'edit' server route.
+        // try {
+        //     const response = await fetch(
+        //         `http://localhost:5050/record/edit`, {
+        //         method: "PATCH",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //     },
+        //         body: JSON.stringify(
+        //             { username: sessionStorage["Username"],
+        //                 email: sessionStorage["Email"],
+        //                 password: sessionStorage["Password"],
+        //                 notifications: sessionStorage["Notifications"],
+        //                 locations: sessionStorage["Locations"],
+        //                 tasks: sessionStorage["Tasks"],
+        //                 events: sessionStorage["Events"] }),
+        //     });
+        //     // Checks whether the fetch operation was successful.
+        //     if (!response.ok) {
+        //         throw new Error(`HTTP error! status: ${response.status}`);
+        //     } else {
+        //         console.log('Record modified successfully');
+        //         navigate("/home");
+        //     }
+        // // Catches any errors that occur during the fetch operation.
+        // } catch (error) {
+        //     console.error(
+        //         'A problem occurred with your fetch operation: ', error);
+        // }
+    }
 
     return (
         <div className='home-outer'>
@@ -42,7 +93,7 @@ export default function Todolist() {
                             </p>
                     </div>
                     <div className='list'>
-                        {containsEvents && Eventobj.map((value, index) => {
+                        {containsEvents && todos.map((value, index) => {
                             return <div key = {index} className='list-item'>
                                 <div className='left-side'> 
                                     <img className='checkmark-image' src={checkmarkimage} />

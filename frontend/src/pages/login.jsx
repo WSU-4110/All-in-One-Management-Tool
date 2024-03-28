@@ -19,6 +19,7 @@ const Login = (props) => {
     const [alertError, setAlertError] = useState('');
     const navigate = useNavigate();
     
+    // Function to handle the form submission.
     async function handleSubmit(e) {
         e.preventDefault();
         console.log(username);

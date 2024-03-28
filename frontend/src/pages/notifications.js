@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function Noficications() {
+    const events =  sessionStorage.getItem('events');
     return (
         <div className='home-outer'>
             <div className='home-background'/>
@@ -30,4 +31,3 @@ export default function Noficications() {
         </div>
     )
 }
-

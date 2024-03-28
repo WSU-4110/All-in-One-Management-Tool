@@ -42,19 +42,21 @@ const Login = (props) => {
             //     sessionStorage["Locations"] = [];
             // }
             // sessionStorage["Locations"] = JSON.parse(locations);
-            try {
-                sessionStorage["Tasks"] = JSON.parse(tasks);
-            } catch (error) {
-                sessionStorage["Tasks"] = [];
-            }
-            try {
-                sessionStorage["Events"] = JSON.parse(events);
-            }
-            catch (error) {
-                sessionStorage["Events"] = [];
-            }
+            // try {
+            //     sessionStorage["Tasks"] = JSON.parse(tasks);
+            // } catch (error) {
+            //     sessionStorage["Tasks"] = tasks;
+            // }
+            // try {
+            //     sessionStorage["Events"] = JSON.parse(events);
+            // }
+            // catch (error) {
+            //     sessionStorage["Events"] = tasks;
+            // }
             // sessionStorage["Tasks"] = JSON.parse(tasks);
             // sessionStorage["Events"] = JSON.parse(events);
+            sessionStorage["Tasks"] = tasks;
+            sessionStorage["Events"] = events;
         }
 
         // First verifies the username and password.

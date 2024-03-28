@@ -93,14 +93,14 @@ export default function Addevent() {
             sessionStorage["Tasks"] = JSON.stringify(Info);
             console.log(Info);
 
-            let locationsDB;
+            // let locationsDB;
             let tasksDB;
             let eventsDB;
-            try {
-                locationsDB = JSON.parse(sessionStorage["Locations"]);
-            } catch {
-                locationsDB = [];
-            }
+            // try {
+            //     locationsDB = JSON.parse(sessionStorage["Locations"]);
+            // } catch {
+            //     locationsDB = [];
+            // }
             try {
                 tasksDB = JSON.parse(sessionStorage["Tasks"]);
             } catch {
@@ -133,7 +133,7 @@ export default function Addevent() {
                             email: sessionStorage["Email"],
                             password: sessionStorage["Password"],
                             notifications: sessionStorage["Notifications"],
-                            locations: locationsDB,
+                            locations: sessionStorage["Locations"],
                             tasks: tasksDB,
                             events: eventsDB }),
                 });

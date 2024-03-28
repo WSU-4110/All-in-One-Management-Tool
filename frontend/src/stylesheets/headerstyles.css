@@ -3,7 +3,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 15px;
+    color: white; /* Consistent text color */
 }
 
 .left-side {
@@ -20,25 +22,52 @@
     padding-right: 25px;
 }
 
-.Sidebar-Image {
-    width: 20px;
-    height: 10px;
-    text-align: center;
+.Sidebar-Image, .notification-icon, .profile-picture {
+    /* Setting a consistent size for icons, adjust as needed */
+    width: 30px; 
+    height: auto;
+    margin-right: 10px; /* Space between icon and label */
 }
 
 .Header-Text {
     color: white;
     margin: 0;
     margin-left: 10px;
-    font-size: 23px;
+    font-size: 20px; /* Adjust font size as per your preference */
 }
 
+/* Styling for icon labels (like in the footer and other sections) */
+.icon-label {
+    color: white;
+    font-size: 12px; /* Adjust based on other labels' size */
+    text-align: center;
+    margin: 0;
+    line-height: 1.2; /* Adjust line height for better readability */
+    text-decoration: underline;
+    text-decoration-color: rgb(91, 91, 202);
+}
+
+.header-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none; /* Removes underline from links */
+    
+}
+
+
+.right-side .header-link {
+    margin-right: 10px; /* Adjust this value to increase spacing */
+}
+
+/* headerstyles.css */
+
 .notification-icon {
-    width: 40px;
-    padding-right: 10px;
+    width: 30px;  /* Change this value to the desired width */
+    height: auto; /* This will maintain the aspect ratio */
 }
 
 .profile-picture {
-    width: 33px;
+    width: 30px;  /* Change this value to the desired width */
+    height: auto; /* This will maintain the aspect ratio */
 }
-/*---------------------------------*/

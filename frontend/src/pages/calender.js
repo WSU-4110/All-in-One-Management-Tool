@@ -82,7 +82,7 @@ export default function Calendar() {
         
         return events.some(event => {
             const eventDate = new Date(event.DueDate);
-            return eventDate.getDate() === day.getDate() &&
+            return eventDate.getDate() === (day.getDate() - 1) &&
                    eventDate.getMonth() === day.getMonth() &&
                    eventDate.getFullYear() === day.getFullYear();
         });
@@ -93,7 +93,7 @@ export default function Calendar() {
         
         const eventForDay = events.find(event => {
             const eventDate = new Date(event.DueDate);
-            return eventDate.getDate() === day.getDate() &&
+            return eventDate.getDate() === (day.getDate() - 1) &&
                    eventDate.getMonth() === day.getMonth() &&
                    eventDate.getFullYear() === day.getFullYear();
         });

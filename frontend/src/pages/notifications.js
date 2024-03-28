@@ -40,11 +40,16 @@ export default function Noficications() {
                 {events && events.map( event => (
                     
                         <div className='events-render'>
-                            {/* <img src={NotificationIcon } /> */}
-                            <div className='event-details'>
-                                <h1>{event.class}</h1>
-                                <h1>{event.Assignment}</h1>
-                                <h1>{event.DueDate}</h1>
+                            
+                            <div className='event-left'>
+                                <div>
+                                    <img src={NotificationIcon } className='noti-image'/>
+                                </div>
+                                <div className='event-details'>
+                                    <h1 className='event-name'>{event.class}</h1>
+                                    <h1>{event.Assignment}</h1>
+                                    <h1>{event.DueDate}</h1>
+                                </div>
                             </div>
                             <div className='event-buttons'>
                                 <button onClick={handleCalendarClick}>Calendar</button>

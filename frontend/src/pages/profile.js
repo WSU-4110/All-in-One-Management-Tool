@@ -48,7 +48,7 @@ export default function Profile() {
     const [newPassword1Error, setNewPassword1Error] = useState('');
     const [newPassword2Error, setNewPassword2Error] = useState('');
     const [verifiedPassword, setVerifiedPassword] = useState(true);
-    const [notifications, setNotifications] = useState(localStorage.getItem("Notifications"));
+    const [notifications, setNotifications] = useState(sessionStorage["Notifications"]);
     const [locations, setLocations] = useState([]);
     // Variable storing the location selected in the location dropdown button.
     const [selectedLocation, setSelectedLocation] = useState(
@@ -146,8 +146,8 @@ export default function Profile() {
     const deleteLocation = () => {
         setLocations(locations.filter(
             (location) => location !== selectedLocation));
-        sessionStorage["Locations"] = locations.filter(
-            (location) => location !== selectedLocation);
+        // sessionStorage["Locations"] = locations.filter(
+        //     (location) => location !== selectedLocation);
         setSelectedLocation('Select A Location');
         setLocationSuccess(true);
         setSuccessMessage("Location successfully deleted!");
@@ -367,35 +367,93 @@ export default function Profile() {
     console.log(locations);
 
     // Function to handle the submission of the form.
-    async function handleSubmit(e) {
-        e.preventDefault();
-        localStorage.setItem("Notifications", notifications);
-        localStorage.setItem("Locations", JSON.stringify(locations));
-        localStorage.setItem('FullName', fullName);
-        localStorage.setItem('ContactNumber', contactNumber);
+    // async function handleSubmit(e) {
+    //     e.preventDefault();
+    //     sessionStorage.setItem("Notifications", notifications);
+    //     sessionStorage.setItem("Locations", locations);
+    //     sessionStorage.setItem('FullName', fullName);
+    //     sessionStorage.setItem('ContactNumber', contactNumber);
 
     
-        // Creating FormData to handle file upload along with other data
-        const formData = new FormData();
-        formData.append('username', username);
-        formData.append('email', email);
-        formData.append('password', sessionStorage["Password"]);
-        formData.append('notifications', notifications);
-        formData.append('locations', JSON.stringify(locations)); // Convert array to string
-        formData.append('tasks', sessionStorage["Tasks"]);
-        formData.append('events', sessionStorage["Events"]);
-        formData.append('fullName', fullName);
-        formData.append('contactNumber', contactNumber);
+    //     // // Creating FormData to handle file upload along with other data
+    //     // const formData = new FormData();
+    //     // formData.append('username', username);
+    //     // formData.append('email', email);
+    //     // formData.append('password', sessionStorage["Password"]);
+    //     // formData.append('notifications', notifications);
+    //     // formData.append('locations', locations);
+    //     // try {
+    //     //     formData.append('tasks', JSON.parse(sessionStorage["Tasks"]));
+    //     // } catch {
+    //     //     formData.append('tasks', []);
+    //     // }
+    //     // try {
+    //     //     formData.append('events', JSON.parse(sessionStorage["Events"]));
+    //     // } catch {
+    //     //     formData.append('events', []);
+    //     // }
+    //     // formData.append('fullName', fullName);
+    //     // formData.append('contactNumber', contactNumber);
     
     
+    //     try {
+    //         const response = await fetch(`http://localhost:5050/record/edit`, {
+    //             method: "PATCH",
+    //             body: formData // Send FormData
+    //             // Note: Don't set 'Content-Type' header when sending FormData
+    //         });
+    
+    //         // Checks whether the fetch operation was successful.
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! status: ${response.status}`);
+    //         } else {
+    //             console.log('Record modified successfully');
+    //             navigate("/home");
+    //         }
+    //     } catch (error) {
+    //         console.error('A problem occurred with your fetch operation: ', error);
+    //     }
+    // }
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        let locationsDB;
+        let tasksDB;
+        let eventsDB;
+
+        try {
+            locationsDB = JSON.parse(sessionStorage["Locations"]);
+        } catch {
+            locationsDB = [];
+        }
+        try {
+            tasksDB = JSON.parse(sessionStorage["Tasks"]);
+        } catch {
+            tasksDB = [];
+        }
+        try {
+            eventsDB = JSON.parse(sessionStorage["Events"]);
+        } catch {
+            eventsDB = [];
+        }
+
+        sessionStorage["Notifications"] = notifications;
+        sessionStorage["Locations"] = locations;
+        sessionStorage["FullName"] = fullName;
+        sessionStorage["ContactNumber"] = contactNumber;
+        
         try {
             const response = await fetch(`http://localhost:5050/record/edit`, {
-                method: "PATCH",
-                body: formData // Send FormData
-                // Note: Don't set 'Content-Type' header when sending FormData
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(
+                { username: username, email: email, password: sessionStorage["Password"],
+                notifications: notifications, locations: locationsDB, tasks: tasksDB, events: eventsDB }),
             });
-    
-            // Checks whether the fetch operation was successful.
+        
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             } else {
@@ -406,7 +464,6 @@ export default function Profile() {
             console.error('A problem occurred with your fetch operation: ', error);
         }
     }
-
    
     
 

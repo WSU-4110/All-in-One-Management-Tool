@@ -75,3 +75,10 @@
     box-shadow: none;
 }
 
+
+.time-text {
+    font-size: 15px;
+    color: rgb(85, 85, 85);
+    margin-top: -8px;
+    margin-bottom: 2px;
+}

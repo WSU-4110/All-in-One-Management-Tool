@@ -127,7 +127,7 @@ export default function Profile() {
     // Function to submit the location to be added.
     const submitLocation = () => {
         if (validateLocation(addLocation)) {
-            setLocations([...locations, addLocation]);
+            locations.push(addLocation);
             setAddLocation('');
             setNewLocation(false);
             setSelectedLocation("Select A Location");
@@ -420,15 +420,23 @@ export default function Profile() {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        let locationsDB;
+        // let locationsDB;
         let tasksDB;
         let eventsDB;
 
-        try {
-            locationsDB = JSON.parse(sessionStorage["Locations"]);
-        } catch {
-            locationsDB = [];
-        }
+        sessionStorage["Notifications"] = notifications;
+        sessionStorage["Locations"] = locations;
+        sessionStorage["FullName"] = fullName;
+        sessionStorage["ContactNumber"] = contactNumber;
+        console.log(locations);
+
+        // locationsDB = locations;
+        // try {
+        //     locationsDB = JSON.parse(sessionStorage["Locations"]);
+        // } catch(error) {
+        //     console.log(error);
+        //     locationsDB = sessionStorage["Locations"];
+        // }
         try {
             tasksDB = JSON.parse(sessionStorage["Tasks"]);
         } catch {
@@ -439,12 +447,9 @@ export default function Profile() {
         } catch {
             eventsDB = [];
         }
-
-        sessionStorage["Notifications"] = notifications;
-        sessionStorage["Locations"] = locations;
-        sessionStorage["FullName"] = fullName;
-        sessionStorage["ContactNumber"] = contactNumber;
         
+        console.log(locations);
+        // console.log(locationsDB);
         try {
             const response = await fetch(`http://localhost:5050/record/edit`, {
             method: "PATCH",
@@ -453,7 +458,7 @@ export default function Profile() {
             },
             body: JSON.stringify(
                 { username: username, email: email, password: sessionStorage["Password"],
-                notifications: notifications, locations: locationsDB, tasks: tasksDB, events: eventsDB }),
+                notifications: notifications, locations: sessionStorage["Locations"], tasks: tasksDB, events: eventsDB }),
             });
         
             if (!response.ok) {

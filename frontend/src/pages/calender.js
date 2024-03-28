@@ -99,8 +99,8 @@ export default function Calendar() {
         });
 
         if (eventForDay) {
-            setClasstoevent(eventForDay.class); 
-            setAssignmenttoevent(eventForDay.Assignment); 
+            setClasstoevent(eventForDay.name); 
+            setAssignmenttoevent(eventForDay.Location); 
             setDuedatetoevent(eventForDay.DueDate);
             setDescriptiontoevent(eventForDay.Description);
             setisEventVisible(1);
@@ -148,19 +148,19 @@ export default function Calendar() {
                             if (day) {
                                 let className = "DateButton";
                                 let style = {};
-
+                        
                                 if (isToday(day)) {
                                     style = { 
                                         background: 'linear-gradient(to bottom right, rgb(0, 162, 255), rgb(44, 44, 57))',
                                         color: 'white' };
                                     className += " Today";
-                                } else if (checkForEvent(day.getDate())) {
+                                } else if (checkForEvent(day)) { // Changed here: pass day directly
                                     style = {
                                         background: 'linear-gradient(to bottom right, rgb(0, 255, 26), rgb(44, 44, 57))',
                                         color: 'white'
                                     }
                                 };
-                                return <button key={index} onClick={() => {addEventDetails(day.getDate())}} 
+                                return <button key={index} onClick={() => {addEventDetails(day)}} // And here: pass day directly
                                 className="DateButton" style={style}>{day.getDate()}</button>;
                             } else {
                                 return <button key={index} className='EmptyButton'></button>;
@@ -172,14 +172,14 @@ export default function Calendar() {
             <div className='show-event' style={{
                 opacity: isEventVisible
             }}>
-                <div className='Class-section'>Class: 
+                <div className='Class-section'>Event Name: 
                     <span style={{
                         color: 'rgba(255, 255, 255, 0.7)',
                         marginLeft: '10px',
                         fontSize: '20px',
                         fontStyle: 'italic'
                     }}>{Classtoevent}</span> </div>
-                <div className='Assignment-section'>Assignment: 
+                <div className='Assignment-section'>Location: 
                     <span style={{
                         color: 'rgba(255, 255, 255, 0.7)',
                         marginLeft: '10px',

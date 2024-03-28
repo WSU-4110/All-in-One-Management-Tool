@@ -35,11 +35,12 @@ const Login = (props) => {
             sessionStorage["Password"] = password;
             sessionStorage["Email"] = email;
             sessionStorage["Notifications"] = notifications;
-            try {
-                sessionStorage["Locations"] = JSON.parse(locations);
-            } catch (error) {
-                sessionStorage["Locations"] = [];
-            }
+            sessionStorage["Locations"] = locations;
+            // try {
+            //     sessionStorage["Locations"] = JSON.parse(locations);
+            // } catch (error) {
+            //     sessionStorage["Locations"] = [];
+            // }
             // sessionStorage["Locations"] = JSON.parse(locations);
             try {
                 sessionStorage["Tasks"] = JSON.parse(tasks);

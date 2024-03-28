@@ -71,3 +71,16 @@
     width: 30px;  /* Change this value to the desired width */
     height: auto; /* This will maintain the aspect ratio */
 }
+
+.stupid-red-dot {
+    background-color: red;
+    width: 18px; 
+    height: 18px; 
+    border-radius: 50%; 
+    position: absolute; 
+    top: 5px; 
+    right: 100px; 
+    font-weight: bolder;
+    text-align: center;
+    font-size: 12px; 
+}

@@ -11,9 +11,6 @@ import Header from '../components/Header';
 import Expire from '../components/Expire';
 import '../stylesheets/profilepagestyles.css';
 
-
-//This is the most piece of shit code I have seen in my entire life 
-//In what world is a react componenty 700 fucking lines of code
 export default function Profile() {
     // const [userProfile, setUserProfile] = useState({
     //     username: "example_user",

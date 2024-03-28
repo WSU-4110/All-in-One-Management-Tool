@@ -43,15 +43,17 @@ export default function Todolist() {
     async function removeItem(i) {
         const newTodos = todos.filter((_, index) => index !== i);
         setTodos(newTodos);
-        newTodos.map((value, index) => {
-            if (index === i) {
-                if (value.Assignment) {
-                    sessionStorage.setItem('Tasks', JSON.stringify(newTodos));
-                } else {
-                    sessionStorage.setItem('Events', JSON.stringify(newTodos));
-                }
-            }
-        });
+        // const newTodos = todos.filter((_, index) => index !== i);
+        // setTodos(newTodos);
+        // todos.map((value, index) => {
+        //     if (index === i) {
+        //         if (value.Assignment) {
+        //             sessionStorage.setItem('Tasks', JSON.stringify(value));
+        //         } else {
+        //             sessionStorage.setItem('Events', JSON.stringify(value));
+        //         }
+        //     }
+        // });
         // sessionStorage.setItem('Events', JSON.stringify(newTodos));
         // const newTodos = [...todos];
         // newTodos.splice(i, 1);
@@ -101,7 +103,10 @@ export default function Todolist() {
                                 TO DO LIST 
                             </p>
                     </div>
-                    <div className='list'>
+                    <div className='list'
+                        style={{
+                            padding: "2em",
+                        }}>
                         {containsEvents && todos.map((value, index) => {
                             return <div key = {index} className='list-item'>
                                 <div className='left-side'> 
@@ -109,8 +114,7 @@ export default function Todolist() {
                                     <div className='Assignment-section'>
                                         <p className='assignment-text'> {value.Assignment ? value.Assignment : value.name} </p>
                                         <p className='class-text'> {value.class} </p>
-                                        <p className='date-text'>Due {value.DueDate} </p>
-                                        <p className='time-text'>By: {value.Time} </p>
+                                        <p className='date-text'> {value.DueDate} </p>
                                     </div>
                                 </div>
 

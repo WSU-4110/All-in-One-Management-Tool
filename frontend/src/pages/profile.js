@@ -486,6 +486,7 @@ export default function Profile() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    padding: "2em",
                 }}>
                     <Form noValidate onSubmit={handleSubmit}>
                         <br></br>

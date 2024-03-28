@@ -187,7 +187,10 @@ export default function Addevent() {
             <div className="home-background" />
                 <div className="home-inner">
                     <Header />
-                    <div className='Addevent-mainbody'>
+                    <div className='Addevent-mainbody'
+                        style={{
+                            padding: "2em",
+                        }}>
                         <Form noValidate>
                         <h1
                         style={{

@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
-// import '../stylesheets/backgroundstyles.css';
+import '../stylesheets/backgroundstyles.css';
 
 export function containsNumber(str) {
     return /\d/.test(str);

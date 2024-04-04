@@ -1,4 +1,4 @@
-import { containsNumber, containsSpace, containsUpperCase, eightCharacters, fieldNotEmpty, checkEmailValidity, checkPasswordsMatch } from '../pages/signup.js';
+import { containsNumber, containsSpace, containsUpperCase, eightCharacters, fieldNotEmpty, checkEmailValidity, checkPasswordsMatch } from './signup.js';
 // let { containsNumber } = require('./signup.js');
 // let { containsSpace } = require('./signup.js');
 // let { containsUpperCase } = require('./signup.js');

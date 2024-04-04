@@ -5,9 +5,9 @@ const config = {
       '!**/node_modules/**',
       '!**/vendor/**',
     ],
-    // "transform": {
-    //     ".+\\.(css|styl|less|sass|scss)$": "C:/Users/omara/OneDrive/Documents/GitHub/Winter2024/Software Engineering/All-in-One-Management-Tool/frontend/node_modules/jest-css-modules-transform",
-    // }
+    moduleNameMapper: {
+        '\\.(css|less)$': 'identity-obj-proxy',
+    }
   };
   
 module.exports = config;

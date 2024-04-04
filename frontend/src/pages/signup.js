@@ -7,27 +7,27 @@ import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
 // import '../stylesheets/backgroundstyles.css';
 
-function containsNumber(str) {
+export function containsNumber(str) {
     return /\d/.test(str);
 }
 
-function containsUpperCase(str) {
+export function containsUpperCase(str) {
     return /[A-Z]/.test(str);
 }
 
-function containsSpace(str) {
+export function containsSpace(str) {
     return (!(/\s/.test(str)));
 }
 
-function eightCharacters(str) {
+export function eightCharacters(str) {
     return (str.length >= 8);
 }
 
-function fieldNotEmpty(str) {
+export function fieldNotEmpty(str) {
     return (str !== '');
 }
 
-function checkEmailValidity(userEmail) {
+export function checkEmailValidity(userEmail) {
     const atIndex = userEmail.indexOf('@');
     const dotIndex = userEmail.lastIndexOf('.');
     if ((atIndex > 0) && (dotIndex > atIndex + 1) && (dotIndex < userEmail.length - 1)) {
@@ -36,22 +36,61 @@ function checkEmailValidity(userEmail) {
     return false;
 }
 
-function checkPasswordsMatch(userPassword1, userPassword2) {
+export function checkPasswordsMatch(userPassword1, userPassword2) {
     if (userPassword1 === userPassword2) {
         return true;
     }
     return false;
 }
 
-module.exports = containsNumber;
-module.exports = containsSpace;
-module.exports = containsUpperCase;
-module.exports = eightCharacters;
-module.exports = fieldNotEmpty;
-module.exports = checkEmailValidity;
-module.exports = checkPasswordsMatch;
 
-export const SignUp = (props) => {
+
+// function containsNumber(str) {
+//     return /\d/.test(str);
+// }
+
+// function containsUpperCase(str) {
+//     return /[A-Z]/.test(str);
+// }
+
+// function containsSpace(str) {
+//     return (!(/\s/.test(str)));
+// }
+
+// function eightCharacters(str) {
+//     return (str.length >= 8);
+// }
+
+// function fieldNotEmpty(str) {
+//     return (str !== '');
+// }
+
+// function checkEmailValidity(userEmail) {
+//     const atIndex = userEmail.indexOf('@');
+//     const dotIndex = userEmail.lastIndexOf('.');
+//     if ((atIndex > 0) && (dotIndex > atIndex + 1) && (dotIndex < userEmail.length - 1)) {
+//         return true;
+//     }
+//     return false;
+// }
+
+// function checkPasswordsMatch(userPassword1, userPassword2) {
+//     if (userPassword1 === userPassword2) {
+//         return true;
+//     }
+//     return false;
+// }
+
+// module.exports = containsNumber;
+// module.exports = containsSpace;
+// module.exports = containsUpperCase;
+// module.exports = eightCharacters;
+// module.exports = fieldNotEmpty;
+// module.exports = checkEmailValidity;
+// module.exports = checkPasswordsMatch;
+
+// export const SignUp = (props) => {
+function SignUp() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password1, setPassword1] = useState('');
@@ -85,6 +124,50 @@ export const SignUp = (props) => {
             setVerifiedPassword(true);
         }
     }, [username, email, password1, password2]);
+
+    // this.containsNumber = function(str) {
+    //     return /\d/.test(str);
+    // }
+    
+    // this.containsUpperCase = function(str) {
+    //     return /[A-Z]/.test(str);
+    // }
+    
+    // function containsSpace(str) {
+    //     return (!(/\s/.test(str)));
+    // }
+    
+    // function eightCharacters(str) {
+    //     return (str.length >= 8);
+    // }
+    
+    // function fieldNotEmpty(str) {
+    //     return (str !== '');
+    // }
+    
+    // function checkEmailValidity(userEmail) {
+    //     const atIndex = userEmail.indexOf('@');
+    //     const dotIndex = userEmail.lastIndexOf('.');
+    //     if ((atIndex > 0) && (dotIndex > atIndex + 1) && (dotIndex < userEmail.length - 1)) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
+    
+    // function checkPasswordsMatch(userPassword1, userPassword2) {
+    //     if (userPassword1 === userPassword2) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
+    
+    // module.exports = containsNumber;
+    // module.exports = containsSpace;
+    // module.exports = containsUpperCase;
+    // module.exports = eightCharacters;
+    // module.exports = fieldNotEmpty;
+    // module.exports = checkEmailValidity;
+    // module.exports = checkPasswordsMatch;
 
     // Function to handle the submit button
     async function handleSubmit(e) {

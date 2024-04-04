@@ -1,4 +1,11 @@
-import { containsNumber, containsSpace, containsUpperCase, eightCharacters, fieldNotEmpty, checkEmailValidity, checkPasswordsMatch } from './signup';
+// import { containsNumber, containsSpace, containsUpperCase, eightCharacters, fieldNotEmpty, checkEmailValidity, checkPasswordsMatch } from './signup.js';
+let { containsNumber } = require('./signup.js');
+let { containsSpace } = require('./signup.js');
+let { containsUpperCase } = require('./signup.js');
+let { eightCharacters } = require('./signup.js');
+let { fieldNotEmpty } = require('./signup.js');
+let { checkEmailValidity } = require('./signup.js');
+let { checkPasswordsMatch } = require('./signup.js');
 
 test('Sends a string without a number to check if it has a number', () => {
     const result = containsNumber('abcdefg');

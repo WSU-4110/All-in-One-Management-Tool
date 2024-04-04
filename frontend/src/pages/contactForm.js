@@ -10,7 +10,7 @@ export default function ContactForm() {
         
         const encodedSubject = encodeURIComponent(subject);
         const encodedBody = encodeURIComponent(message + '\n\nSent by: ' + name);
-        window.location.href = `mailto:istiaque.ony@gmail.com?subject=${encodedSubject}&body=${encodedBody}`;
+        window.location.href = `mailto:allinonemanagementtool@gmail.com?subject=${encodedSubject}&body=${encodedBody}`;
     };
 
     return (

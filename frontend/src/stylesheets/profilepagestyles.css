@@ -1,13 +1,17 @@
 
 .profile-title {
-    font-family: 'Roboto';
+    font-family: sans-serif;
     color: white; 
     text-align: center;
     font-size: 30px;
     margin: 20px 0; 
 }
 
-
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
 
 .profile-container {
     font-family: sans-serif;
@@ -30,7 +34,22 @@
     margin-bottom: 10px;
 }
 
-input[type="text"], input[type="email"], input[type="number"] {
+.form-label {
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.input-group > label {
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+input[type="text"], 
+input[type="email"], 
+input[type="number"], 
+input[type="password"], 
+input[type="file"], 
+textarea {
     width: 70%;
     padding: 10px;
     margin: 10px 0;
@@ -58,4 +77,12 @@ button {
     input[type="text"], input[type="email"], input[type="number"] {
         width: 90%; 
     }
+}
+
+.footer-section {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+    /* other necessary styles */
 }

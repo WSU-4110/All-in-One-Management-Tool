@@ -95,7 +95,7 @@ function SignUp() {
     const [email, setEmail] = useState('');
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
-    const [terms, setTerms] = useState(false);
+    // const [terms, setTerms] = useState(false);
     const [usernameError, setUsernameError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [password1Error, setPassword1Error] = useState('');
@@ -103,9 +103,12 @@ function SignUp() {
     const [verifiedUsername, setVerifiedUsername] = useState(true);
     const [verifiedEmail, setVerifiedEmail] = useState(true);
     const [verifiedPassword, setVerifiedPassword] = useState(true);
-    const [verifiedTerms, setVerifiedTerms] = useState(false);
-    const [termsAlert, setTermsAlert] = useState(false);
+    // const [verifiedTerms, setVerifiedTerms] = useState(false);
+    // Variable in charge of displaying the terms alert.
+    // const [termsAlert, setTermsAlert] = useState(false);
+    // Variable in charge of displaying the verification alert.
     const [verificationAlert, setVerificationAlert] = useState(false);
+    // Variable in charge of displaying the error message.
     const [alertError, setAlertError] = useState('');
     const navigate = useNavigate();
 
@@ -180,64 +183,67 @@ function SignUp() {
 
         // If all fields are valid, then create a new record
         if (checkPassword(username, password1, password2) && checkEmailValidity(email)){
-            if (terms) {
-                const response = await fetch(`http://localhost:5050/record`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                    },
-                });
-                if (!response.ok) {
+            const response = await fetch(`http://localhost:5050/record`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+            });
+
+            // Checks whether the fetch operation was successful.
+            if (!response.ok) {
+                setVerificationAlert(true);
+                const message = `An error has occurred: ${response.statusText}`;
+                setAlertError(message);
+                console.log(message)
+                return;
+            }
+            // Checks the database to see if the username is available.
+            const record = await response.json();
+            for (let i = 0; i < record.length; i++) {
+                if (record[i].username === username) {
                     setVerificationAlert(true);
-                    const message = `An error has occurred: ${response.statusText}`;
-                    setAlertError(message);
-                    console.log(message)
+                    setAlertError(`Profile with username ${username} already exists`);
+                    console.log(`Profile with username ${username} already exists`);
                     return;
                 }
-                // Checks the database to see if the username is available.
-                const record = await response.json();
-                for (let i = 0; i < record.length; i++) {
-                    if (record[i].username === username) {
-                        setVerificationAlert(true);
-                        setAlertError(`Profile with username ${username} already exists`);
-                        console.log(`Profile with username ${username} already exists`);
-                        return;
-                    }
-                }
-                // Checks the database to see if the email is available.
-                for (let i = 0; i < record.length; i++) {
-                    if (record[i].email === email) {
-                        setVerificationAlert(true);
-                        setAlertError(`Profile with email ${email} already exists`);
-                        console.log(`Profile with email ${email} already exists`);
-                        return;
-                    }
-                }
-                try {
-                    const response = await fetch(`http://localhost:5050/record/create`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ username: username, email: email, password: password1 }),
-                    });
-                
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    } else {
-                        console.log('Record added successfully');
-                        navigate("/login");
-                    }
-                } catch (error) {
-                    console.error('A problem occurred with your fetch operation: ', error);
-                } finally {
-                    // navigate("/");
-                }
-            } else {
-                setVerifiedTerms(false);
-                setTermsAlert(true);
             }
+            // Checks the database to see if the email is available.
+            for (let i = 0; i < record.length; i++) {
+                if (record[i].email === email) {
+                    setVerificationAlert(true);
+                    setAlertError(`Profile with email ${email} already exists`);
+                    console.log(`Profile with email ${email} already exists`);
+                    return;
+                }
+            }
+            // Adds the record to the database.
+            try {
+                const response = await fetch(`http://localhost:5050/record/create`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    { username: username, email: email, password: password1,
+                    notifications: "all", locations: [], tasks: [], events: []}),
+                });
+                // Checks whether the fetch operation was successful.
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                } else {
+                    console.log('Record added successfully');
+                    navigate("/login");
+                }
+            // Catches any errors that may occur.
+            } catch (error) {
+                console.error('A problem occurred with your fetch operation: ', error);
+            }
+            // } else {
+            //     setVerifiedTerms(false);
+            //     setTermsAlert(true);
+            // }
         }
         else {
             setVerifiedPassword(false);
@@ -400,6 +406,7 @@ function SignUp() {
             setPassword1Error('Password must be at least 8 characters long');
             setPassword2Error('Password must be at least 8 characters long');
         }
+        // If password passes all checks, set verifiedPassword to true
         if (!fail) {
             setVerifiedPassword(true);
             return true;
@@ -444,11 +451,11 @@ function SignUp() {
     //     return false;
     // }
 
-    // Function to set the terms and conditions checkbox
-    function setCheckedTerms() {
-        setTerms(!terms);
-        setVerifiedTerms(!verifiedTerms);
-    }
+    // // Function to set the terms and conditions checkbox
+    // function setCheckedTerms() {
+    //     setTerms(!terms);
+    //     setVerifiedTerms(!verifiedTerms);
+    // }
     
     return(
         <div className="init-background">
@@ -496,7 +503,7 @@ function SignUp() {
                         }}>Email: </Form.Label>
                         <Form.Control
                             isInvalid={!verifiedEmail}
-                            type="username"
+                            type="email"
                             placeholder="Email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}/>
@@ -553,11 +560,12 @@ function SignUp() {
                             width: '300px',
                             fontSize: '0.85em',
                             marginTop: '0.5em',
+                            color: "white",
                         }}>Password must be at least
                              8 characters long, contain a capital letter,
                               a number, and have no spaces.</p>
                     </Form.Group>
-                    <Form.Group controlId="formBasicCheckbox">
+                    {/* <Form.Group controlId="formBasicCheckbox">
                         <Form.Check
                         type="checkbox"
                         isInvalid={!verifiedTerms}
@@ -575,7 +583,7 @@ function SignUp() {
                         }}>
                             You must agree to the terms and conditions
                         </Alert>
-                    </Form.Group>
+                    </Form.Group> */}
                     <Alert show={verificationAlert} variant="danger"
                     style={{
                         // textShadow: "2px 2px 4px #FF0000",

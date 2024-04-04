@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../stylesheets/calenderpagestyles.css';
 import '../stylesheets/backgroundstyles.css';
 import Header from '../components/Header';
@@ -76,41 +76,46 @@ export default function Calendar() {
         setCalendarDays(generateCalendarDays(newYear, newMonth));
     };
 
+
     function checkForEvent(day) {
-        const event = JSON.parse(localStorage.getItem('eventInfo'));
+        const events = sessionStorage.getItem('Events') ? JSON.parse(sessionStorage.getItem('Events')) : [];
         
-        if (event) {
-            for (let i = 0; i < event.length; i++) {
-                if (Number(event[i].DueDate.substring(8, 10)) === day) {
-                    return true;
-                }
-            }
+        return events.some(event => {
+            const eventDate = new Date(event.DueDate);
+            return eventDate.getDate() === (day.getDate() - 1) &&
+                   eventDate.getMonth() === day.getMonth() &&
+                   eventDate.getFullYear() === day.getFullYear();
+        });
+    }
+
+    function addEventDetails(day) {
+        const events = sessionStorage.getItem('Events') ? JSON.parse(sessionStorage.getItem('Events')) : [];
+        
+        const eventForDay = events.find(event => {
+            const eventDate = new Date(event.DueDate);
+            return eventDate.getDate() === (day.getDate() - 1) &&
+                   eventDate.getMonth() === day.getMonth() &&
+                   eventDate.getFullYear() === day.getFullYear();
+        });
+
+        if (eventForDay) {
+            setClasstoevent(eventForDay.name); 
+            setAssignmenttoevent(eventForDay.Location); 
+            setDuedatetoevent(eventForDay.DueDate);
+            setDescriptiontoevent(eventForDay.Description);
+            setisEventVisible(1);
         }
     }
 
-    function addEventDetails(date) {
-        const event = JSON.parse(localStorage.getItem('eventInfo'));
-
-        if (event) {
-            for (let i = 0; i < event.length; i++) {
-                if (Number(event[i].DueDate.substring(8, 10)) === date) {
-                    setClasstoevent(event[i].class);
-                    setAssignmenttoevent(event[i].Assignment);
-                    setDuedatetoevent(event[i].DueDate);
-                    setDescriptiontoevent(event[i].Description);
-                    toggleEventVisibility();
-                    return;
-                }
-            }
-        }
-   }
-
-    const firstDate = calendarDays.find(day => day instanceof Date);
+    useEffect(() => {
+        setCalendarDays(generateCalendarDays(currentYear, currentMonth));
+    }, [currentYear, currentMonth]);
     
+    const firstDate = calendarDays.find(day => day instanceof Date);
     let monthName = ' ';
 
     if (firstDate) {
-      monthName = firstDate.toLocaleString('default', { month: 'long' });
+        monthName = firstDate.toLocaleString('default', { month: 'long' });
     }
 
     return (
@@ -143,19 +148,19 @@ export default function Calendar() {
                             if (day) {
                                 let className = "DateButton";
                                 let style = {};
-
+                        
                                 if (isToday(day)) {
                                     style = { 
                                         background: 'linear-gradient(to bottom right, rgb(0, 162, 255), rgb(44, 44, 57))',
                                         color: 'white' };
                                     className += " Today";
-                                } else if (checkForEvent(day.getDate())) {
+                                } else if (checkForEvent(day)) { // Changed here: pass day directly
                                     style = {
                                         background: 'linear-gradient(to bottom right, rgb(0, 255, 26), rgb(44, 44, 57))',
                                         color: 'white'
                                     }
                                 };
-                                return <button key={index} onClick={() => {addEventDetails(day.getDate())}} 
+                                return <button key={index} onClick={() => {addEventDetails(day)}} // And here: pass day directly
                                 className="DateButton" style={style}>{day.getDate()}</button>;
                             } else {
                                 return <button key={index} className='EmptyButton'></button>;
@@ -167,14 +172,14 @@ export default function Calendar() {
             <div className='show-event' style={{
                 opacity: isEventVisible
             }}>
-                <div className='Class-section'>Class: 
+                <div className='Class-section'>Event Name: 
                     <span style={{
                         color: 'rgba(255, 255, 255, 0.7)',
                         marginLeft: '10px',
                         fontSize: '20px',
                         fontStyle: 'italic'
                     }}>{Classtoevent}</span> </div>
-                <div className='Assignment-section'>Assignment: 
+                <div className='Assignment-section'>Location: 
                     <span style={{
                         color: 'rgba(255, 255, 255, 0.7)',
                         marginLeft: '10px',

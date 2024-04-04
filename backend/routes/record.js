@@ -1,5 +1,8 @@
 import express from "express";
 
+import multer from "multer";
+//this is help to upload picture
+
 // This will help us connect to the database
 import db from "../db/connection.js";
 
@@ -10,6 +13,9 @@ import { ObjectId } from "mongodb";
 // We use it to define our routes.
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const router = express.Router();
+
+//configuring upload
+const upload = multer({dest: 'uploads/' });
 
 // This section will help you get a list of all the records.
 router.get("/", async (req, res) => {
@@ -54,6 +60,10 @@ router.patch("/:id", async (req, res) => {
         name: req.body.name,
         position: req.body.position,
         level: req.body.level,
+        fullName: req.body.fullName,
+        contactNumber: req.body.contactNumber,
+        bio: req.body.bio,
+        profilePicture: req.file ? req.file.path : undefined
       },
     };
 

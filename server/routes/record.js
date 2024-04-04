@@ -50,6 +50,10 @@ router.post("/create", async (req, res) => {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
+      notifications: req.body.notifications,
+      locations: req.body.locations,
+      tasks: req.body.tasks,
+      events: req.body.events,
     };
     let collection = await db.collection("records");
     let result = await collection.insertOne(newDocument);
@@ -60,15 +64,18 @@ router.post("/create", async (req, res) => {
   }
 });
 
-// This section will help you update a record by id.
-router.patch("/:id", async (req, res) => {
+// This section will help you update a record by the username provided in the body of the request.
+router.patch("/edit", async (req, res) => {
   try {
-    const query = { _id: new ObjectId(req.params.id) };
-    const updates = {
+    let query = { username: req.body.username };
+    let updates = {
       $set: {
-        username: req.body.username,
         email: req.body.email,
         password: req.body.password,
+        notifications: req.body.notifications,
+        locations: req.body.locations,
+        tasks: req.body.tasks,
+        events: req.body.events,
       },
     };
 
@@ -81,10 +88,35 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-// This section will help you delete a record
-router.delete("/:id", async (req, res) => {
+// // This section will help you update a record by username.
+// router.patch("/:username", async (req, res) => {
+//   try {
+//     const query = { _username: new ObjectId(req.params.username) };
+//     const updates = {
+//       $set: {
+//         username: req.body.username,
+//         email: req.body.email,
+//         password: req.body.password,
+//         notifications: req.body.notifications,
+//         locations: req.body.locations,
+//         tasks: req.body.tasks,
+//         events: req.body.events,
+//       },
+//     };
+
+//     let collection = await db.collection("records");
+//     let result = await collection.updateOne(query, updates);
+//     res.send(result).status(200);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send("Error updating record");
+//   }
+// });
+
+// This section will help you delete a record by username
+router.delete("/:username", async (req, res) => {
   try {
-    const query = { _id: new ObjectId(req.params.id) };
+    const query = { _username: new ObjectId(req.params.username) };
 
     const collection = db.collection("records");
     let result = await collection.deleteOne(query);

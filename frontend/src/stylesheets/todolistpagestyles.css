@@ -1,8 +1,13 @@
 *{
-    font-family: Roboto;
+    font-family: sans-serif;
 }
 
-
+.title-text {
+    font-size: 40px;
+    color: white;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
 
 .todolist-grid {
     display: grid;
@@ -70,3 +75,10 @@
     box-shadow: none;
 }
 
+
+.time-text {
+    font-size: 15px;
+    color: rgb(85, 85, 85);
+    margin-top: -8px;
+    margin-bottom: 2px;
+}

@@ -22,7 +22,7 @@ export default function Init() {
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}>
-                        <p>Log in with your account to continue</p>
+                        {/* <p>Log in with your account to continue</p> */}
                     </div>
                     <div
                     style={{

@@ -9,6 +9,7 @@ import Notifications from "./pages/notifications";
 import Calender from "./pages/calender";
 import Todolist from "./pages/todolist";
 import Addevent from "./pages/Addevent";
+import AddTask from "./pages/addTask";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/calendar" element={<Calender />} />
           <Route path="/todolist" element={<Todolist />} />
+          <Route path="/addTask" element={<AddTask />} />
         </Routes>
       </BrowserRouter>
       <Outlet />

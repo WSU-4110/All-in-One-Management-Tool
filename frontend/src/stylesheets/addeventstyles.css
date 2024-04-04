@@ -1,3 +1,10 @@
+p {
+    color: black;
+}
+
+input {
+    color: black;
+}
 
 .Addevent-mainbody{
     margin-top: 50px;
@@ -14,7 +21,7 @@
 
 .Addevent-text {
     margin-top: 0px;
-    
+    color: white;
 }
 
 .Input-title {

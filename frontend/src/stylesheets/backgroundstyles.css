@@ -153,3 +153,12 @@ p {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
+.form-control[type="password"], .form-control[type="text"], .form-control[type="email"], .form-control[type="username"]{
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    /* padding: 10px;
+    margin: 10px 0; */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}

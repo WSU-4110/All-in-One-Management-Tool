@@ -1,5 +1,6 @@
 /** @type {import('jest').Config} */
 const config = {
+    verbose: true,
     collectCoverageFrom: [
       '**/*.{js,jsx}',
       '!**/node_modules/**',

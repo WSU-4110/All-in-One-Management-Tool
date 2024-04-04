@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button.js';
+import Modal from 'react-bootstrap/Modal.js';
+import Col from 'react-bootstrap/Col.js';
+import Row from 'react-bootstrap/Row.js';
 import { useNavigate } from 'react-router-dom';
 
 export default function ConfigureProfile() {

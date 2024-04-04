@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
-import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button.js";
+import Form from "react-bootstrap/Form.js";
+import Col from "react-bootstrap/Col.js";
+import Alert from "react-bootstrap/Alert.js";
 import '../stylesheets/backgroundstyles.css';
 
 export function containsNumber(str) {

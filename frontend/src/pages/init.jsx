@@ -1,4 +1,4 @@
-import Button from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button.js';
 import { Link } from 'react-router-dom';
 import '../stylesheets/backgroundstyles.css';
 

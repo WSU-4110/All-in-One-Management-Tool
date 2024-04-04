@@ -1,7 +1,7 @@
 import '../stylesheets/notificationpagestyles.css';
 import '../stylesheets/backgroundstyles.css';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
+import Footer from '../components/Footer.js';
+import Header from '../components/Header.js';
 import NotificationIcon from '../images/NotificationIcon.png';
 import {useNavigate} from 'react-router-dom'
 

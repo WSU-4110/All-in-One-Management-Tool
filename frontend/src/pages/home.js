@@ -1,10 +1,10 @@
 import React, { useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 // import ContactForm from './contactForm';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import ConfigureProfile from '../modals/configureProfile';
-import ContactModal from '../modals/contactModal';
+import Header from '../components/Header.js';
+import Footer from '../components/Footer.js';
+import ConfigureProfile from '../modals/configureProfile.jsx';
+import ContactModal from '../modals/contactModal.jsx';
 import CreateEventLogo from '../images/CreateEventLogo.png';
 import CalenderButtonLogo from '../images/CalanderButtonLogo.png';
 import CreateTaskLogo from '../images/CreateTaskLogo.png';

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../stylesheets/calenderpagestyles.css';
 import '../stylesheets/backgroundstyles.css';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../components/Header.js';
+import Footer from '../components/Footer.js';
 
 const generateCalendarDays = (year, month) => {
     const days = [];

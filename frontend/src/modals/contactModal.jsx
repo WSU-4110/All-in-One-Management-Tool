@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button.js';
+import Modal from 'react-bootstrap/Modal.js';
+import Col from 'react-bootstrap/Col.js';
+import Row from 'react-bootstrap/Row.js';
+import Form from 'react-bootstrap/Form.js';
 
 export default function ContactModal() {
     const [name, setName] = useState('');

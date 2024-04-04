@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { Link , useNavigate } from "react-router-dom";
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Col from "react-bootstrap/Col";
-import Alert from "react-bootstrap/Alert";
+import Form from 'react-bootstrap/Form.js';
+import Button from 'react-bootstrap/Button.js';
+import Col from "react-bootstrap/Col.js";
+import Alert from "react-bootstrap/Alert.js";
 import '../stylesheets/backgroundstyles.css';
 
 function fieldNotEmpty(str) {

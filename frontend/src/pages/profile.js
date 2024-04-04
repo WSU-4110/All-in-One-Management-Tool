@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import Dropdown from "react-bootstrap/Dropdown";
-import Col from "react-bootstrap/Col";
-import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button.js";
+import Form from "react-bootstrap/Form.js";
+import DropdownButton from "react-bootstrap/DropdownButton.js";
+import Dropdown from "react-bootstrap/Dropdown.js";
+import Col from "react-bootstrap/Col.js";
+import Alert from "react-bootstrap/Alert.js";
 // import Footer from '../components/Footer';
-import Header from '../components/Header';
-import Expire from '../components/Expire';
+import Header from '../components/Header.js';
+import Expire from '../components/Expire.js';
 import '../stylesheets/profilepagestyles.css';
-import Footer from '../components/Footer';
+import Footer from '../components/Footer.js';
 
 
 export default function Profile() {

@@ -1,13 +1,13 @@
 import '../stylesheets/addeventstyles.css';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../components/Header.js';
+import Footer from '../components/Footer.js';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Col from "react-bootstrap/Col";
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+import Form from 'react-bootstrap/Form.js';
+import Button from 'react-bootstrap/Button.js';
+import Col from "react-bootstrap/Col.js";
+import Dropdown from 'react-bootstrap/Dropdown.js';
+import DropdownButton from 'react-bootstrap/DropdownButton.js';
 
 export default function Addevent() {
     const [getName, setName] = useState("");

@@ -1,15 +1,15 @@
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import Init from "./pages/init";
-import Login from "./pages/login";
-import Signup from "./pages/signup";
-import Home from "./pages/home";
-import Settings from "./pages/settings";
-import Profile from "./pages/profile";
-import Notifications from "./pages/notifications";
-import Calender from "./pages/calender";
-import Todolist from "./pages/todolist";
-import Addevent from "./pages/Addevent";
-import AddTask from "./pages/addTask";
+import Init from "./pages/init.jsx";
+import Login from "./pages/login.jsx";
+import Signup from "./pages/signup.js";
+import Home from "./pages/home.js";
+import Settings from "./pages/settings.js";
+import Profile from "./pages/profile.js";
+import Notifications from "./pages/notifications.js";
+import Calender from "./pages/calender.js";
+import Todolist from "./pages/todolist.js";
+import Addevent from "./pages/Addevent.js";
+import AddTask from "./pages/addTask.jsx";
 
 function App() {
   return (

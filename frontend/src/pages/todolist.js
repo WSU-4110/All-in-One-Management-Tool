@@ -1,12 +1,12 @@
 import '../stylesheets/todolistpagestyles.css';
 import '../stylesheets/backgroundstyles.css';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../components/Header.js';
+import Footer from '../components/Footer.js';
 import checkmarkimage from '../images/checkmark.png';
 import trashicon from '../images/trashicon.png';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button.js';
  
 export default function Todolist() {
     const [todos, setTodos] = useState([]);

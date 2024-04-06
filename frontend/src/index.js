@@ -2,6 +2,8 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import { Provider } from 'react-redux';
+import store from './store'; // Make sure this points to the file where your store is created
 import reportWebVitals from './reportWebVitals';
 
 

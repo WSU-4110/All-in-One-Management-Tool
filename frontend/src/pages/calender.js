@@ -6,20 +6,20 @@ import Footer from '../components/Footer';
 
 const generateCalendarDays = (year, month) => {
     const days = [];
-    const firstDayOfMonth = new Date(year, month, 1).getDay();
-    
+    const firstDayOfMonth = new Date(Date.UTC(year, month, 1)).getDay();
+
     for (let i = 0; i < firstDayOfMonth; i++) {
-      days.push(null); 
+      days.push(null);
     }
     
-    let date = new Date(year, month, 1);
-    while (date.getMonth() === month) {
+    let date = new Date(Date.UTC(year, month, 1));
+    while (date.getUTCMonth() === month) {
       days.push(new Date(date));
-      date.setDate(date.getDate() + 1);
+      date.setUTCDate(date.getUTCDate() + 1);
     }
     
     return days;
-  };
+};
 
 export default function Calendar() {
     const [Classtoevent, setClasstoevent] = useState('');
@@ -81,7 +81,7 @@ export default function Calendar() {
         const events = sessionStorage.getItem('Events') ? JSON.parse(sessionStorage.getItem('Events')) : [];
         
         return events.some(event => {
-            const eventDate = new Date(event.DueDate);
+            const eventDate = new Date(event.DueDate );
             return eventDate.getDate() === day.getDate() &&
                    eventDate.getMonth() === day.getMonth() &&
                    eventDate.getFullYear() === day.getFullYear();

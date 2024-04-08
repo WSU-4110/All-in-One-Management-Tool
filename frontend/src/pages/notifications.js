@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import '../stylesheets/notificationpagestyles.css';
 import '../stylesheets/backgroundstyles.css';
 import Footer from '../components/Footer';
@@ -5,8 +6,29 @@ import Header from '../components/Header';
 import NotificationIcon from '../images/NotificationIcon.png';
 import {useNavigate} from 'react-router-dom'
 
+class Observer {
+    update() {}
+
+}
+
+class Subject {
+    obsevers = [];
+
+    subscribe(observer){
+        this.observers.push(observer);
+    }
+
+    unsubscribe(observer) {
+        this.observers = this.observers.filter(obs => obs !== observer);
+    }
+
+    notify(){
+        this.observers.forEach(observer => observer.update());
+    }
+}
+
 export default function Noficications() {
-    const events = JSON.parse(sessionStorage.getItem('Tasks'));
+    const [events, setEvents] = useState(JSON.parse(sessionStorage.getItem('Tasks')) || []);
     const navigate = useNavigate();
     const handleClick = () => {
         console.log(events);
@@ -17,6 +39,23 @@ export default function Noficications() {
     const handleToDoClick = () => {
         navigate('/todolist');
     }
+
+    useEffect(() => {
+        const eventsSubject = new Subject(); //create subject
+    
+        const notificationsObserver = {//notification observer
+          update: () => {
+            setEvents(JSON.parse(sessionStorage.getItem('Tasks')) || []); //update when notified
+          }
+        };
+    
+        eventsSubject.subscribe(notificationsObserver); //subscribe
+    
+        return () => {
+          eventsSubject.unsubscribe(notificationsObserver); //unsubscribe
+        };
+      }, []);
+
     return (
         <div className='home-outer'>
             <div className='home-background'/>

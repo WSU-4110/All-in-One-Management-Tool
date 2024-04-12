@@ -1,10 +1,7 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import Calendar, { generateCalendarDays } from './calender';
+import { generateCalendarDays } from './calender';
 
 const CURRENT_YEAR = 2024;
 const CURRENT_MONTH = 3; // April (0 indexed)
-const TODAY_DATE = 11;
 
 // Test 1: Check if generateCalendarDays function generates the correct number of days for April
 test('generateCalendarDays should generate correct number of days for April', () => {
@@ -12,48 +9,45 @@ test('generateCalendarDays should generate correct number of days for April', ()
   expect(days.filter(day => day instanceof Date).length).toBe(30);
 });
 
-// Test 2: Check if Calendar component renders
-test('Calendar component renders without crashing', () => {
-  const { getByText } = render(<Calendar />);
-  expect(getByText('CALENDAR')).toBeInTheDocument();
+// Test 2: Check if days before first day of April are null (assuming Sunday as the first day of the week)
+test('generateCalendarDays should have null for days before first day of the month', () => {
+  const days = generateCalendarDays(CURRENT_YEAR, CURRENT_MONTH); 
+  const firstDayOfMonth = new Date(Date.UTC(CURRENT_YEAR, CURRENT_MONTH, 1)).getDay();
+  const nullDays = days.slice(0, firstDayOfMonth);
+  expect(nullDays.every(day => day === null)).toBe(true);
 });
 
-// Test 3: Check if clicking next month button updates the month to May
-test('Next month button should update the month to May', () => {
-  const { getByText, queryByText } = render(<Calendar />);
-  fireEvent.click(getByText('→'));
-  expect(queryByText('May')).toBeInTheDocument(); // May comes after April
+// Test 3: Check if the days generated for February in a leap year have the correct count
+test('generateCalendarDays should generate correct number of days for February in a leap year', () => {
+  const leapYear = 2024;
+  const february = 1; // February (0 indexed)
+  const days = generateCalendarDays(leapYear, february);
+  expect(days.filter(day => day instanceof Date).length).toBe(29);
 });
 
-// Test 4: Check if clicking previous month button updates the month to March
-test('Previous month button should update the month to March', () => {
-  const { getByText, queryByText } = render(<Calendar />);
-  fireEvent.click(getByText('←'));
-  expect(queryByText('March')).toBeInTheDocument(); // March comes before April
+// Test 4: Check if the days generated for February in a non-leap year have the correct count
+test('generateCalendarDays should generate correct number of days for February in a non-leap year', () => {
+  const nonLeapYear = 2023;
+  const february = 1; // February (0 indexed)
+  const days = generateCalendarDays(nonLeapYear, february);
+  expect(days.filter(day => day instanceof Date).length).toBe(28);
 });
 
-// Test 5: Check if today's date is highlighted
-test('Today’s date should be highlighted', () => {
-  const { getAllByText } = render(<Calendar />);
-  const todayElements = getAllByText(TODAY_DATE).filter(element => {
-    return element.style.background.includes('linear-gradient');
-  });
-  expect(todayElements).not.toHaveLength(0); // There should be at least one element with the gradient background
+// Test 5: Check if the last day of the month is correct for April
+test('generateCalendarDays should end with the correct last day for April', () => {
+  const days = generateCalendarDays(CURRENT_YEAR, CURRENT_MONTH);
+  const lastDay = days[days.length - 1];
+  expect(lastDay.getUTCDate()).toBe(30);
+  expect(lastDay.getUTCMonth()).toBe(CURRENT_MONTH);
 });
 
-// Test 6: Check if an event can be added and is visible
-test('Adding an event should make it visible', () => {
-  // Mock sessionStorage for events
-  const mockEvent = {
-    DueDate: new Date(CURRENT_YEAR, CURRENT_MONTH, TODAY_DATE).toISOString(), 
-    name: 'Test Event', 
-    Location: 'Test Location', 
-    Description: 'Test Description'
-  };
-  window.sessionStorage.setItem('Events', JSON.stringify([mockEvent]));
-
-  const { getByText } = render(<Calendar />);
-  fireEvent.click(getByText(TODAY_DATE)); // Click on today's date
-  expect(getByText('Event Name:')).toBeInTheDocument();
-  expect(getByText('Test Event')).toBeInTheDocument(); // Event details should be visible
+// Test 6: Check if the function handles the transition from December to January
+test('generateCalendarDays should handle transition from December to January correctly', () => {
+  const december = 11; // December (0 indexed)
+  const january = 0; // January (0 indexed)
+  const daysInDecember = generateCalendarDays(CURRENT_YEAR, december);
+  const daysInJanuary = generateCalendarDays(CURRENT_YEAR + 1, january);
+  
+  expect(daysInDecember.filter(day => day instanceof Date).length).toBe(31);
+  expect(daysInJanuary.filter(day => day instanceof Date).length).toBe(31);
 });

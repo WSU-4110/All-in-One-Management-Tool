@@ -4,7 +4,7 @@ import '../stylesheets/backgroundstyles.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const generateCalendarDays = (year, month) => {
+export const generateCalendarDays = (year, month) => {
     const days = [];
     const firstDayOfMonth = new Date(Date.UTC(year, month, 1)).getDay();
 

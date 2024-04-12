@@ -56,7 +56,7 @@ export default function Home() {
                                 </span> 
                                 <Link to="/addevent" className="link-style">
                                 
-                                        
+                                    ADD EVENT
                                         
                                 </Link>
                             </div>

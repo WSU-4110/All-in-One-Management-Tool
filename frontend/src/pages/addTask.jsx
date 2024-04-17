@@ -19,6 +19,16 @@ export default function Addevent() {
     const [validTime, setValidTime] = useState(true);
     const navigate = useNavigate();
 
+    try {
+        if (sessionStorage['Username'] != null) {
+            console.log("");
+        } else {
+            navigate("/login");
+        }
+    } catch {
+        navigate("/login");
+    }
+
     function checkForEmpty() {
         if (getClass === "") {
             setValidClass(false);
@@ -85,13 +95,18 @@ export default function Addevent() {
             let Info;
             try {
                 Info = JSON.parse(sessionStorage["Tasks"]);
-            } catch (error) {
+            } catch {
                 Info = [];
+                navigate("/login");
             }
 
             Info.push(newTask);
-            sessionStorage["Tasks"] = JSON.stringify(Info);
-            console.log(Info);
+            try {
+                sessionStorage["Tasks"] = JSON.stringify(Info);
+                console.log(Info);
+            } catch {
+                navigate("/login");
+            }
 
             // let locationsDB;
             let tasksDB;
@@ -111,8 +126,14 @@ export default function Addevent() {
             // } catch {
             //     eventsDB = [];
             // }
-            tasksDB = sessionStorage["Tasks"];
-            eventsDB = sessionStorage["Events"];
+            try {
+                tasksDB = sessionStorage["Tasks"];
+                eventsDB = sessionStorage["Events"];
+            } catch {
+                tasksDB = [];
+                eventsDB = [];
+                navigate("/login");
+            }
 
             // if (sessionStorage["Tasks"] === undefined || sessionStorage["Tasks"] === null || sessionStorage["Tasks"] === "") {
             //     sessionStorage["Tasks"] = JSON.stringify(newTask);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import { Link, useNavigate, redirect, Route } from 'react-router-dom';
 // import ContactForm from './contactForm';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -17,27 +17,44 @@ import '../stylesheets/backgroundstyles.css';
 export default function Home() {
     const [showContactForm, setShowContactForm] = useState(false);
     const [profileConfigured, setProfileConfigured] = useState(true);
+    const navigate = useNavigate();
+    
     const handleContactButtonClick = () => {
         setShowContactForm(!showContactForm);
     };
 
+    try {
+        if (sessionStorage['Username'] != null) {
+            console.log("");
+        } else {
+            navigate("/login");
+        }
+    } catch {
+        navigate("/login");
+    }
+
     // Check if the user has configured their profile, if they have not
     // it will display the configure profile modal.
     useEffect(() => {
-        if (sessionStorage["Locations"] === "") {
-            setProfileConfigured(false);
+        try {
+            if (sessionStorage["Locations"] === "") {
+                setProfileConfigured(false);
+            }
+            console.log(sessionStorage["Username"]);
+            console.log(sessionStorage["Password"]);
+            console.log(sessionStorage["Email"]);
+            console.log(sessionStorage["Notifications"]);
+            console.log(sessionStorage["Locations"]);
+            console.log(sessionStorage["Tasks"]);
+            console.log(sessionStorage["Events"]);
+        } catch {
+            navigate('/login');
         }
-        console.log(sessionStorage["Username"]);
-        console.log(sessionStorage["Password"]);
-        console.log(sessionStorage["Email"]);
-        console.log(sessionStorage["Notifications"]);
-        console.log(sessionStorage["Locations"]);
-        console.log(sessionStorage["Tasks"]);
-        console.log(sessionStorage["Events"]);
     }, []);
 
 
     return (
+        <>
         <div className='home-outer'>
             <div className='home-background'/>
                 <div className='home-inner'>
@@ -107,5 +124,6 @@ export default function Home() {
                     <Footer />
                 </div>
             </div>
+        </>
     )
 }

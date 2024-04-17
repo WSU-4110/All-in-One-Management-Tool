@@ -3,6 +3,7 @@ import '../stylesheets/calenderpagestyles.css';
 import '../stylesheets/backgroundstyles.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { useNavigate } from 'react-router-dom';
 
 const generateCalendarDays = (year, month) => {
     const days = [];
@@ -30,6 +31,17 @@ export default function Calendar() {
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
     const [calendarDays, setCalendarDays] = useState(generateCalendarDays(currentYear, currentMonth));
+    const navigate = useNavigate();
+
+    try {
+        if (sessionStorage['Username'] != null) {
+            console.log("");
+        } else {
+            navigate("/login");
+        }
+    } catch {
+        navigate("/login");
+    }
     
     function toggleEventVisibility () {
         setisEventVisible(1)
@@ -78,32 +90,39 @@ export default function Calendar() {
 
 
     function checkForEvent(day) {
-        const events = sessionStorage.getItem('Events') ? JSON.parse(sessionStorage.getItem('Events')) : [];
-        
-        return events.some(event => {
-            const eventDate = new Date(event.DueDate);
-            return eventDate.getDate() === (day.getDate() - 1) &&
-                   eventDate.getMonth() === day.getMonth() &&
-                   eventDate.getFullYear() === day.getFullYear();
-        });
+        try {
+            const events = sessionStorage.getItem('Events') ? JSON.parse(sessionStorage.getItem('Events')) : [];
+            return events.some(event => {
+                const eventDate = new Date(event.DueDate);
+                return eventDate.getDate() === (day.getDate() - 1) &&
+                       eventDate.getMonth() === day.getMonth() &&
+                       eventDate.getFullYear() === day.getFullYear();
+            });
+        } catch {
+            navigate('/login');
+        }
     }
 
     function addEventDetails(day) {
-        const events = sessionStorage.getItem('Events') ? JSON.parse(sessionStorage.getItem('Events')) : [];
-        
-        const eventForDay = events.find(event => {
-            const eventDate = new Date(event.DueDate);
-            return eventDate.getDate() === (day.getDate() - 1) &&
-                   eventDate.getMonth() === day.getMonth() &&
-                   eventDate.getFullYear() === day.getFullYear();
-        });
-
-        if (eventForDay) {
-            setClasstoevent(eventForDay.name); 
-            setAssignmenttoevent(eventForDay.Location); 
-            setDuedatetoevent(eventForDay.DueDate);
-            setDescriptiontoevent(eventForDay.Description);
-            setisEventVisible(1);
+        try {
+            const events = sessionStorage.getItem('Events') ? JSON.parse(sessionStorage.getItem('Events')) : [];
+            
+            const eventForDay = events.find(event => {
+                const eventDate = new Date(event.DueDate);
+                return eventDate.getDate() === (day.getDate() - 1) &&
+                       eventDate.getMonth() === day.getMonth() &&
+                       eventDate.getFullYear() === day.getFullYear();
+            });
+    
+            if (eventForDay) {
+                setClasstoevent(eventForDay.name); 
+                setAssignmenttoevent(eventForDay.Location); 
+                setDuedatetoevent(eventForDay.DueDate);
+                setDescriptiontoevent(eventForDay.Description);
+                setisEventVisible(1);
+            }   
+        } catch {
+            navigate('/login');
         }
     }
 

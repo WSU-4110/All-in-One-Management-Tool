@@ -13,13 +13,29 @@ export default function Todolist() {
     const [containsEvents, setContainsEvents] = useState(true);
     const navigate = useNavigate();
 
+    try {
+        if (sessionStorage['Username'] != null) {
+            console.log("");
+        } else {
+            navigate("/login");
+        }
+    } catch {
+        navigate("/login");
+    }
+    
     useEffect(() => {
         let events = [];
         let tasks = [];
+        let storedEvents = '';
+        let storedTasks = '';
 
         // Fetch events and tasks from sessionStorage, if available
-        const storedEvents = sessionStorage.getItem('Events');
-        const storedTasks = sessionStorage.getItem('Tasks');
+        try {
+            storedEvents = sessionStorage.getItem('Events');
+            storedTasks = sessionStorage.getItem('Tasks');
+        } catch {
+            navigate('/login');
+        }
 
         console.log(storedEvents + "events part");
         console.log(storedTasks + "tasks part");

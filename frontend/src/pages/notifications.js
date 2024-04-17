@@ -6,8 +6,26 @@ import NotificationIcon from '../images/NotificationIcon.png';
 import {useNavigate} from 'react-router-dom'
 
 export default function Noficications() {
-    const events = JSON.parse(sessionStorage.getItem('Tasks'));
+    let events;
+    
+    try {
+        events = JSON.parse(sessionStorage.getItem('Tasks'));
+    } catch {
+        events = '';
+        navigate("/login");
+    }
     const navigate = useNavigate();
+
+    try {
+        if (sessionStorage['Username'] != null) {
+            console.log("");
+        } else {
+            navigate("/login");
+        }
+    } catch {
+        navigate("/login");
+    }
+
     const handleClick = () => {
         console.log(events);
     }

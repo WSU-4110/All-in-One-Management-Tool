@@ -19,6 +19,16 @@ export default function Addevent() {
     const [validDueDate, setValidDueDate] = useState(true);
     const navigate = useNavigate();
 
+    try {
+        if (sessionStorage['Username'] != null) {
+            console.log("");
+        } else {
+            navigate("/login");
+        }
+    } catch {
+        navigate("/login");
+    }
+
     function checkForEmpty() {
         if (getName === "") {
             setValidName(false);
@@ -64,18 +74,22 @@ export default function Addevent() {
     // Function to list the locations in the session storage
     // into the locations array.
     const locationsList = () => {
-        const locationsArray = sessionStorage["Locations"].split(',');
-        console.log(locationsArray);
-        for (var i = 0; i < locationsArray.length; i++) {
-            if (locationsArray[i] !== ''
-                && locationsArray[i] !== undefined) {
-                    if(!locations.includes(locationsArray[i])){
-                        locations.push(locationsArray[i]);
-                    }
+        try {
+            const locationsArray = sessionStorage["Locations"].split(',');
+            console.log(locationsArray);
+            for (var i = 0; i < locationsArray.length; i++) {
+                if (locationsArray[i] !== ''
+                    && locationsArray[i] !== undefined) {
+                        if(!locations.includes(locationsArray[i])){
+                            locations.push(locationsArray[i]);
+                        }
+                }
             }
+            console.log("locationsList: " + locations);
+            return locations;
+        } catch {
+            navigate("/login");
         }
-        console.log("locationsList: " + locations);
-        return locations;
     }
 
     async function handleSubmit(e) {
@@ -125,8 +139,13 @@ export default function Addevent() {
             };
             
             Info.push(newEvent);
-            sessionStorage.setItem('Events', JSON.stringify(Info));
-            console.log(Info);
+            try {
+                sessionStorage.setItem('Events', JSON.stringify(Info));
+                console.log(Info);
+            } catch {
+                console.log("Error saving to session storage");
+                navigate('/login');
+            }
 
             // let locationsDB;
             let tasksDB;
@@ -147,8 +166,15 @@ export default function Addevent() {
             //     eventsDB = [];
             // }
             
-            tasksDB = sessionStorage["Tasks"];
-            eventsDB = sessionStorage["Events"];
+            // Replaces existing user information in the database with new
+            try {
+                tasksDB = sessionStorage["Tasks"];
+                eventsDB = sessionStorage["Events"];
+            } catch {
+                tasksDB = [];
+                eventsDB = [];
+                navigate('/login');
+            }
             // Replaces existing user information in the database with new
             // information entered by the user using the 'edit' server route.
             try {

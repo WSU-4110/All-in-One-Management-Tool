@@ -24,6 +24,16 @@ export default function Profile() {
     // });
     const [isEditMode, setIsEditMode] = useState(false);
 
+    try {
+        if (sessionStorage['Username'] != null) {
+            console.log("");
+        } else {
+            navigate("/login");
+        }
+    } catch {
+        navigate("/login");
+    }
+
     const toggleEditMode = () => {
             setIsEditMode(!isEditMode);
     };
@@ -37,8 +47,8 @@ export default function Profile() {
     //     setIsEditMode(false);
     // };
 
-    const [username, setUsername] = useState(sessionStorage.getItem("Username"));
-    const [email, setEmail] = useState(sessionStorage.getItem("Email"));
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
 
     const [fullName, setFullName] = useState('');
     const [contactNumber, setContactNumber] = useState('');
@@ -50,7 +60,7 @@ export default function Profile() {
     const [newPassword1Error, setNewPassword1Error] = useState('');
     const [newPassword2Error, setNewPassword2Error] = useState('');
     const [verifiedPassword, setVerifiedPassword] = useState(true);
-    const [notifications, setNotifications] = useState(sessionStorage["Notifications"]);
+    const [notifications, setNotifications] = useState('none');
     const [locations, setLocations] = useState([]);
     // Variable storing the location selected in the location dropdown button.
     const [selectedLocation, setSelectedLocation] = useState(
@@ -71,6 +81,16 @@ export default function Profile() {
     // Variable needed to force the alert to re-render.
     const [key, setKey] = useState(0);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        try {
+            setUsername(sessionStorage["Username"]);
+            setEmail(sessionStorage["Email"]);
+            setNotifications(sessionStorage["Notifications"]);
+        } catch {
+            navigate('/login');
+        }
+    }, []);
 
     /*useEffect(() => {
         const storedFullName = localStorage.getItem('FullName');
@@ -166,14 +186,18 @@ export default function Profile() {
     }
 
     const logout = () => {
-        sessionStorage["Username"] = '';
-        sessionStorage["Password"] = '';
-        sessionStorage["Email"] = '';
-        sessionStorage["Notifications"] = '';
-        sessionStorage["Locations"] = [];
-        sessionStorage["Tasks"] = [];
-        sessionStorage["Events"] = [];
-        navigate("/");
+        try {
+            sessionStorage["Username"] = '';
+            sessionStorage["Password"] = '';
+            sessionStorage["Email"] = '';
+            sessionStorage["Notifications"] = '';
+            sessionStorage["Locations"] = [];
+            sessionStorage["Tasks"] = [];
+            sessionStorage["Events"] = [];
+            navigate("/");
+        } catch {
+            navigate('/login');
+        }
     }
 
     // Function to check if password is valid
@@ -242,14 +266,18 @@ export default function Profile() {
     }
 
     function checkSamePassword() {
-        if (newPassword1 === sessionStorage["Password"]) {
-            setVerifiedPassword(false);
-            setNewPassword1Error('New password cannot be old password');
-            setNewPassword2Error('New password cannot be old password');
-            return false;
+        try {
+            if (newPassword1 === sessionStorage["Password"]) {
+                setVerifiedPassword(false);
+                setNewPassword1Error('New password cannot be old password');
+                setNewPassword2Error('New password cannot be old password');
+                return false;
+            }
+            setVerifiedPassword(true);
+            return true;
+        } catch {
+            navigate("/login");
         }
-        setVerifiedPassword(true);
-        return true;
     }
 
 
@@ -304,10 +332,10 @@ export default function Profile() {
 
     async function saveChanges() {
         if (checkPassword()) {
-            sessionStorage.setItem("Password", newPassword1);
-            console.log(newPassword1);
-            console.log(sessionStorage["Password"]);
             try {
+                sessionStorage.setItem("Password", newPassword1);
+                console.log(newPassword1);
+                console.log(sessionStorage["Password"]);
                 const profileData = {
                     username: username,
                     email: email,
@@ -340,7 +368,7 @@ export default function Profile() {
 
                     localStorage.setItem('FullName', fullName);
                     localStorage.setItem('ContactNumber', contactNumber);
-               }
+            }
             // Catches any errors that occur during the fetch operation.
             } catch (error) {
                 console.error(
@@ -352,21 +380,23 @@ export default function Profile() {
     // Function to list the locations in the session storage
     // into the locations array.
     const locationsList = () => {
-        const locationsArray = sessionStorage["Locations"].split(',');
-        console.log(locationsArray);
-        for (var i = 0; i < locationsArray.length; i++) {
-            if (locationsArray[i] !== ''
-                && locationsArray[i] !== undefined) {
-                    if(!locations.includes(locationsArray[i])){
-                        locations.push(locationsArray[i]);
-                    }
+        try {
+            const locationsArray = sessionStorage["Locations"].split(',');
+            console.log(locationsArray);
+            for (var i = 0; i < locationsArray.length; i++) {
+                if (locationsArray[i] !== ''
+                    && locationsArray[i] !== undefined) {
+                        if(!locations.includes(locationsArray[i])){
+                            locations.push(locationsArray[i]);
+                        }
+                }
             }
+            console.log("locationsList: " + locations);
+            return locations;
+        } catch {
+            navigate("/login");
         }
-        console.log("locationsList: " + locations);
-        return locations;
     }
-    console.log(sessionStorage["Locations"]);
-    console.log(locations);
 
     // Function to handle the submission of the form.
     // async function handleSubmit(e) {
@@ -424,10 +454,18 @@ export default function Profile() {
         let tasksDB;
         let eventsDB;
 
-        sessionStorage["Notifications"] = notifications;
-        sessionStorage["Locations"] = locations;
-        sessionStorage["FullName"] = fullName;
-        sessionStorage["ContactNumber"] = contactNumber;
+        try {
+            sessionStorage["Notifications"] = notifications;
+            sessionStorage["Locations"] = locations;
+            sessionStorage["FullName"] = fullName;
+            sessionStorage["ContactNumber"] = contactNumber;
+            tasksDB = sessionStorage["Tasks"];
+            eventsDB = sessionStorage["Events"];
+        } catch {
+            tasksDB = "";
+            eventsDB = "";
+            navigate("/login");
+        }
         console.log(locations);
 
         // locationsDB = locations;
@@ -447,9 +485,7 @@ export default function Profile() {
         // } catch {
         //     eventsDB = [];
         // }
-        tasksDB = sessionStorage["Tasks"];
-        eventsDB = sessionStorage["Events"];
-        
+
         console.log(locations);
         // console.log(locationsDB);
         try {

@@ -102,7 +102,7 @@ export const SignUp = (props) => {
                 },
                 body: JSON.stringify(
                     { username: username, email: email, password: password1,
-                    notifications: "all", locations: " ", tasks: " ", events: " "}),
+                    notifications: "all", locations: "", tasks: "", events: ""}),
                 });
                 // Checks whether the fetch operation was successful.
                 if (!response.ok) {
@@ -289,10 +289,7 @@ export const SignUp = (props) => {
                             type="username"
                             placeholder="Username"
                             value={username}
-                            onChange={(u) => setUsername(u.target.value)}
-                            style={{
-                                color: "black",
-                            }}/>
+                            onChange={(u) => setUsername(u.target.value)}/>
                         <Form.Control.Feedback type="invalid"
                         style={{
                             color: "white",

@@ -12,7 +12,7 @@ export default function Init() {
         // Set a timer to switch from the splash screen to the welcome screen after 3 seconds
         const timer = setTimeout(() => {
             setLoading(false);
-        }, 3000); // Adjust time as necessary
+        }, 1000); // Adjust time as necessary
 
         return () => clearTimeout(timer);
     }, []);

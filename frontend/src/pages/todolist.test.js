@@ -33,8 +33,8 @@ const mockSessionStorage = (() => {
     const newTodos = [...todos];
     newTodos.splice(index, 1);
     return newTodos;
-  }"
-// Here are the tests
+  }
+  
   test('getTodosFromStorage retrieves todos from sessionStorage', () => {
     const todos = [{ name: 'todo1' }, { name: 'todo2' }];
     sessionStorage.setItem('Events', JSON.stringify(todos));

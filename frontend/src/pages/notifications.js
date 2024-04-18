@@ -10,7 +10,14 @@ export default function Noficications() {
     const navigate = useNavigate();
     const notificationsPreference = sessionStorage.getItem('Notifications');
     let events;
-    
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0'); 
+    const currentDay = String(currentDate.getDate()).padStart(2, '0');
+
+    let content;
+
+const formattedCurrentDate = `${currentYear}-${currentMonth}-${currentDay}`;
     try {
         events = JSON.parse(sessionStorage.getItem('Tasks'));
     } catch {
@@ -42,6 +49,53 @@ export default function Noficications() {
     const handleToDoClick = () => {
         navigate('/todolist');
     } // test comment
+
+
+    if(notificationsPreference === 'none') {
+         content = <p className="notifications-text">You have no notifications.</p>
+    }
+    else if(notificationsPreference === 'dayOf') {
+         content = events.filter(event => event.DueDate === formattedCurrentDate).map(event => (
+            <div className='events-render'>
+                            
+                            <div className='event-left'>
+                                <div>
+                                    <img src={NotificationIcon } className='noti-image'/>
+                                </div>
+                                <div className='event-details'>
+                                    <h1 className='event-name'>{event.class}</h1>
+                                    <h1>{event.Assignment}</h1>
+                                    <h1>{event.DueDate}</h1>
+                                </div>
+                            </div>
+                            <div className='event-buttons'>
+                                <button onClick={handleCalendarClick}>Calendar</button>
+                                <button onClick={handleToDoClick}>To Do</button>
+                            </div>
+                        </div>
+        ))
+    } else {
+        content = events.map(event => (
+            <div className='events-render'>
+                            
+                            <div className='event-left'>
+                                <div>
+                                    <img src={NotificationIcon } className='noti-image'/>
+                                </div>
+                                <div className='event-details'>
+                                    <h1 className='event-name'>{event.class}</h1>
+                                    <h1>{event.Assignment}</h1>
+                                    <h1>{event.DueDate}</h1>
+                                </div>
+                            </div>
+                            <div className='event-buttons'>
+                                <button onClick={handleCalendarClick}>Calendar</button>
+                                <button onClick={handleToDoClick}>To Do</button>
+                            </div>
+                        </div>
+        ))  
+    }
+
     return (
         <div className='home-outer'>
             <div className='home-background'/>
@@ -62,27 +116,7 @@ export default function Noficications() {
                     {/* <span className="notification-date">Feb 22, 2024</span> */}
                   
                 </div>
-                {(notificationsPreference !== 'none' && events) && events.map( event => (
-                    
-                        <div className='events-render'>
-                            
-                            <div className='event-left'>
-                                <div>
-                                    <img src={NotificationIcon } className='noti-image'/>
-                                </div>
-                                <div className='event-details'>
-                                    <h1 className='event-name'>{event.class}</h1>
-                                    <h1>{event.Assignment}</h1>
-                                    <h1>{event.DueDate}</h1>
-                                </div>
-                            </div>
-                            <div className='event-buttons'>
-                                <button onClick={handleCalendarClick}>Calendar</button>
-                                <button onClick={handleToDoClick}>To Do</button>
-                            </div>
-                        </div>
-                    
-                ))}
+                {content}
             </div>
         </div>
             <Footer />

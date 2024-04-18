@@ -9,9 +9,20 @@ import {Link} from 'react-router-dom'
 const Header = () => {
     let notisCount;
     let notiPref = sessionStorage.getItem('Notifications');
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0'); 
+    const currentDay = String(currentDate.getDate()).padStart(2, '0');
+    const formattedCurrentDate = `${currentYear}-${currentMonth}-${currentDay}`;
     
     try {
+        
         notisCount = JSON.parse(sessionStorage.getItem('Tasks')).length;
+        if (notiPref === "none") {
+            notisCount = 0;
+        } else if (notiPref === "dayOf") {
+            notisCount = JSON.parse(sessionStorage.getItem('Tasks')).filter(task => task.DueDate === formattedCurrentDate).length;
+        }
     } catch {
         notisCount = 0;
     }

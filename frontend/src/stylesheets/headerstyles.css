@@ -44,7 +44,7 @@
     margin: 0;
     line-height: 1.2; /* Adjust line height for better readability */
     text-decoration: underline;
-    text-decoration-color: rgb(91, 91, 202);
+    text-decoration-color: black;
 }
 
 .header-link {

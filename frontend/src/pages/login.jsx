@@ -55,8 +55,8 @@ const Login = (props) => {
             // }
             // sessionStorage["Tasks"] = JSON.parse(tasks);
             // sessionStorage["Events"] = JSON.parse(events);
-            sessionStorage["Tasks"] = JSON.stringify(tasks);
-            sessionStorage["Events"] = JSON.stringify(events);
+            sessionStorage["Tasks"] = tasks;
+            sessionStorage["Events"] = events;
         }
 
         // First verifies the username and password.

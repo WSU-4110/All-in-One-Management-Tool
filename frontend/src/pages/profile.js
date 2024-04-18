@@ -11,7 +11,6 @@ import Header from '../components/Header';
 import Expire from '../components/Expire';
 import '../stylesheets/profilepagestyles.css';
 import Footer from '../components/Footer';
-import { useTheme } from '../contexts/ThemeContext';
 
 
 export default function Profile() {
@@ -82,14 +81,6 @@ export default function Profile() {
     // Variable needed to force the alert to re-render.
     const [key, setKey] = useState(0);
     const navigate = useNavigate();
-    const { theme, toggleTheme } = useTheme();
-
-    // Change theme explicitly
-    const changeTheme = (newTheme) => {
-        if (newTheme !== theme) {
-            toggleTheme(newTheme);
-        }
-    }
 
     useEffect(() => {
         try {
@@ -165,8 +156,6 @@ export default function Profile() {
             setKey(key+1);
         }
     }
-
-    
 
     // Function to change the selected location in the dropdown button.
     const changeSelectedLocation = (e) => {
@@ -724,25 +713,7 @@ export default function Profile() {
                             )}
                         </div>
 
-                        <br></br>
-
-                    <div style={{ display:'flex', justifyContent: 'center'}}>
-                        <DropdownButton
-                            alignRight
-                            title="Change Theme"
-                            id="dropdown-menu-align-right"
-                            variant="primary"  // Ensuring the variant matches the "Change Password" button
-                            className="mx-1"  // Same margin as other action buttons
-                            onSelect={changeTheme}
-                        >
-                            <Dropdown.Item eventKey="light-mode">Normal Mode</Dropdown.Item>
-                            <Dropdown.Item eventKey="dark-mode">Dark Mode</Dropdown.Item>
-                        </DropdownButton>
-                    </div>
-
                     <br></br>
-
-
 
                        
 

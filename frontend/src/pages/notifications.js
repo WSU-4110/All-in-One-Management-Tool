@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Noficications() {
     const navigate = useNavigate();
-    const notificationsPreference = sessionStorage.getItem('Notifications');
     let events;
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();

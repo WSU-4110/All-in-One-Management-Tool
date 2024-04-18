@@ -8,12 +8,6 @@ import {Link} from 'react-router-dom'
 
 const Header = () => {
     let notisCount;
-    let notiPref = sessionStorage.getItem('Notifications');
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0'); 
-    const currentDay = String(currentDate.getDate()).padStart(2, '0');
-    const formattedCurrentDate = `${currentYear}-${currentMonth}-${currentDay}`;
     
     try {
         
@@ -38,8 +32,7 @@ const Header = () => {
                 <Link to ="/notifications" className="header-link">
                     <img className ="notification-icon" src={NoficicationIcon} alt="Notification-Icon" />
                     <p className="icon-label">NOTIFICATION</p> {/* Label for Notification */}
-                    {notiPref !== "none" &&  <div className='stupid-red-dot'>{notisCount}</div>}
-                    
+                    <div className='stupid-red-dot'>{notisCount}</div>
 
                 </Link>
                 <Link to ="/profile" className="header-link">

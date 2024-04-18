@@ -1,4 +1,18 @@
-
+:root {
+    --bg-color: #fff; /* Light mode background color */
+    --text-color: #000; /* Light mode text color */
+  }
+  
+  .dark-mode {
+    --bg-color: #222; /* Dark mode background color */
+    --text-color: #fff; /* Dark mode text color */
+  }
+  
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+  
 .profile-title {
     font-family: sans-serif;
     color: white; 

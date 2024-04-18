@@ -206,9 +206,9 @@ export default function Profile() {
             sessionStorage["Password"] = '';
             sessionStorage["Email"] = '';
             sessionStorage["Notifications"] = '';
-            sessionStorage["Locations"] = [];
-            sessionStorage["Tasks"] = [];
-            sessionStorage["Events"] = [];
+            sessionStorage["Locations"] = '';
+            sessionStorage["Tasks"] = '';
+            sessionStorage["Events"] = '';
             navigate("/");
         } catch {
             navigate('/login');

@@ -7,7 +7,13 @@ import {Link} from 'react-router-dom'
 
 
 const Header = () => {
-    const notisCount = JSON.parse(sessionStorage.getItem('Tasks')).length;
+    let notisCount;
+    
+    try {
+        notisCount = JSON.parse(sessionStorage.getItem('Tasks')).length;
+    } catch {
+        notisCount = 0;
+    }
 
     return (
         <header>

@@ -6,6 +6,7 @@ import NotificationIcon from '../images/NotificationIcon.png';
 import {useNavigate} from 'react-router-dom'
 
 export default function Noficications() {
+    const navigate = useNavigate();
     let events;
     
     try {
@@ -14,7 +15,6 @@ export default function Noficications() {
         events = '';
         navigate("/login");
     }
-    const navigate = useNavigate();
 
     try {
         if (sessionStorage['Username'] != null) {

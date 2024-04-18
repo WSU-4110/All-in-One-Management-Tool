@@ -24,7 +24,7 @@ export default function Todolist() {
     }
     
     useEffect(() => {
-        let events = [];
+        
         let tasks = [];
         let storedEvents = '';
         let storedTasks = '';
@@ -41,7 +41,8 @@ export default function Todolist() {
         console.log(storedTasks + "tasks part");
 
         if (storedEvents) {
-            events = JSON.parse(storedEvents);
+            let events = JSON.parse(storedEvents);
+            console.log(events + "events")
         }
         
         if (storedTasks) {
@@ -51,14 +52,25 @@ export default function Todolist() {
         if (events.length === 0 && tasks.length === 0) {
             setContainsEvents(false);
         } else {
+            console.log("todos befoire: " + todos);
             setTodos([...events, ...tasks]); // Combine events and tasks into one array
+            console.log("todos array: " + todos);
+            sessionStorage.setItem('Events/Tasks', JSON.stringify(todos));
+            console.log("session storage accessed");
         }
     }, []);
 
 
     async function removeItem(i) {
+        console.log(todos)
         const newTodos = todos.filter((_, index) => index !== i);
+        console.log(newTodos)
         setTodos(newTodos);
+        sessionStorage.setItem('Events/Tasks', JSON.stringify(todos));
+       
+        
+       
+        
         // const newTodos = todos.filter((_, index) => index !== i);
         // setTodos(newTodos);
         // todos.map((value, index) => {

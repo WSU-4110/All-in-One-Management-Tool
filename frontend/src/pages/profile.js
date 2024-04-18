@@ -25,16 +25,6 @@ export default function Profile() {
     // });
     const [isEditMode, setIsEditMode] = useState(false);
 
-    try {
-        if (sessionStorage['Username'] != null) {
-            console.log("");
-        } else {
-            navigate("/login");
-        }
-    } catch {
-        navigate("/login");
-    }
-
     const toggleEditMode = () => {
             setIsEditMode(!isEditMode);
     };
@@ -83,6 +73,20 @@ export default function Profile() {
     const [key, setKey] = useState(0);
     const navigate = useNavigate();
     const { theme, toggleTheme } = useTheme();
+
+    const verification = () => {
+        try {
+            if (sessionStorage['Username'] != null) {
+                console.log("");
+            } else {
+                navigate("/login");
+            }
+        } catch {
+            navigate("/login");
+        }
+    }
+
+    verification();
 
     // Change theme explicitly
     const changeTheme = (newTheme) => {

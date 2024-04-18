@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { Link, useNavigate, redirect, Route } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import ContactForm from './contactForm';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -23,14 +23,16 @@ export default function Home() {
         setShowContactForm(!showContactForm);
     };
 
-    try {
-        if (sessionStorage['Username'] != null) {
-            console.log("");
-        } else {
+    const verification = () => {
+        try {
+            if (sessionStorage['Username'] != null) {
+                console.log("");
+            } else {
+                navigate("/login");
+            }
+        } catch {
             navigate("/login");
         }
-    } catch {
-        navigate("/login");
     }
 
     // Check if the user has configured their profile, if they have not
@@ -50,6 +52,7 @@ export default function Home() {
         } catch {
             navigate('/login');
         }
+        verification();
     }, []);
 
 

@@ -1,9 +1,10 @@
 import '../stylesheets/notificationpagestyles.css';
 import '../stylesheets/backgroundstyles.css';
+import React, { useEffect } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import NotificationIcon from '../images/NotificationIcon.png';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function Noficications() {
     const navigate = useNavigate();
@@ -13,18 +14,23 @@ export default function Noficications() {
         events = JSON.parse(sessionStorage.getItem('Tasks'));
     } catch {
         events = '';
-        navigate("/login");
     }
 
-    try {
-        if (sessionStorage['Username'] != null) {
-            console.log("");
-        } else {
+    const verification = () => {
+        try {
+            if (sessionStorage['Username'] != null) {
+                console.log("");
+            } else {
+                navigate("/login");
+            }
+        } catch {
             navigate("/login");
         }
-    } catch {
-        navigate("/login");
     }
+
+    useEffect(() => {
+        verification();
+    }, []);
 
     const handleClick = () => {
         console.log(events);

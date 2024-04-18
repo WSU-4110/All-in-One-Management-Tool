@@ -33,15 +33,19 @@ export default function Calendar() {
     const [calendarDays, setCalendarDays] = useState(generateCalendarDays(currentYear, currentMonth));
     const navigate = useNavigate();
 
-    try {
-        if (sessionStorage['Username'] != null) {
-            console.log("");
-        } else {
+    const verification = () => {
+        try {
+            if (sessionStorage['Username'] != null) {
+                console.log("");
+            } else {
+                navigate("/login");
+            }
+        } catch {
             navigate("/login");
         }
-    } catch {
-        navigate("/login");
     }
+
+    verification();
     
     function toggleEventVisibility () {
         setisEventVisible(1)

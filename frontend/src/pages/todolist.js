@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import checkmarkimage from '../images/checkmark.png';
 import trashicon from '../images/trashicon.png';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
  
@@ -13,15 +13,19 @@ export default function Todolist() {
     const [containsEvents, setContainsEvents] = useState(true);
     const navigate = useNavigate();
 
-    try {
-        if (sessionStorage['Username'] != null) {
-            console.log("");
-        } else {
+    const verification = () => {
+        try {
+            if (sessionStorage['Username'] != null) {
+                console.log("");
+            } else {
+                navigate("/login");
+            }
+        } catch {
             navigate("/login");
         }
-    } catch {
-        navigate("/login");
     }
+
+    verification();
     
     useEffect(() => {
         let events = [];

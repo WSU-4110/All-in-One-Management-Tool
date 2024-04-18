@@ -2,7 +2,7 @@ import '../stylesheets/addeventstyles.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
@@ -19,16 +19,22 @@ export default function Addevent() {
     const [validTime, setValidTime] = useState(true);
     const navigate = useNavigate();
 
-    try {
-        if (sessionStorage['Username'] != null) {
-            console.log("");
-        } else {
+    const verification = () => {
+        try {
+            if (sessionStorage['Username'] != null) {
+                console.log("");
+            } else {
+                navigate("/login");
+            }
+        } catch {
             navigate("/login");
         }
-    } catch {
-        navigate("/login");
     }
 
+    useEffect(() => {
+        verification();
+    }, []);
+    
     function checkForEmpty() {
         if (getClass === "") {
             setValidClass(false);

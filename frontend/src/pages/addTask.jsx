@@ -21,7 +21,7 @@ export default function Addevent() {
 
     const verification = () => {
         try {
-            if (sessionStorage['Username'] != null) {
+            if (sessionStorage['Username'] != null && sessionStorage['Username'] != "") {
                 console.log("");
             } else {
                 navigate("/login");
@@ -34,7 +34,7 @@ export default function Addevent() {
     useEffect(() => {
         verification();
     }, []);
-    
+
     function checkForEmpty() {
         if (getClass === "") {
             setValidClass(false);

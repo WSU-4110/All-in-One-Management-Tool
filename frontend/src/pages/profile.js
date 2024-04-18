@@ -76,7 +76,7 @@ export default function Profile() {
 
     const verification = () => {
         try {
-            if (sessionStorage['Username'] != null) {
+            if (sessionStorage['Username'] != null && sessionStorage['Username'] !== '') {
                 console.log("");
             } else {
                 navigate("/login");
@@ -206,9 +206,9 @@ export default function Profile() {
             sessionStorage["Password"] = '';
             sessionStorage["Email"] = '';
             sessionStorage["Notifications"] = '';
-            sessionStorage["Locations"] = [];
-            sessionStorage["Tasks"] = [];
-            sessionStorage["Events"] = [];
+            sessionStorage["Locations"] = '';
+            sessionStorage["Tasks"] = '';
+            sessionStorage["Events"] = '';
             navigate("/");
         } catch {
             navigate('/login');

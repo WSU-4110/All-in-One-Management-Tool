@@ -15,7 +15,7 @@ export default function Todolist() {
 
     const verification = () => {
         try {
-            if (sessionStorage['Username'] != null) {
+            if (sessionStorage['Username'] != null && sessionStorage['Username'] != "") {
                 console.log("");
             } else {
                 navigate("/login");

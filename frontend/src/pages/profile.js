@@ -608,12 +608,6 @@ export default function Profile() {
                                 <option value="dayOf">
                                     Receive notifications on the day of a deadline
                                 </option>
-                                <option value="12hours">
-                                    Receive notifications 12 hours before a deadline
-                                </option>
-                                <option value="6hours">
-                                    Receive notifications 6 hours before a deadline
-                                </option>
                                 <option value="1hours">
                                     Receive notifications 1 hours before a deadline
                                 </option>

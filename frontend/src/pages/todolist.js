@@ -45,17 +45,22 @@ export default function Todolist() {
         console.log(storedTasks + "tasks part");
 
         if (storedEvents) {
+
             events = JSON.parse(storedEvents);
+            
         }
         
         if (storedTasks) {
             tasks = JSON.parse(storedTasks);
+            console.log("This is the tasks" + tasks)
         }
     
         if (events.length === 0 && tasks.length === 0) {
             setContainsEvents(false);
         } else {
             setTodos([...events, ...tasks]); // Combine events and tasks into one array
+            sessionStorage.setItem('Events/Tasks', JSON.stringify(todos));
+            console.log("This is the todos" + todos);
         }
     }, []);
 

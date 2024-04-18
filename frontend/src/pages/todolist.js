@@ -16,7 +16,7 @@ export default function Todolist() {
     const verification = () => {
         try {
             if (sessionStorage['Username'] != null && sessionStorage['Username'] != "") {
-                console.log("");
+                console.log("User Successfully Authenticated");
             } else {
                 navigate("/login");
             }
@@ -41,8 +41,8 @@ export default function Todolist() {
             navigate('/login');
         }
 
-        console.log(storedEvents + "events part");
-        console.log(storedTasks + "tasks part");
+        // console.log(storedEvents + "events part");
+        // console.log(storedTasks + "tasks part");
 
         if (storedEvents) {
             events = JSON.parse(storedEvents);

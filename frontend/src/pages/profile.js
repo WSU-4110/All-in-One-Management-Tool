@@ -77,7 +77,7 @@ export default function Profile() {
     const verification = () => {
         try {
             if (sessionStorage['Username'] != null && sessionStorage['Username'] !== '') {
-                console.log("");
+                console.log("User Successfully Authenticated");
             } else {
                 navigate("/login");
             }
@@ -301,7 +301,7 @@ export default function Profile() {
         var hasNumber = /\d/;
         var hasUpper = /[A-Z]/;
         var fail = false;
-        console.log(newPassword1);
+        // console.log(newPassword1);
         // Check if password contains a number
         if (!hasNumber.test(newPassword1)) {
             fail = true;
@@ -349,8 +349,8 @@ export default function Profile() {
         if (checkPassword()) {
             try {
                 sessionStorage.setItem("Password", newPassword1);
-                console.log(newPassword1);
-                console.log(sessionStorage["Password"]);
+                // console.log(newPassword1);
+                // console.log(sessionStorage["Password"]);
                 const profileData = {
                     username: username,
                     email: email,
@@ -397,7 +397,7 @@ export default function Profile() {
     const locationsList = () => {
         try {
             const locationsArray = sessionStorage["Locations"].split(',');
-            console.log(locationsArray);
+            // console.log(locationsArray);
             for (var i = 0; i < locationsArray.length; i++) {
                 if (locationsArray[i] !== ''
                     && locationsArray[i] !== undefined) {
@@ -406,7 +406,7 @@ export default function Profile() {
                         }
                 }
             }
-            console.log("locationsList: " + locations);
+            // console.log("locationsList: " + locations);
             return locations;
         } catch {
             navigate("/login");
@@ -481,7 +481,7 @@ export default function Profile() {
             eventsDB = "";
             navigate("/login");
         }
-        console.log(locations);
+        // console.log(locations);
 
         // locationsDB = locations;
         // try {
@@ -501,7 +501,7 @@ export default function Profile() {
         //     eventsDB = [];
         // }
 
-        console.log(locations);
+        // console.log(locations);
         // console.log(locationsDB);
         try {
             const response = await fetch(`http://localhost:5050/record/edit`, {

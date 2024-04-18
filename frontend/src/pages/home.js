@@ -26,7 +26,7 @@ export default function Home() {
     const verification = () => {
         try {
             if (sessionStorage['Username'] != null && sessionStorage['Username'] != "") {
-                console.log("");
+                console.log("User Successfully Authenticated");
             } else {
                 navigate("/login");
             }
@@ -42,13 +42,13 @@ export default function Home() {
             if (sessionStorage["Locations"] === "") {
                 setProfileConfigured(false);
             }
-            console.log(sessionStorage["Username"]);
-            console.log(sessionStorage["Password"]);
-            console.log(sessionStorage["Email"]);
-            console.log(sessionStorage["Notifications"]);
-            console.log(sessionStorage["Locations"]);
-            console.log(sessionStorage["Tasks"]);
-            console.log(sessionStorage["Events"]);
+            // console.log(sessionStorage["Username"]);
+            // console.log(sessionStorage["Password"]);
+            // console.log(sessionStorage["Email"]);
+            // console.log(sessionStorage["Notifications"]);
+            // console.log(sessionStorage["Locations"]);
+            // console.log(sessionStorage["Tasks"]);
+            // console.log(sessionStorage["Events"]);
         } catch {
             navigate('/login');
         }

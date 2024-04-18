@@ -22,7 +22,7 @@ export default function Addevent() {
     const verification = () => {
         try {
             if (sessionStorage['Username'] != null && sessionStorage['Username'] != "") {
-                console.log("");
+                console.log("User Successfully Authenticated");
             } else {
                 navigate("/login");
             }
@@ -109,7 +109,7 @@ export default function Addevent() {
             Info.push(newTask);
             try {
                 sessionStorage["Tasks"] = JSON.stringify(Info);
-                console.log(Info);
+                // console.log(Info);
             } catch {
                 navigate("/login");
             }

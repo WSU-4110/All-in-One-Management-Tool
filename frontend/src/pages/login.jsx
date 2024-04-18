@@ -22,8 +22,8 @@ const Login = (props) => {
     // Function to handle the form submission.
     async function handleSubmit(e) {
         e.preventDefault();
-        console.log(username);
-        console.log(password);
+        // console.log(username);
+        // console.log(password);
         setAlertVisible(false);
         setAlertError('');
         let accountData;
@@ -86,7 +86,7 @@ const Login = (props) => {
                     break;
                 }
             }
-            console.log(accountData);
+            // console.log(accountData);
 
             // Checks to see if account with the username provided exists.
             if (accountData === undefined) {

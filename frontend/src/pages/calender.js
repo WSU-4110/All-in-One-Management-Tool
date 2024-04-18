@@ -36,7 +36,7 @@ export default function Calendar() {
     const verification = () => {
         try {
             if (sessionStorage['Username'] != null && sessionStorage['Username'] != "") {
-                console.log("");
+                console.log("User Successfully Authenticated");
             } else {
                 navigate("/login");
             }

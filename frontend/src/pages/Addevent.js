@@ -22,7 +22,7 @@ export default function Addevent() {
     const verification = () => {
         try {
             if (sessionStorage['Username'] != null && sessionStorage['Username'] != "") {
-                console.log("");
+                console.log("User Successfully Authenticated");
             } else {
                 navigate("/login");
             }
@@ -82,7 +82,7 @@ export default function Addevent() {
     const locationsList = () => {
         try {
             const locationsArray = sessionStorage["Locations"].split(',');
-            console.log(locationsArray);
+            // console.log(locationsArray);
             for (var i = 0; i < locationsArray.length; i++) {
                 if (locationsArray[i] !== ''
                     && locationsArray[i] !== undefined) {
@@ -91,7 +91,7 @@ export default function Addevent() {
                         }
                 }
             }
-            console.log("locationsList: " + locations);
+            // console.log("locationsList: " + locations);
             return locations;
         } catch {
             navigate("/login");
@@ -147,7 +147,7 @@ export default function Addevent() {
             Info.push(newEvent);
             try {
                 sessionStorage.setItem('Events', JSON.stringify(Info));
-                console.log(Info);
+                // console.log(Info);
             } catch {
                 console.log("Error saving to session storage");
                 navigate('/login');

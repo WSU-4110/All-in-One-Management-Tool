@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom'
 
 const Header = () => {
     let notisCount;
+    let notiPref = sessionStorage.getItem('Notifications');
     
     try {
         notisCount = JSON.parse(sessionStorage.getItem('Tasks')).length;
@@ -26,7 +27,8 @@ const Header = () => {
                 <Link to ="/notifications" className="header-link">
                     <img className ="notification-icon" src={NoficicationIcon} alt="Notification-Icon" />
                     <p className="icon-label">NOTIFICATION</p> {/* Label for Notification */}
-                    <div className='stupid-red-dot'>{notisCount}</div>
+                    {notiPref !== "none" &&  <div className='stupid-red-dot'>{notisCount}</div>}
+                    
 
                 </Link>
                 <Link to ="/profile" className="header-link">

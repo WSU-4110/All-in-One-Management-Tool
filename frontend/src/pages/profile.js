@@ -96,6 +96,7 @@ export default function Profile() {
     }
 
     useEffect(() => {
+        
         try {
             setUsername(sessionStorage["Username"]);
             setEmail(sessionStorage["Email"]);
@@ -513,6 +514,7 @@ export default function Profile() {
                 { username: username, email: email, password: sessionStorage["Password"],
                 notifications: notifications, locations: sessionStorage["Locations"], tasks: tasksDB, events: eventsDB }),
             });
+            console.log("shit is happening")
         
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -607,12 +609,6 @@ export default function Profile() {
                                 </option>
                                 <option value="dayOf">
                                     Receive notifications on the day of a deadline
-                                </option>
-                                <option value="1hours">
-                                    Receive notifications 1 hours before a deadline
-                                </option>
-                                <option value="all">
-                                    Receive notifications for all events
                                 </option>
                             </Form.Select>
                         </Form.Group>

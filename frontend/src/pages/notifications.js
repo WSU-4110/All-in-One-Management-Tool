@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Noficications() {
     const navigate = useNavigate();
+    const notificationsPreference = sessionStorage.getItem('Notifications');
     let events;
     
     try {
@@ -61,7 +62,7 @@ export default function Noficications() {
                     {/* <span className="notification-date">Feb 22, 2024</span> */}
                   
                 </div>
-                {events && events.map( event => (
+                {(notificationsPreference !== 'none' && events) && events.map( event => (
                     
                         <div className='events-render'>
                             

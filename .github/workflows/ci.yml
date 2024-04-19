@@ -2,9 +2,9 @@ name: Node CI
 
 on:
   push:
-    branches: [ istiaque_ci ]
+    branches: [ continuous_integration ]
   pull_request:
-    branches: [ istiaque_ci ]
+    branches: [ continuous_integration ]
 
 jobs:
   build:
@@ -27,6 +27,10 @@ jobs:
 
     - name: Install react-scripts
       run: npm install react-scripts
+      working-directory: ./frontend
+
+    - name: Build
+      run: npm run build
       working-directory: ./frontend
 
     - name: Run tests

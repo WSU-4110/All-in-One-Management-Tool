@@ -1,6 +1,6 @@
 {
   "name": "allinonemanagementtool",
-  "type": "module",
+  "type": "*.js",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

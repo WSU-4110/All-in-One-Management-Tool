@@ -30,10 +30,6 @@ export default function Calendar() {
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
     const [calendarDays, setCalendarDays] = useState(generateCalendarDays(currentYear, currentMonth));
-    
-    // function toggleEventVisibility () {
-    //     setisEventVisible(1)
-    // }
 
     const isToday = (someDate) => {
         const today = new Date();
@@ -119,88 +115,88 @@ export default function Calendar() {
     }
 
     return (
-      <div className='home-outer'>
-        <div className='home-background' />
-        <div className='home-inner'>
-            <Header />
-            <div className="mainbody-grid">
-                <div className="title-div">
-                    <p className="title-text">CALENDAR</p>
-                </div>
-                
-                <div className="Calendar-header"> 
-                    <button className="Arrow-Left" onClick={goToPreviousMonth}> &larr; </button>
-                    <p className="Month-Text">{monthName}</p>
-                    <button className="Arrow-Right" onClick={goToNextMonth}> &rarr; </button>
-                </div>
-                <div className="Calendar-main-body">
-                    <div className="M-SGrid">
-                        <p className="M-SText">S</p>
-                        <p className="M-SText">M</p>
-                        <p className="M-SText">T</p>
-                        <p className="M-SText">W</p>
-                        <p className="M-SText">T</p>
-                        <p className="M-SText">F</p>
-                        <p className="M-SText">S</p>
+        <div className='home-outer'>
+            <div className='home-background' />
+            <div className='home-inner'>
+                <Header />
+                <div className="mainbody-grid">
+                    <div className="title-div">
+                        <p className="title-text">CALENDAR</p>
                     </div>
-                    <div className="Dates-grid"> 
-                        {calendarDays.map((day, index) => {
-                            if (day) {
-                                let className = "DateButton";
-                                let style = {};
-                        
-                                if (isToday(day)) {
-                                    style = { 
-                                        background: 'linear-gradient(to bottom right, rgb(0, 162, 255), rgb(44, 44, 57))',
-                                        color: 'white' };
-                                    // className += " Today";
-                                } else if (checkForEvent(day)) { // Changed here: pass day directly
-                                    style = {
-                                        background: 'linear-gradient(to bottom right, rgb(0, 255, 26), rgb(44, 44, 57))',
-                                        color: 'white'
+                    
+                    <div className="Calendar-header"> 
+                        <button className="Arrow-Left" onClick={goToPreviousMonth}> &larr; </button>
+                        <p className="Month-Text">{monthName}</p>
+                        <button className="Arrow-Right" onClick={goToNextMonth}> &rarr; </button>
+                    </div>
+    
+                    <div className="Calendar-main-body">
+                        <div className="M-SGrid">
+                            <p className="M-SText">S</p>
+                            <p className="M-SText">M</p>
+                            <p className="M-SText">T</p>
+                            <p className="M-SText">W</p>
+                            <p className="M-SText">T</p>
+                            <p className="M-SText">F</p>
+                            <p className="M-SText">S</p>
+                        </div>
+    
+                        <div className="Dates-grid"> 
+                            {calendarDays.map((day, index) => {
+                                if (day) {
+                                    let className = "DateButton";
+                                    if (isToday(day)) {
+                                        className += " Today";
+                                    } else if (checkForEvent(day)) {
+                                        className += " Event";
                                     }
-                                };
-                                return <button key={index} onClick={() => {addEventDetails(day)}} // And here: pass day directly
-                                className="DateButton" style={style}>{day.getDate()}</button>;
-                            } else {
-                                return <button key={index} className='EmptyButton'></button>;
-                            }
-                        })}
+    
+                                    return (
+                                        <button key={index} onClick={() => addEventDetails(day)}
+                                            className={className}>
+                                            {day.getDate()}
+                                        </button>
+                                    );
+                                } else {
+                                    return <button key={index} className="EmptyButton"></button>;
+                                }
+                            })}
                         </div>
                     </div>
+                </div>
+    
+                {isEventVisible ? (
+                    <div className='show-event'>
+                        <div className='Class-section'>
+                            Event Name: 
+                            <span style={{ color: 'rgba(255, 255, 255, 0.7)', marginLeft: '10px', fontSize: '20px', fontStyle: 'italic' }}>
+                                {Classtoevent}
+                            </span> 
+                        </div>
+                        <div className='Assignment-section'>
+                            Location: 
+                            <span style={{ color: 'rgba(255, 255, 255, 0.7)', marginLeft: '10px', fontSize: '20px', fontStyle: 'italic' }}>
+                                {Assigmenttoevent}
+                            </span> 
+                        </div>
+                        <div className='date-section'>
+                            Due Date: 
+                            <span style={{ color: 'rgba(255, 255, 255, 0.7)', marginLeft: '10px', fontSize: '20px', fontStyle: 'italic' }}>
+                                {Duedatetoevent}
+                            </span> 
+                        </div>
+                        <div className='description'>
+                            Description: 
+                            <span style={{ color: 'rgba(255, 255, 255, 0.7)', marginLeft: '10px', fontSize: '15px', fontStyle: 'italic' }}>
+                                {Descriptiontoevent}
+                            </span>
+                        </div>
+                    </div>
+                ) : null}
+    
+                <Footer />
             </div>
-            <div className='show-event' style={{
-                opacity: isEventVisible
-            }}>
-                <div className='Class-section'>Event Name: 
-                    <span style={{
-                        color: 'rgba(255, 255, 255, 0.7)',
-                        marginLeft: '10px',
-                        fontSize: '20px',
-                        fontStyle: 'italic'
-                    }}>{Classtoevent}</span> </div>
-                <div className='Assignment-section'>Location: 
-                    <span style={{
-                        color: 'rgba(255, 255, 255, 0.7)',
-                        marginLeft: '10px',
-                        fontSize: '20px',
-                        fontStyle: 'italic'
-                    }}>{Assigmenttoevent}</span> </div>
-                <div className='date-section'>Due Date: <span style={{
-                        color: 'rgba(255, 255, 255, 0.7)',
-                        marginLeft: '10px',
-                        fontSize: '20px',
-                        fontStyle: 'italic'
-                    }}>{Duedatetoevent}</span> </div>
-                <div className='description'>Description: <span style={{
-                        color: 'rgba(255, 255, 255, 0.7)',
-                        marginLeft: '10px',
-                        fontSize: '15px',
-                        fontStyle: 'italic'
-                    }}>{Descriptiontoevent}</span></div>
-            </div>
-            <Footer />
         </div>
-      </div>
     );
+    
 }

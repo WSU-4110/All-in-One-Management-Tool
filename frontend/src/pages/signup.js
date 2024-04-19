@@ -97,7 +97,7 @@ function SignUp() {
     const [password2, setPassword2] = useState('');
     // const [terms, setTerms] = useState(false);
     const [usernameError, setUsernameError] = useState('');
-    const [emailError, setEmailError] = useState('');
+    const [emailError] = useState('');
     const [password1Error, setPassword1Error] = useState('');
     const [password2Error, setPassword2Error] = useState('');
     const [verifiedUsername, setVerifiedUsername] = useState(true);

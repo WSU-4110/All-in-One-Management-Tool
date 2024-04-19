@@ -110,8 +110,7 @@ export default function Todolist() {
                         {containsEvents && todos.map((value, index) => {
                             return <div key = {index} className='list-item'>
                                 <div className='left-side'> 
-                                    <img className='checkmark-image' src={checkmarkimage} />
-                                    <div className='Assignment-section'>
+                                <img className='checkmark-image' src={checkmarkimage} alt='' />                                    <div className='Assignment-section'>
                                         <p className='assignment-text'> {value.Assignment ? value.Assignment : value.name} </p>
                                         <p className='class-text'> {value.class} </p>
                                         <p className='date-text'> {value.DueDate} </p>
@@ -120,7 +119,7 @@ export default function Todolist() {
 
                                 <div className='right-side'>
                                 <button onClick={() => removeItem(index)}className='trash-button'>
-                                    <img className='trash-icon' src={trashicon} />
+                                <img className='trash-icon' src={trashicon} alt='' />
                                     </button>
                                 </div>
                             </div>

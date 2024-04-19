@@ -31,9 +31,9 @@ export default function Calendar() {
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
     const [calendarDays, setCalendarDays] = useState(generateCalendarDays(currentYear, currentMonth));
     
-    function toggleEventVisibility () {
-        setisEventVisible(1)
-    }
+    // function toggleEventVisibility () {
+    //     setisEventVisible(1)
+    // }
 
     const isToday = (someDate) => {
         const today = new Date();
@@ -153,7 +153,7 @@ export default function Calendar() {
                                     style = { 
                                         background: 'linear-gradient(to bottom right, rgb(0, 162, 255), rgb(44, 44, 57))',
                                         color: 'white' };
-                                    className += " Today";
+                                    // className += " Today";
                                 } else if (checkForEvent(day)) { // Changed here: pass day directly
                                     style = {
                                         background: 'linear-gradient(to bottom right, rgb(0, 255, 26), rgb(44, 44, 57))',

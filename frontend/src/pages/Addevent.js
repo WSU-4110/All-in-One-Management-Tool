@@ -14,7 +14,7 @@ export default function Addevent() {
     const [getDueDate, setDueDate] = useState("");
     const [getDescription, setDescription] = useState("");
     const [getLocation, setLocation] = useState("Select A Location");
-    const [locations, setLocations] = useState([]);
+    const [locations] = useState([]);
     const [validName, setValidName] = useState(true);
     const [validDueDate, setValidDueDate] = useState(true);
     const navigate = useNavigate();
@@ -64,19 +64,13 @@ export default function Addevent() {
     // Function to list the locations in the session storage
     // into the locations array.
     const locationsList = () => {
-        const locationsArray = sessionStorage["Locations"].split(',');
-        console.log(locationsArray);
-        for (var i = 0; i < locationsArray.length; i++) {
-            if (locationsArray[i] !== ''
-                && locationsArray[i] !== undefined) {
-                    if(!locations.includes(locationsArray[i])){
-                        locations.push(locationsArray[i]);
-                    }
-            }
+        const locationsArray = sessionStorage["Locations"] ? sessionStorage["Locations"].split(',') : [];
+        const filteredLocations = locationsArray.filter(location => location && !locations.includes(location));
+        if (filteredLocations.length > 0) {
+            setLocations(prevLocations => [...prevLocations, ...filteredLocations]);
         }
-        console.log("locationsList: " + locations);
-        return locations;
     }
+    
 
     async function handleSubmit(e) {
         e.preventDefault();

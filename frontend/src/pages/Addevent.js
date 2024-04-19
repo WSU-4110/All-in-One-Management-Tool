@@ -64,13 +64,19 @@ export default function Addevent() {
     // Function to list the locations in the session storage
     // into the locations array.
     const locationsList = () => {
-        const locationsArray = sessionStorage["Locations"] ? sessionStorage["Locations"].split(',') : [];
-        const filteredLocations = locationsArray.filter(location => location && !locations.includes(location));
-        if (filteredLocations.length > 0) {
-            setLocations(prevLocations => [...prevLocations, ...filteredLocations]);
+        const locationsArray = sessionStorage["Locations"].split(',');
+        console.log(locationsArray);
+        for (var i = 0; i < locationsArray.length; i++) {
+            if (locationsArray[i] !== ''
+                && locationsArray[i] !== undefined) {
+                    if(!locations.includes(locationsArray[i])){
+                        locations.push(locationsArray[i]);
+                    }
+            }
         }
+        console.log("locationsList: " + locations);
+        return locations;
     }
-    
 
     async function handleSubmit(e) {
         e.preventDefault();

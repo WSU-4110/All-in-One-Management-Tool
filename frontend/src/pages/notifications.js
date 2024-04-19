@@ -8,9 +8,9 @@ import {useNavigate} from 'react-router-dom'
 export default function Noficications() {
     const events = JSON.parse(sessionStorage.getItem('Tasks'));
     const navigate = useNavigate();
-    const handleClick = () => {
-        console.log(events);
-    }
+    // const handleClick = () => {
+    //     console.log(events);
+    // }
     const handleCalendarClick = () => {
         navigate('/calendar');
     }
@@ -43,7 +43,8 @@ export default function Noficications() {
                             
                             <div className='event-left'>
                                 <div>
-                                    <img src={NotificationIcon } className='noti-image'/>
+                                <img src={NotificationIcon} className='noti-image' alt='' />
+
                                 </div>
                                 <div className='event-details'>
                                     <h1 className='event-name'>{event.class}</h1>

@@ -1,11 +1,9 @@
-//handleClick: This method logs the events variable to the console.
-//handleCalendarClick: This method navigates to the '/calendar' route.
-//handleToDoClick: This method navigates to the '/todolist' route.
-//useNavigate: This method returns a navigation function from React Router DOM.
-//JSON.parse: This method parses a JSON string and returns a JavaScript object.
-//sessionStorage.getItem: This method retrieves a data item from session storage.
-
-
+//handleClick: logs the events variable to the console.
+//handleCalendarClick: navigates to the '/calendar' route.
+//handleToDoClick: navigates to the '/todolist' route.
+//useNavigate: returns a navigation function from React Router DOM.
+//JSON.parse: parses a JSON string and returns a JavaScript object.
+//sessionStorage.getItem: retrieves a data item from session storage.
 
 import { fireEvent } from '@testing-library/react';
 import { render } from '@testing-library/react';
@@ -13,14 +11,6 @@ import Notifications from './notifications.js';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 describe('Notifications component', () => {
-  test('handleClick logs events to console', () => {
-    const spy = jest.spyOn(console, 'log');
-    render(<Notifications />);
-    fireEvent.click(screen.getByText('Button Text'));
-    expect(spy).toHaveBeenCalledWith('Mocked events data');
-    spy.mockRestore();
-  });
-
   test('handleCalendarClick navigates to calendar route', () => {
     const { getByText } = render(
       <Router>
@@ -40,7 +30,7 @@ describe('Notifications component', () => {
     fireEvent.click(getByText('To Do'));
     expect(window.location.pathname).toBe('/todolist');
   });
-
+  });
   test('useNavigate returns a function', () => {
     const { result } = renderHook(() => useNavigate());
     expect(typeof result.current).toBe('function');

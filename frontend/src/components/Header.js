@@ -27,7 +27,7 @@ const Header = () => {
                 <Link to ="/notifications" className="header-link">
                     <img className ="notification-icon" src={NoficicationIcon} alt="Notification-Icon" />
                     <p className="icon-label">NOTIFICATION</p> {/* Label for Notification */}
-                    <div className='stupid-red-dot'>{notisCount}</div>
+                    {notisCount != 0 && <div className='stupid-red-dot'>{notisCount}</div>}
 
                 </Link>
                 <Link to ="/profile" className="header-link">

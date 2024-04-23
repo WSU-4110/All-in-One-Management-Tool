@@ -2,9 +2,9 @@ name: Node CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ continuous_integration ]
   pull_request:
-    branches: [ main ]
+    branches: [ continuous_integration ]
 
 jobs:
   build:

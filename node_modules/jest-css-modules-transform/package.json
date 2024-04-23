@@ -1,0 +1,80 @@
+{
+  "name": "jest-css-modules-transform",
+  "description": "Jest's preprocessor for css, sass, less, stylus modules generated with Webpack",
+  "version": "4.4.2",
+  "license": "MIT",
+  "author": "Mikhail Bodrov",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Connormiha/jest-css-modules-transform.git"
+  },
+  "keywords": [
+    "jest",
+    "webpack",
+    "css-import",
+    "transform",
+    "preprocessor",
+    "class",
+    "classname",
+    "css",
+    "stylus",
+    "sass",
+    "scss",
+    "less",
+    "module",
+    "css-module"
+  ],
+  "scripts": {
+    "build": "rm -fr dist && mkdir dist && tsc -p src --outDir dist",
+    "coverage": "jest --coverage",
+    "lint": "eslint src --ext .ts,.js",
+    "format": "prettier --write './**/*.{js,ts}' && eslint src --ext .ts,.js --fix",
+    "prepare": "npm run lint && npm test",
+    "test": "node test.js",
+    "test:unix": "npm run build && npm run test:base && npm run test:config && npm run test:sassrc && npm run test:camel-case && npm run test:dashes && npm run test:camel-case-only && npm run test:prepend-data && npm run test:prepend-data-relative && npm run test:classic-sass-module && npm run test:inject-styles",
+    "test:windows": "npm run build && npm run test:base && npm run test:config && npm run test:sassrc && npm run test:camel-case && npm run test:dashes && npm run test:prepend-data && npm run test:prepend-data-relative && npm run test:classic-sass-module && npm run test:inject-styles",
+    "test:base": "jest --no-cache ",
+    "test:config": "jest --no-cache --config jest-with-css-config.js",
+    "test:sassrc": "jest --no-cache --config jest-with-sassrc.js",
+    "test:camel-case": "jest --no-cache --config jest-with-camel-case.js",
+    "test:camel-case-only": "JEST_CSS_MODULES_TRANSFORM_CONFIG=other-config.js jest --no-cache --config jest-with-camel-case-only.js",
+    "test:classic-sass-module": "jest --no-cache --config jest-classic-sass-module.js",
+    "test:dashes": "jest --no-cache --config jest-with-dashes.js",
+    "test:inject-styles": "jest --no-cache --config jest-with-inject-styles.js",
+    "test:prepend-data": "jest --no-cache --config jest-prepend-data.js",
+    "test:prepend-data-relative": "jest --no-cache --config jest-prepend-data-relative-path.js"
+  },
+  "devDependencies": {
+    "@jest/transform": "27.4.6",
+    "@jest/types": "27.4.2",
+    "@types/jest": "27.4.0",
+    "@types/less": "3.0.3",
+    "@types/node": "17.0.12",
+    "@types/node-sass": "4.11.2",
+    "@types/postcss-nested": "4.2.3",
+    "@types/stylus": "0.48.36",
+    "@typescript-eslint/eslint-plugin": "5.10.1",
+    "@typescript-eslint/parser": "5.10.1",
+    "eslint": "8.7.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-jest": "26.0.0",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "jest": "27.4.7",
+    "less": "4.1.2",
+    "node-sass": "7.0.1",
+    "prettier": "2.5.1",
+    "sass": "1.49.0",
+    "stylus": "0.56.0",
+    "typescript": "4.5.5"
+  },
+  "dependencies": {
+    "camelcase": "6.3.0",
+    "postcss": "^7.0.30 || ^8.0.0",
+    "postcss-nested": "^4.2.1 || ^5.0.0"
+  }
+}

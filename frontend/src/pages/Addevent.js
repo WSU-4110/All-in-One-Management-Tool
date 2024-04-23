@@ -14,7 +14,7 @@ export default function Addevent() {
     const [getDueDate, setDueDate] = useState("");
     const [getDescription, setDescription] = useState("");
     const [getLocation, setLocation] = useState("Select A Location");
-    const [locations, setLocations] = useState([]);
+    const [locations] = useState([]);
     const [validName, setValidName] = useState(true);
     const [validDueDate, setValidDueDate] = useState(true);
     const navigate = useNavigate();

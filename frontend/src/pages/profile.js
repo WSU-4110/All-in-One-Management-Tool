@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -38,16 +38,11 @@ export default function Profile() {
     //     setIsEditMode(false);
     // };
 
-<<<<<<< HEAD
-    const [username] = useState(sessionStorage.getItem("Username"));
-    const [email] = useState(sessionStorage.getItem("Email"));
-=======
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
->>>>>>> main_copy
 
-    const [fullName] = useState('');
-    const [contactNumber] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [contactNumber, setContactNumber] = useState('');
 
 
     const [newPasswordBool, setNewPasswordBool] = useState(false);

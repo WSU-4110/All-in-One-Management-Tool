@@ -6,7 +6,7 @@ function Expire(props) {
 
     useEffect(() => {
         setTimeout(() => setIsVisible(false), props.delay);
-    }, [props.delay]);
+    }, []);
 
     return (
         isVisible

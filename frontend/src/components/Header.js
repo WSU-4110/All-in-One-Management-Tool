@@ -1,9 +1,10 @@
 import React from "react";
 import '../stylesheets/headerstyles.css'
-import NotificationIcon from '../images/NotificationIcon.png';
+import NoficicationIcon from '../images/NotificationIcon.png';
 import ProfilePicture from '../images/ProfilePicture.png';
 import SideBar from '../images/SideBar.png';
 import {Link} from 'react-router-dom'
+
 
 const Header = () => {
     let notisCount;
@@ -19,25 +20,10 @@ const Header = () => {
         <header>
             <div className="flexbox-header">
                 <div className="left-side">
-<<<<<<< HEAD
-                    <img className="Sidebar-Image" src={SideBar} alt="Sidebar navigation"/>
-=======
->>>>>>> main_copy
                     <p className="Header-Text">Student Planner</p>
                 </div>
                         
                 <div className="right-side">
-<<<<<<< HEAD
-                    <Link to="/notifications" className="header-link">
-                        <img className="notification-icon" src={NotificationIcon} alt="Notifications"/>
-                        <p className="icon-label">NOTIFICATION</p> {/* Label for Notification */}
-                        <div className='stupid-red-dot'>{notisCount}</div>
-                    </Link>
-                    <Link to="/profile" className="header-link">
-                        <img className="profile-picture" src={ProfilePicture} alt="User profile"/>
-                        <p className="icon-label">PROFILE</p> {/* Label for Profile */}
-                    </Link>
-=======
                 <Link to ="/notifications" className="header-link">
                     <img className ="notification-icon" src={NoficicationIcon} alt="Notification-Icon" />
                     <p className="icon-label">NOTIFICATION</p> {/* Label for Notification */}
@@ -48,7 +34,6 @@ const Header = () => {
                     <img className = "profile-picture" src={ProfilePicture} alt="Profile-Picture" />
                     <p className="icon-label">PROFILE</p> {/* Label for Profile */}
                 </Link>
->>>>>>> main_copy
                 </div>  
             </div>
         </header>

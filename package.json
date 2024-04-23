@@ -1,6 +1,5 @@
 {
   "name": "all-in-one-management-tool",
-  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,13 +12,10 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "jest-css-modules-transform": "^4.4.2",
     "mongodb": "^6.5.0",
     "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
-    "@babel/plugin-syntax-jsx": "^7.24.1",
-    "@babel/preset-react": "^7.24.1",
     "react-router-dom": "^6.22.3"
   }
 }

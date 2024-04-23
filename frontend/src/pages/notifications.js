@@ -8,11 +8,6 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Noficications() {
     const navigate = useNavigate();
-<<<<<<< HEAD
-    // const handleClick = () => {
-    //     console.log(events);
-    // }
-=======
     let events;
     
     try {
@@ -40,7 +35,6 @@ export default function Noficications() {
     const handleClick = () => {
         console.log(events);
     }
->>>>>>> main_copy
     const handleCalendarClick = () => {
         navigate('/calendar');
     }
@@ -73,7 +67,7 @@ export default function Noficications() {
                             
                             <div className='event-left'>
                                 <div>
-                                <img src={NotificationIcon} className='noti-image' alt='' />
+                                    <img src={NotificationIcon } className='noti-image'/>
                                 </div>
                                 <div className='event-details'>
                                     <h1 className='event-name'>{event.class}</h1>

@@ -1,27 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import SplashScreen from '../components/SplashScreen';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import '../stylesheets/backgroundstyles.css';
 
 export default function Init() {
-
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        // Set a timer to switch from the splash screen to the welcome screen after 3 seconds
-        const timer = setTimeout(() => {
-            setLoading(false);
-        }, 1000); // Adjust time as necessary
-
-        return () => clearTimeout(timer);
-    }, []);
-
-    if (loading) {
-        // Render the SplashScreen component during the loading phase
-        return <SplashScreen />;
-    }
-
     return (
         <div className='init-background'>
             <div

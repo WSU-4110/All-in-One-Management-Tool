@@ -2,7 +2,7 @@ import '../stylesheets/addeventstyles.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
@@ -18,22 +18,6 @@ export default function Addevent() {
     const [validDueDate, setValidDueDate] = useState(true);
     const [validTime, setValidTime] = useState(true);
     const navigate = useNavigate();
-
-    const verification = () => {
-        try {
-            if (sessionStorage['Username'] != null && sessionStorage['Username'] != "") {
-                console.log("");
-            } else {
-                navigate("/login");
-            }
-        } catch {
-            navigate("/login");
-        }
-    }
-
-    useEffect(() => {
-        verification();
-    }, []);
 
     function checkForEmpty() {
         if (getClass === "") {
@@ -101,18 +85,13 @@ export default function Addevent() {
             let Info;
             try {
                 Info = JSON.parse(sessionStorage["Tasks"]);
-            } catch {
+            } catch (error) {
                 Info = [];
-                navigate("/login");
             }
 
             Info.push(newTask);
-            try {
-                sessionStorage["Tasks"] = JSON.stringify(Info);
-                console.log(Info);
-            } catch {
-                navigate("/login");
-            }
+            sessionStorage["Tasks"] = JSON.stringify(Info);
+            console.log(Info);
 
             // let locationsDB;
             let tasksDB;
@@ -132,14 +111,8 @@ export default function Addevent() {
             // } catch {
             //     eventsDB = [];
             // }
-            try {
-                tasksDB = sessionStorage["Tasks"];
-                eventsDB = sessionStorage["Events"];
-            } catch {
-                tasksDB = [];
-                eventsDB = [];
-                navigate("/login");
-            }
+            tasksDB = sessionStorage["Tasks"];
+            eventsDB = sessionStorage["Events"];
 
             // if (sessionStorage["Tasks"] === undefined || sessionStorage["Tasks"] === null || sessionStorage["Tasks"] === "") {
             //     sessionStorage["Tasks"] = JSON.stringify(newTask);

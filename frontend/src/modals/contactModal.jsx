@@ -52,10 +52,7 @@ export default function ContactModal() {
         <>
             <Modal show={show}>
                 <Modal.Header>
-                    <Modal.Title
-                    style={{
-                        color: "black",
-                    }}>Contact Us</Modal.Title>
+                    <Modal.Title>Contact Us</Modal.Title>
                 </Modal.Header>
                 <Modal.Body style = {{backgroundColor: 'whitesmoke'}}>
                     <Form noValidate>

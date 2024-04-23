@@ -1,52 +1,22 @@
 import '../stylesheets/notificationpagestyles.css';
 import '../stylesheets/backgroundstyles.css';
-import React, { useEffect } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import NotificationIcon from '../images/NotificationIcon.png';
-import { useNavigate } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 export default function Noficications() {
+    const events = JSON.parse(sessionStorage.getItem('Tasks'));
     const navigate = useNavigate();
-<<<<<<< HEAD
     // const handleClick = () => {
     //     console.log(events);
     // }
-=======
-    let events;
-    
-    try {
-        events = JSON.parse(sessionStorage.getItem('Tasks'));
-    } catch {
-        events = '';
-    }
-
-    const verification = () => {
-        try {
-            if (sessionStorage['Username'] != null && sessionStorage['Username'] != "") {
-                console.log("");
-            } else {
-                navigate("/login");
-            }
-        } catch {
-            navigate("/login");
-        }
-    }
-
-    useEffect(() => {
-        verification();
-    }, []);
-
-    const handleClick = () => {
-        console.log(events);
-    }
->>>>>>> main_copy
     const handleCalendarClick = () => {
         navigate('/calendar');
     }
     const handleToDoClick = () => {
         navigate('/todolist');
-    } // test comment
+    }
     return (
         <div className='home-outer'>
             <div className='home-background'/>
@@ -67,7 +37,7 @@ export default function Noficications() {
                     {/* <span className="notification-date">Feb 22, 2024</span> */}
                   
                 </div>
-                {(notificationsPreference !== 'none' && events) && events.map( event => (
+                {events && events.map( event => (
                     
                         <div className='events-render'>
                             

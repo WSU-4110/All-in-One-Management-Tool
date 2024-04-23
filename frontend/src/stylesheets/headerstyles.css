@@ -1,7 +1,6 @@
 /*----------Header Section---------*/
 .flexbox-header {
     display: flex;
-    width: 100%;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -21,7 +20,6 @@
     flex-direction: row;
     align-items: center;
     padding-right: 25px;
-    justify-content: right;
 }
 
 .Sidebar-Image, .notification-icon, .profile-picture {
@@ -54,7 +52,6 @@
     flex-direction: column;
     align-items: center;
     text-decoration: none; /* Removes underline from links */
-    left: 0; 
     
 }
 

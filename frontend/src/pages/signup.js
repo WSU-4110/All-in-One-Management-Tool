@@ -227,7 +227,7 @@ function SignUp() {
                 },
                 body: JSON.stringify(
                     { username: username, email: email, password: password1,
-                    notifications: "all", locations: "", tasks: "", events: ""}),
+                    notifications: "all", locations: [], tasks: [], events: []}),
                 });
                 // Checks whether the fetch operation was successful.
                 if (!response.ok) {

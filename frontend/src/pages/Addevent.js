@@ -2,7 +2,7 @@ import '../stylesheets/addeventstyles.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
@@ -18,22 +18,6 @@ export default function Addevent() {
     const [validName, setValidName] = useState(true);
     const [validDueDate, setValidDueDate] = useState(true);
     const navigate = useNavigate();
-
-    const verification = () => {
-        try {
-            if (sessionStorage['Username'] != null && sessionStorage['Username'] != "") {
-                console.log("");
-            } else {
-                navigate("/login");
-            }
-        } catch {
-            navigate("/login");
-        }
-    }
-
-    useEffect(() => {
-        verification();
-    }, []);
 
     function checkForEmpty() {
         if (getName === "") {
@@ -80,22 +64,18 @@ export default function Addevent() {
     // Function to list the locations in the session storage
     // into the locations array.
     const locationsList = () => {
-        try {
-            const locationsArray = sessionStorage["Locations"].split(',');
-            console.log(locationsArray);
-            for (var i = 0; i < locationsArray.length; i++) {
-                if (locationsArray[i] !== ''
-                    && locationsArray[i] !== undefined) {
-                        if(!locations.includes(locationsArray[i])){
-                            locations.push(locationsArray[i]);
-                        }
-                }
+        const locationsArray = sessionStorage["Locations"].split(',');
+        console.log(locationsArray);
+        for (var i = 0; i < locationsArray.length; i++) {
+            if (locationsArray[i] !== ''
+                && locationsArray[i] !== undefined) {
+                    if(!locations.includes(locationsArray[i])){
+                        locations.push(locationsArray[i]);
+                    }
             }
-            console.log("locationsList: " + locations);
-            return locations;
-        } catch {
-            navigate("/login");
         }
+        console.log("locationsList: " + locations);
+        return locations;
     }
 
     async function handleSubmit(e) {
@@ -145,13 +125,8 @@ export default function Addevent() {
             };
             
             Info.push(newEvent);
-            try {
-                sessionStorage.setItem('Events', JSON.stringify(Info));
-                console.log(Info);
-            } catch {
-                console.log("Error saving to session storage");
-                navigate('/login');
-            }
+            sessionStorage.setItem('Events', JSON.stringify(Info));
+            console.log(Info);
 
             // let locationsDB;
             let tasksDB;
@@ -172,15 +147,8 @@ export default function Addevent() {
             //     eventsDB = [];
             // }
             
-            // Replaces existing user information in the database with new
-            try {
-                tasksDB = sessionStorage["Tasks"];
-                eventsDB = sessionStorage["Events"];
-            } catch {
-                tasksDB = [];
-                eventsDB = [];
-                navigate('/login');
-            }
+            tasksDB = sessionStorage["Tasks"];
+            eventsDB = sessionStorage["Events"];
             // Replaces existing user information in the database with new
             // information entered by the user using the 'edit' server route.
             try {

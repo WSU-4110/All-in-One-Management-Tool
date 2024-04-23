@@ -11,7 +11,6 @@ import Header from '../components/Header';
 import Expire from '../components/Expire';
 import '../stylesheets/profilepagestyles.css';
 import Footer from '../components/Footer';
-import { useTheme } from '../contexts/ThemeContext';
 
 
 export default function Profile() {
@@ -38,13 +37,8 @@ export default function Profile() {
     //     setIsEditMode(false);
     // };
 
-<<<<<<< HEAD
     const [username] = useState(sessionStorage.getItem("Username"));
     const [email] = useState(sessionStorage.getItem("Email"));
-=======
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
->>>>>>> main_copy
 
     const [fullName] = useState('');
     const [contactNumber] = useState('');
@@ -56,7 +50,7 @@ export default function Profile() {
     const [newPassword1Error, setNewPassword1Error] = useState('');
     const [newPassword2Error, setNewPassword2Error] = useState('');
     const [verifiedPassword, setVerifiedPassword] = useState(true);
-    const [notifications, setNotifications] = useState('none');
+    const [notifications, setNotifications] = useState(sessionStorage["Notifications"]);
     const [locations, setLocations] = useState([]);
     // Variable storing the location selected in the location dropdown button.
     const [selectedLocation, setSelectedLocation] = useState(
@@ -77,38 +71,6 @@ export default function Profile() {
     // Variable needed to force the alert to re-render.
     const [key, setKey] = useState(0);
     const navigate = useNavigate();
-    const { theme, toggleTheme } = useTheme();
-
-    const verification = () => {
-        try {
-            if (sessionStorage['Username'] != null && sessionStorage['Username'] !== '') {
-                console.log("");
-            } else {
-                navigate("/login");
-            }
-        } catch {
-            navigate("/login");
-        }
-    }
-
-    verification();
-
-    // Change theme explicitly
-    const changeTheme = (newTheme) => {
-        if (newTheme !== theme) {
-            toggleTheme(newTheme);
-        }
-    }
-
-    useEffect(() => {
-        try {
-            setUsername(sessionStorage["Username"]);
-            setEmail(sessionStorage["Email"]);
-            setNotifications(sessionStorage["Notifications"]);
-        } catch {
-            navigate('/login');
-        }
-    }, []);
 
     /*useEffect(() => {
         const storedFullName = localStorage.getItem('FullName');
@@ -175,8 +137,6 @@ export default function Profile() {
         }
     }
 
-    
-
     // Function to change the selected location in the dropdown button.
     const changeSelectedLocation = (e) => {
         setSelectedLocation(e);
@@ -206,18 +166,14 @@ export default function Profile() {
     }
 
     const logout = () => {
-        try {
-            sessionStorage["Username"] = '';
-            sessionStorage["Password"] = '';
-            sessionStorage["Email"] = '';
-            sessionStorage["Notifications"] = '';
-            sessionStorage["Locations"] = '';
-            sessionStorage["Tasks"] = '';
-            sessionStorage["Events"] = '';
-            navigate("/");
-        } catch {
-            navigate('/login');
-        }
+        sessionStorage["Username"] = '';
+        sessionStorage["Password"] = '';
+        sessionStorage["Email"] = '';
+        sessionStorage["Notifications"] = '';
+        sessionStorage["Locations"] = [];
+        sessionStorage["Tasks"] = [];
+        sessionStorage["Events"] = [];
+        navigate("/");
     }
 
     // Function to check if password is valid
@@ -286,18 +242,14 @@ export default function Profile() {
     }
 
     function checkSamePassword() {
-        try {
-            if (newPassword1 === sessionStorage["Password"]) {
-                setVerifiedPassword(false);
-                setNewPassword1Error('New password cannot be old password');
-                setNewPassword2Error('New password cannot be old password');
-                return false;
-            }
-            setVerifiedPassword(true);
-            return true;
-        } catch {
-            navigate("/login");
+        if (newPassword1 === sessionStorage["Password"]) {
+            setVerifiedPassword(false);
+            setNewPassword1Error('New password cannot be old password');
+            setNewPassword2Error('New password cannot be old password');
+            return false;
         }
+        setVerifiedPassword(true);
+        return true;
     }
 
 
@@ -352,10 +304,10 @@ export default function Profile() {
 
     async function saveChanges() {
         if (checkPassword()) {
+            sessionStorage.setItem("Password", newPassword1);
+            console.log(newPassword1);
+            console.log(sessionStorage["Password"]);
             try {
-                sessionStorage.setItem("Password", newPassword1);
-                console.log(newPassword1);
-                console.log(sessionStorage["Password"]);
                 const profileData = {
                     username: username,
                     email: email,
@@ -388,7 +340,7 @@ export default function Profile() {
 
                     localStorage.setItem('FullName', fullName);
                     localStorage.setItem('ContactNumber', contactNumber);
-            }
+               }
             // Catches any errors that occur during the fetch operation.
             } catch (error) {
                 console.error(
@@ -400,23 +352,21 @@ export default function Profile() {
     // Function to list the locations in the session storage
     // into the locations array.
     const locationsList = () => {
-        try {
-            const locationsArray = sessionStorage["Locations"].split(',');
-            console.log(locationsArray);
-            for (var i = 0; i < locationsArray.length; i++) {
-                if (locationsArray[i] !== ''
-                    && locationsArray[i] !== undefined) {
-                        if(!locations.includes(locationsArray[i])){
-                            locations.push(locationsArray[i]);
-                        }
-                }
+        const locationsArray = sessionStorage["Locations"].split(',');
+        console.log(locationsArray);
+        for (var i = 0; i < locationsArray.length; i++) {
+            if (locationsArray[i] !== ''
+                && locationsArray[i] !== undefined) {
+                    if(!locations.includes(locationsArray[i])){
+                        locations.push(locationsArray[i]);
+                    }
             }
-            console.log("locationsList: " + locations);
-            return locations;
-        } catch {
-            navigate("/login");
         }
+        console.log("locationsList: " + locations);
+        return locations;
     }
+    console.log(sessionStorage["Locations"]);
+    console.log(locations);
 
     // Function to handle the submission of the form.
     // async function handleSubmit(e) {
@@ -474,18 +424,10 @@ export default function Profile() {
         let tasksDB;
         let eventsDB;
 
-        try {
-            sessionStorage["Notifications"] = notifications;
-            sessionStorage["Locations"] = locations;
-            sessionStorage["FullName"] = fullName;
-            sessionStorage["ContactNumber"] = contactNumber;
-            tasksDB = sessionStorage["Tasks"];
-            eventsDB = sessionStorage["Events"];
-        } catch {
-            tasksDB = "";
-            eventsDB = "";
-            navigate("/login");
-        }
+        sessionStorage["Notifications"] = notifications;
+        sessionStorage["Locations"] = locations;
+        sessionStorage["FullName"] = fullName;
+        sessionStorage["ContactNumber"] = contactNumber;
         console.log(locations);
 
         // locationsDB = locations;
@@ -505,7 +447,9 @@ export default function Profile() {
         // } catch {
         //     eventsDB = [];
         // }
-
+        tasksDB = sessionStorage["Tasks"];
+        eventsDB = sessionStorage["Events"];
+        
         console.log(locations);
         // console.log(locationsDB);
         try {
@@ -613,17 +557,17 @@ export default function Profile() {
                                 <option value="dayOf">
                                     Receive notifications on the day of a deadline
                                 </option>
-                                <option value="1hours">
-                                    Receive notifications 1 hours before a deadline
-                                </option>
-                                <option value="all">
-                                    Receive notifications for all events
-                                </option>
                                 <option value="12hours">
                                     Receive notifications 12 hours before a deadline
                                 </option>
                                 <option value="6hours">
                                     Receive notifications 6 hours before a deadline
+                                </option>
+                                <option value="1hours">
+                                    Receive notifications 1 hours before a deadline
+                                </option>
+                                <option value="all">
+                                    Receive notifications for all events
                                 </option>
                             </Form.Select>
                         </Form.Group>
@@ -733,25 +677,7 @@ export default function Profile() {
                             )}
                         </div>
 
-                        <br></br>
-
-                    <div style={{ display:'flex', justifyContent: 'center'}}>
-                        <DropdownButton
-                            alignRight
-                            title="Change Theme"
-                            id="dropdown-menu-align-right"
-                            variant="primary"  // Ensuring the variant matches the "Change Password" button
-                            className="mx-1"  // Same margin as other action buttons
-                            onSelect={changeTheme}
-                        >
-                            <Dropdown.Item eventKey="light-mode">Normal Mode</Dropdown.Item>
-                            <Dropdown.Item eventKey="dark-mode">Dark Mode</Dropdown.Item>
-                        </DropdownButton>
-                    </div>
-
                     <br></br>
-
-
 
                        
 

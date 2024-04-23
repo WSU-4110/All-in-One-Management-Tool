@@ -19,7 +19,10 @@ export default function ConfigureProfile() {
         <>
             <Modal show={show}>
                 <Modal.Header>
-                    <Modal.Title>Configure Profile</Modal.Title>
+                    <Modal.Title
+                    style={{
+                        color: "black",
+                    }}>Configure Profile</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <p>More information is needed to make your experience better</p>

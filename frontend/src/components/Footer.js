@@ -31,12 +31,7 @@ const Footer = () => {
                     </Link>
                 </div>
                 
-                <div className="Fourth-Section">
-                    <Link to="/profile" className="footer-link">
-                        <img className ="Profile-Image" src={ProfileLogo} alt="Profile-Logo"/>
-                        <p className="Footer-Text">PROFILE</p>
-                    </Link>
-                </div>
+               
             </div>
         </footer>
     )
